@@ -22,7 +22,7 @@ in
 	pkgs.asymptote
 	pkgs.sage
 	pkgs.inkscape
-    #config.nur.repos.rewine.mogan
+	pkgs.texmacs
   ];
 
   };
