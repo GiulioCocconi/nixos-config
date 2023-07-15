@@ -7,35 +7,25 @@
 	nixos-hardware.url = "github:nixos/nixos-hardware";
 	nur.url = "github:nix-community/NUR";
 
-	## TODO! Enable when supported by snowfall lib
+	# TODO! Wait until hm is supported in snowfall lib
     # home-manager = {
-	  # url = "github:nix-community/home-manager/relase-23.05";
-	  # inputs.nixpkgs.follows = "nixpkgs";
-	# };
-
-	comma = {
-	  url = "github:nix-community/comma";
-	  inputs.nixpkgs.follows = "unstable";
-	};
+	  # url = "github:nix-community/home-manager/release-23.05";
+	   # inputs.nixpkgs.follows = "nixpkgs";
+	 # };
 
 	flake-checker = {
 	  url = "github:DeterminateSystems/flake-checker";
 	  inputs.nixpkgs.follows = "unstable";
 	};
 
-	deploy-rs = {
-      url = "github:serokell/deploy-rs";
-	  inputs.nixpkgs.follows = "unstable";
-	};
+	# deploy-rs = {
+      # url = "github:serokell/deploy-rs";
+	  # inputs.nixpkgs.follows = "unstable";
+	# };
 
 	snowfall-lib = {
       url = "github:snowfallorg/lib";
 	  inputs.nixpkgs.follows = "nixpkgs";
-	};
-
-	snowfall-flake = {
-      url = "github:snowfallorg/flake";
-	  inputs.nixpkgs.follows = "unstable";
 	};
   };
 
@@ -52,6 +42,9 @@
 
       systems.modules = with inputs; [
 	    nur.nixosModules.nur
+		home-manager.nixosModules.home-manager {
+		  useUserPackages = true;
+		}
 	  ];
 
 	  # checks = builtins.mapAttrs
