@@ -6,27 +6,27 @@ let
   wifi = config.cogisys.system.networking.wifi;
 
 in
-{
-  options.cogisys.system.printing = with types; {
-    enable = mkBoolOpt false "Enable printing.";
-	wifi = { enable = mkBoolOpt false "Enable wifi printing."; };
-  };
+  {
+    options.cogisys.system.printing = with types; {
+      enable = mkBoolOpt false "Enable printing.";
+      wifi = { enable = mkBoolOpt false "Enable wifi printing."; };
+    };
 
-  config = mkMerge [
-    (mkIf cfg.enable {
-	  services.printing.enable = true;
-	 })
-	 (mkIf (cfg.enable && cfg.wifi.enable) {
-       assertions = [{
-	     assertion = wifi.enable;
-		 message = "Wifi must be enabled in order to print with it!";
-	   }];
+    config = mkMerge [
+      (mkIf cfg.enable {
+        services.printing.enable = true;
+      })
+      (mkIf (cfg.enable && cfg.wifi.enable) {
+        assertions = [{
+          assertion = wifi.enable;
+          message = "Wifi must be enabled in order to print with it!";
+        }];
 
-	   services.avahi = {
-	     enable = true;
-		 nssmdns = true;
-		 openFirewall = true;
-	   };
-	 })
-  ];
-}
+        services.avahi = {
+          enable = true;
+          nssmdns = true;
+          openFirewall = true;
+        };
+      })
+    ];
+  }

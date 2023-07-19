@@ -10,12 +10,12 @@ with lib;
 
     suites = {
       common = enabled;
-	  development = enabled;
-	  scientificWriting = enabled;
+      development = enabled;
+      scientificWriting = enabled;
     };
 
     system.networking.wifi = enabled;
-	system.gui = enabled;
+    system.gui = enabled;
 
   };
 

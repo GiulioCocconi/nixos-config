@@ -4,16 +4,16 @@ with lib;
 let
   cfg = config.cogisys.system.networking;
 in
-{
-  options.cogisys.system.networking = with types; {
-    enable = mkBoolOpt false "Enable networking management.";
-	wifi = { enable = mkBoolOpt false "Enable wifi connection."; };
-  };
+  {
+    options.cogisys.system.networking = with types; {
+      enable = mkBoolOpt false "Enable networking management.";
+      wifi = { enable = mkBoolOpt false "Enable wifi connection."; };
+    };
 
-  config = mkMerge [
-    (mkIf cfg.enable {
-      networking.networkmanager.enable = true;
-      networking.firewall.enable = true;
+    config = mkMerge [
+      (mkIf cfg.enable {
+        networking.networkmanager.enable = true;
+        networking.firewall.enable = true;
 
 
       # Fixes issue https://github.com/NixOS/nixpkgs/issues/195777
@@ -22,11 +22,11 @@ in
       };
 
     })
-	(mkIf (cfg.enable && cfg.wifi.enable) {
+    (mkIf (cfg.enable && cfg.wifi.enable) {
       networking = {
-	    wireless.iwd.enable = true;
-	    networkmanager.wifi.backend = "iwd";
-	  };
-	})
+        wireless.iwd.enable = true;
+        networkmanager.wifi.backend = "iwd";
+      };
+    })
   ];
 }

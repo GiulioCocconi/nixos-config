@@ -3,7 +3,7 @@
 {
   imports =
     [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "usbhid" "uas" ];
   boot.initrd.kernelModules = [ ];
@@ -12,8 +12,8 @@
 
   fileSystems."/" =
     { device = "/dev/disk/by-label/NIXOS_SD";
-      fsType = "ext4";
-    };
+    fsType = "ext4";
+  };
 
   swapDevices = [ ];
 
