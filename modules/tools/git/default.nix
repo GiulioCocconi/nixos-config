@@ -40,7 +40,10 @@ in
           git-credential-oauth
         ];
 
-        programs.git.config.credential.helper = "oauth";
+        programs.git.config.credential.helper = [
+          "cache --timeout 7200" # Set the cache to 2h
+          "oauth"
+        ];
 
       })];
     }
