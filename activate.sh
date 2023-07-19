@@ -1,2 +1,3 @@
 #!/bin/sh
-sudo nixos-rebuild switch --impure --flake . --show-trace
+echo "Building CogiSystems configuration for host $(hostname) :)"
+sudo nixos-rebuild switch --impure --flake . --show-trace $@

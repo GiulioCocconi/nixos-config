@@ -15,6 +15,8 @@ in
 	  clang
 	];
 
+  cogisys.tools.git.useOauth = true;
+
   };
 }
 

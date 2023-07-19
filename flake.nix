@@ -2,10 +2,10 @@
   description = "CoGi Systems ";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 	unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 	nixos-hardware.url = "github:nixos/nixos-hardware";
-	nur.url = "github:nix-community/NUR";
+	# nur.url = "github:nix-community/NUR";
 
 	# TODO! Wait until hm is supported in snowfall lib
     # home-manager = {
@@ -41,10 +41,10 @@
 	  channels-config = { allowUnfree = true; };
 
       systems.modules = with inputs; [
-	    nur.nixosModules.nur
-		home-manager.nixosModules.home-manager {
-		  useUserPackages = true;
-		}
+	    # nur.nixosModules.nur
+		# home-manager.nixosModules.home-manager {
+		  # useUserPackages = true;
+		# }
 	  ];
 
 	  # checks = builtins.mapAttrs
