@@ -37,7 +37,7 @@
 
     };
   in lib.mkFlake {
-    package-namespace = "cogisys";
+    overlay-package-namespace = "cogisys";
     channels-config = { allowUnfree = true; };
 
     systems.modules = with inputs; [

@@ -20,11 +20,12 @@ in
 
      hardware.enableRedistributableFirmware = true;
 
-     environment.systemPackages = [
-       pkgs.libraspberrypi
-       pkgs.python311Packages.gpiozero
+     environment.systemPackages = with pkgs; [
+       libraspberrypi
+       python311Packages.gpiozero
      ] ++ optionals (cfg.model > 3) [
-       pkgs.raspberrypi-eeprom
+       raspberrypi-eeprom
+       cogisys.nix-rpi-eeprom-update
      ];
 
      services.xserver.videoDrivers = [ "fbdev" ];
