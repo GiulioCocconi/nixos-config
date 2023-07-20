@@ -11,10 +11,7 @@ in
     };
 
     config = mkIf cfg.enable {
-      assertions = [{
-        assertion = gui.enable;
-        message = "In order to use awesomewm you have to enable the gui.";
-      }];
+      assertions = [(mkAssertionModule gui "GUI" "awesomewm")];
 
       services.xserver.displayManager.sddm.enable = true;
       environment.systemPackages = with pkgs; [

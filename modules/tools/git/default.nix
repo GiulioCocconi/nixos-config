@@ -31,10 +31,7 @@ in
 
       (mkIf (cfg.enable && cfg.useOauth) {
 
-        assertions = [{
-          assertion = wifi.enable;
-          message = "In order to use oauth you need the wifi module to be enabled!";
-        }];
+        assertions = [(mkAssertionModule wifi "WiFi" "oauth credential manager")];
 
         environment.systemPackages = with pkgs; [
           git-credential-oauth

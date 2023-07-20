@@ -12,10 +12,7 @@ in
 
     config = mkIf cfg.enable {
 
-      assertions = [{
-        assertion = (gui.enable == true);
-        message = "gui system module must be enabled in order to do scientific writing!";
-      }];
+      assertions = [(mkAssertionModule gui "GUI" "scientific writing")];
 
       environment.systemPackages = [
         pkgs.tetex

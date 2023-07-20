@@ -9,7 +9,7 @@ in
   {
     options.cogisys.system.printing = with types; {
       enable = mkBoolOpt false "Enable printing.";
-      wifi = { enable = mkBoolOpt false "Enable wifi printing."; };
+      wifi = { enable = mkBoolOpt wifi.enable "Enable wifi printing."; };
     };
 
     config = mkMerge [
@@ -17,10 +17,7 @@ in
         services.printing.enable = true;
       })
       (mkIf (cfg.enable && cfg.wifi.enable) {
-        assertions = [{
-          assertion = wifi.enable;
-          message = "Wifi must be enabled in order to print with it!";
-        }];
+        assertions = [(mkAssertionModule wifi "WiFi" "WiFi printing")];
 
         services.avahi = {
           enable = true;
