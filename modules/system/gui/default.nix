@@ -12,14 +12,14 @@ in
 
     config = mkIf cfg.enable {
 
+      cogisys.apps.chromium = enabled;
+
       services.xserver = {
         enable = true;
         layout = locale.keyboardLayout;
       };
 
       fonts.fonts = with pkgs; [
-        google-fonts
-        noto-fonts
         (nerdfonts.override { fonts = [ "Iosevka" ]; })
       ];
 
