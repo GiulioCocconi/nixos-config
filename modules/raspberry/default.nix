@@ -10,11 +10,11 @@ in
       model = mkOpt (enum [0 1 2 3 4]) 4 "Raspberry model.";
     };
 
-    config = mkIf cfg.enable {
-
     imports = with inputs.nixos-hardware-pi.nixosModules; [
       raspberry-pi-4
     ];
+
+    config = mkIf cfg.enable {
 
     environment.systemPackages = [
       pkgs.libraspberrypi
