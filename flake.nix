@@ -6,6 +6,7 @@
     #unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     ##nixos-hardware.url = "github:nixos/nixos-hardware";
     # nur.url = "github:nix-community/NUR";
+    nixos-hardware-pi.url = "github:nixos/nixos-hardware?rev=ca29e25c39b8e117d4d76a81f1e229824a9b3a26"
 
     # TODO! Wait until hm is supported in snowfall lib
     # home-manager = {
