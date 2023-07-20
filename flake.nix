@@ -7,13 +7,6 @@
     ##nixos-hardware.url = "github:nixos/nixos-hardware";
     # nur.url = "github:nix-community/NUR";
 
-    nixpkgs-pi.url = "github:nixos/nixpkgs?rev=29339c1529b2c3d650d9cf529d7318ed997c149f"
-
-    nixos-hardware-pi = {
-      url = "github:nixos/nixos-hardware?rev=ca29e25c39b8e117d4d76a81f1e229824a9b3a26";
-      inputs.nixpkgs.follows = "nixpkgs-pi";
-    };
-
     # TODO! Wait until hm is supported in snowfall lib
     # home-manager = {
       # url = "github:nix-community/home-manager/release-23.05";

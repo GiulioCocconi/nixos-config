@@ -10,18 +10,24 @@ in
       model = mkOpt (enum [0 1 2 3 4]) 4 "Raspberry model.";
     };
 
-    imports = with inputs.nixos-hardware-pi.nixosModules; [
-      raspberry-pi-4
-    ];
+   config = mkIf cfg.enable {
+     boot = {
+       loader.grub.enable = mkDefault false;
+       loader.generic-extlinux-compatible.enable = mkDefault true;
 
-    config = mkIf cfg.enable {
+       initrd.availableKernelModules = [ "usbhid" "usb_storage" "vc4" "pcie_brcmstb" "reset-raspberrypi" ];
+     };
 
-    environment.systemPackages = [
-      pkgs.libraspberrypi
-      pkgs.python311Packages.gpiozero
-    ] ++ optionals (cfg.model > 3) [
-      pkgs.raspberrypi-eeprom
-    ];
+     hardware.enableRedistributableFirmware = true;
 
-  };
-}
+     environment.systemPackages = [
+       pkgs.libraspberrypi
+       pkgs.python311Packages.gpiozero
+     ] ++ optionals (cfg.model > 3) [
+       pkgs.raspberrypi-eeprom
+     ];
+
+     services.xserver.videoDrivers = [ "fbdev" ];
+
+   };
+ }
