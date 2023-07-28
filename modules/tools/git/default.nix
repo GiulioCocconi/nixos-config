@@ -3,7 +3,7 @@ with lib;
 
 let
   cfg = config.cogisys.tools.git;
-  wifi = config.cogisys.system.networking.wifi;
+  networking = config.cogisys.system.networking;
 in
   {
     options.cogisys.tools.git = with types; {
@@ -31,7 +31,7 @@ in
 
       (mkIf (cfg.enable && cfg.useOauth) {
 
-        assertions = [(mkAssertionModule wifi "WiFi" "oauth credential manager")];
+        assertions = [(mkAssertionModule networking "Networking" "oauth credential manager")];
 
         environment.systemPackages = with pkgs; [
           git-credential-oauth
