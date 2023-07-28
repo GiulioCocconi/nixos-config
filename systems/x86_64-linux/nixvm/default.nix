@@ -7,6 +7,8 @@ with lib;
 
   cogisys = {
 
+    virtualmachine = enabled;
+
     suites = {
       common = enabled;
       development = enabled;
@@ -23,7 +25,6 @@ with lib;
     extraGroups = [ "wheel" ];
   };
 
-  virtualisation.vmware.guest.enable = true;
   system.stateVersion = "23.05";
 
 }

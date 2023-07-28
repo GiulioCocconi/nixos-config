@@ -7,7 +7,7 @@ with lib; rec {
   mkBoolOpt = mkOpt types.bool;
 
   enabled = { enable = true; };
-  disabled = { enable = false; };
+  disabled = { enable = mkForce false; };
 
   mkAssertion = a: msg:
     { assertion = a; message = msg; };
