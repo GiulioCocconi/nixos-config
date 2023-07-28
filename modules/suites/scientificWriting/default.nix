@@ -14,12 +14,15 @@ in
 
       assertions = [(mkAssertionModule gui "GUI" "scientific writing")];
 
-      environment.systemPackages = [
-        pkgs.tetex
-        pkgs.asymptote
-        pkgs.sage
-        pkgs.inkscape
-        pkgs.texmacs
+      environment.systemPackages = with pkgs; [
+        (texlive.combine {
+          inherit (texlive) scheme-tetex
+          dvisvgm;
+        })
+        asymptote
+        sage
+        inkscape
+        texmacs
       ];
 
     };
