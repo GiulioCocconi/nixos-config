@@ -16,13 +16,13 @@ in
 
       environment.systemPackages = with pkgs; [
         (texlive.combine {
-          inherit (texlive) scheme-tetex
-          dvisvgm;
+          inherit (texlive) scheme-medium
+          standalone dvisvgm amsmath;
         })
         asymptote
-        sage
+        # sage
         inkscape
-        texmacs
+        # texmacs
       ];
 
     };
