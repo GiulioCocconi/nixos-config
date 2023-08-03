@@ -3,7 +3,7 @@ with lib;
 
 let
   cfg = config.cogisys.tools.zsh;
-  nix = config.cogisys.zsh;
+  nix = config.cogisys.nix;
 in
   {
     options.cogisys.tools.zsh = with types; {
