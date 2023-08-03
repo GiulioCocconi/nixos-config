@@ -4,21 +4,21 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     #unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    ##nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
     # nur.url = "github:nix-community/NUR";
 
-    # TODO! Wait until hm is supported in snowfall lib
-    # home-manager = {
-      # url = "github:nix-community/home-manager/release-23.05";
-       # inputs.nixpkgs.follows = "nixpkgs";
-     # };
 
-     flake-checker = {
-       url = "github:DeterminateSystems/flake-checker";
-       inputs.nixpkgs.follows = "nixpkgs";
-     };
+    flake-checker = {
+      url = "github:DeterminateSystems/flake-checker";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    # deploy-rs = {
+    # Used to get awesomwm using luajit
+    nixpkgs-f2k = {
+      url = "github:fortuneteller2k/nixpkgs-f2k";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+      # deploy-rs = {
       # url = "github:serokell/deploy-rs";
       # inputs.nixpkgs.follows = "unstable";
     # };
@@ -27,6 +27,7 @@
       url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
   };
 
   outputs = inputs:

@@ -1,11 +1,15 @@
 {lib, ...}:
 
 with lib; rec {
-  mkOpt = type: default: description:
-  mkOption { inherit type default description; };
-
-  mkBoolOpt = mkOpt types.bool;
-
-  enabled = { enable = true; };
-  disabled = { enable = false; };
+  mkUsers = list:
+    builtins.listToAttrs (builtins.map (user:
+      nameValuePair user.userName {
+        isNormalUser = true;
+        description = user.fullName;
+        initialPassword = user.password or "";
+        extraGroups = (optionals (user.isAdmin or false) [ "wheel" ]) ++ (user.extraGroups or []);
+      })
+    list);
 }
+
+

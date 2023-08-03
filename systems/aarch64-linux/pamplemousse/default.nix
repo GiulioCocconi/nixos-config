@@ -19,10 +19,11 @@ with lib;
 
   };
 
-  users.users.giulio = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-  };
+  users.users = mkUsers [{
+    userName = "giulio";
+    fullName = "G. Cocconi";
+    isAdmin = true;
+  }];
 
   system.stateVersion = "23.05";
 
