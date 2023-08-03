@@ -3,19 +3,28 @@ with lib;
 
 let
   cfg = config.cogisys.tools.zsh;
+  nix = config.cogisys.zsh;
 in
   {
     options.cogisys.tools.zsh = with types; {
       enable = mkBoolOpt false "Enable zsh.";
     };
 
-    config = mkIf cfg.enable {
-      programs.zsh = {
-        enable = true;
-        syntaxHighlighting.enable = true;
-        autosuggestions.enable = true;
-      };
+    config = mkMerge [
+      (mkIf cfg.enable {
+        programs.zsh = {
+          enable = true;
+          syntaxHighlighting.enable = true;
+          autosuggestions.enable = true;
+        };
 
-      users.defaultUserShell = pkgs.zsh;
-    };
+        # TODO: Add autopairs plugin
+
+        users.defaultUserShell = pkgs.zsh;
+
+      })
+      (mkIf (nix.enable && cfg.enable) {
+        environment.shellAliases.nix-shell = "nix-shell --command zsh";
+      })
+    ];
   }
