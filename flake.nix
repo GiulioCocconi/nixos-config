@@ -7,7 +7,6 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
     # nur.url = "github:nix-community/NUR";
 
-
     flake-checker = {
       url = "github:DeterminateSystems/flake-checker";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -17,6 +16,9 @@
     nixpkgs-f2k = {
       url = "github:fortuneteller2k/nixpkgs-f2k";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.crane.follows = "";
+      inputs.emacs.follows = "";
+      inputs.rust.follows = "";
     };
       # deploy-rs = {
       # url = "github:serokell/deploy-rs";
