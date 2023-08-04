@@ -10,14 +10,21 @@ in
     };
 
     config = mkIf cfg.enable {
-      environment.systemPackages = [
-        pkgs.wget
-        pkgs.bat
-        pkgs.tree
-        pkgs.fzf
-        pkgs.neovim
-        pkgs.killall
-        pkgs.unzip
+      environment.systemPackages = with pkgs; [
+        wget
+        bat
+        tree
+        file
+        fzf
+        ripgrep
+        exa
+        neovim
+        killall
+        zip
+        xz
+        unzip
+        pciutils
+        usbutils
       ];
 
       hardware.bluetooth.enable = true;

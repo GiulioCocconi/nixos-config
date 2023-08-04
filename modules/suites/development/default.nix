@@ -13,6 +13,9 @@ in
       environment.systemPackages = with pkgs; [
         python3
         clang
+        strace
+        ltrace
+        lsof
       ];
 
       cogisys.tools.git.useOauth = true;
