@@ -4,6 +4,7 @@ with lib;
 let
   cfg = config.cogisys.system.gui;
   locale = config.cogisys.system.locale;
+  virtualmachine = config.cogisys.virtualmachine;
 in
   {
     options.cogisys.system.gui = with types; {
@@ -19,16 +20,17 @@ in
         layout = locale.keyboardLayout;
       };
 
-      fonts.fonts = with pkgs; [
+      fonts.packages = with pkgs; [
         (nerdfonts.override { fonts = [ "Iosevka" ]; })
       ];
 
       environment.systemPackages = with pkgs; [
         st
-        mpv
         zathura
-        libreoffice-fresh
         chromium
+      ] ++ optionals (!virtualmachine.enable) [
+        mpv
+        libreoffice-fresh
         flameshot
       ];
 
