@@ -18,5 +18,11 @@ in
       i18n.defaultLocale = cfg.locale;
       console.keyMap = cfg.keyboardLayout;
       services.xserver.layout = cfg.keyboardLayout;
+
+      environment.variables.TZ = ":/etc/localetime";
+
+      # So that services are automatically restarted when the timezone changes
+      systemd.globalEnvironment.TZ = ":/etc/zoneinfo/${cfg.timeZone}";
+
     };
   }
