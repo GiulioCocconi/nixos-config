@@ -1,4 +1,4 @@
-{ lib, options, config, ... }:
+{ lib, options, config, pkgs, ... }:
 with lib;
 
 let
@@ -22,6 +22,14 @@ in
         gc.dates = "weekly";
         gc.options = "--delete-older-than 30d";
       };
+
+
+      environment.systemPackages = with pkgs; [
+        nixbang
+        nix-melt
+        vulnix
+        nix-output-monitor
+      ];
 
       system.autoUpgrade.enable = true;
     };
