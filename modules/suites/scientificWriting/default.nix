@@ -4,6 +4,7 @@ with lib;
 let
   cfg = config.cogisys.suites.scientificWriting;
   gui = config.cogisys.system.gui;
+  light = config.cogisys.light;
 in
   {
     options.cogisys.suites.scientificWriting = with types; {
@@ -17,13 +18,12 @@ in
       environment.systemPackages = with pkgs; [
         (texlive.combine {
           inherit (texlive) scheme-medium
-          standalone dvisvgm amsmath;
+          standalone preview dvisvgm amsmath;
         })
         asymptote
-        # sage
-        inkscape
-        # texmacs
-      ];
+        inkscape-with-extensions
+        texmacs
+      ] ++ optionals (!light.storage) [sage];
 
     };
   }
