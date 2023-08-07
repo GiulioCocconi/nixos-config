@@ -12,7 +12,7 @@ in
 
   config = mkIf cfg.enable {
       cogisys = {
-        # suites.light = enabled;
+        light = enabled;
         system = {
           printing.enable = mkForce false;
           networking.wifi.enable = mkForce false;
