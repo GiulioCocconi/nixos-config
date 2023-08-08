@@ -6,7 +6,7 @@ let
 in
   {
     options.cogisys.suites.common = with types; {
-      enable = mkBoolOpt false "Enable common configuration.";
+      enable = mkBoolOpt true "Enable common configuration.";
     };
 
     config = mkIf cfg.enable {
