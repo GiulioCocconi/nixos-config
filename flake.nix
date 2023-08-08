@@ -7,6 +7,11 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
     # nur.url = "github:nix-community/NUR";
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     flake-checker = {
       url = "github:DeterminateSystems/flake-checker";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -48,6 +53,9 @@
         # home-manager.nixosModules.home-manager {
           # useUserPackages = true;
         # }
+
+        disko.nixosModules.disko
+
       ];
 
       # checks = builtins.mapAttrs
