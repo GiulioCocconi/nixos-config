@@ -6,7 +6,7 @@ let
 in
   {
     options.cogisys.suites.development = with types; {
-      enable = mkBoolOpt false "Enable development suite.";
+      enable = mkEnableOption "development suite";
     };
     config = mkIf cfg.enable {
 

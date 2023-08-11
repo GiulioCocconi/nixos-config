@@ -6,7 +6,7 @@ let
 in
   {
     options.cogisys.nix = with types; {
-      enable = mkBoolOpt false "Enable nix management.";
+      enable = mkEnableOption "nix management";
     };
 
     config = mkIf cfg.enable {

@@ -6,8 +6,8 @@ let
 in
   {
     options.cogisys.system.networking = with types; {
-      enable = mkBoolOpt false "Enable networking management.";
-      wifi = { enable = mkBoolOpt false "Enable wifi connection."; };
+      enable = mkEnableOption "networking";
+      wifi = { enable = mkEnableOption "WiFi"; };
     };
 
     config = mkMerge [

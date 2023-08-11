@@ -8,7 +8,7 @@ let
 in
   {
     options.cogisys.system.gui = with types; {
-      enable = mkBoolOpt false "Enable gui.";
+      enable = mkEnableOption "gui";
     };
 
     config = mkIf cfg.enable {

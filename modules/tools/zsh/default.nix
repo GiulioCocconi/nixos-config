@@ -7,7 +7,7 @@ let
 in
   {
     options.cogisys.tools.zsh = with types; {
-      enable = mkBoolOpt false "Enable zsh.";
+      enable = mkEnableOption "zsh";
     };
 
     config = mkMerge [

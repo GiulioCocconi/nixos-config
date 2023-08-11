@@ -7,7 +7,7 @@ let
 in
   {
     options.cogisys.awesome = with types; {
-      enable = mkBoolOpt false "Enable awesomewm.";
+      enable = mkEnableOption "awesomewm";
     };
 
     config = mkIf cfg.enable {

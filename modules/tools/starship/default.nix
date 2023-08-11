@@ -6,7 +6,7 @@ let
 in
   {
     options.cogisys.tools.starship = with types; {
-      enable = mkBoolOpt false "Enable starship prompt.";
+      enable = mkEnableOption "starship prompt";
     };
 
     config = mkIf cfg.enable {

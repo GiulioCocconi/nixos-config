@@ -7,8 +7,8 @@ let
 in
   {
     options.cogisys.system.boot = with types; {
-      enable = mkBoolOpt false "Enable booting.";
-      dualBoot = mkBoolOpt false "Is the system dual-booting?";
+      enable = mkEnableOption "booting.";
+      dualBoot = mkBoolOpt false "Is the system dual-booting?"; # If true enable osprober
     };
 
     config = mkIf cfg.enable {

@@ -8,7 +8,7 @@ let
 in
 {
   options.cogisys.apps.chromium = with types; {
-    enable = mkBoolOpt false "Enable chromium.";
+    enable = mkEnableOption "chromium";
     addNixOSBookmarks = mkBoolOpt true "Add bookmarks related to NixOS.";
   };
 
