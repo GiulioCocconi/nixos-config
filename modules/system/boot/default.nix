@@ -27,8 +27,8 @@ in
     ];
     boot = {
       loader = {
-        grub.enabled = (cfg.mode == "legacy");
-        systemd-boot.enabled = (cfg.mode == "UEFI");
+        grub.enable = (cfg.mode == "legacy");
+        systemd-boot.enable = (cfg.mode == "UEFI");
         grub.device = cfg.device;
         grub.useOSProber = cfg.dualBoot;
       };

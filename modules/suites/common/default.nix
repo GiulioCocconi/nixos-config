@@ -28,6 +28,7 @@ in
       ];
 
       hardware.bluetooth.enable = true;
+      hardware.enableRedistributableFirmware = true;
 
 
       cogisys = {

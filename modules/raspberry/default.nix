@@ -14,7 +14,7 @@ in
      boot = {
        loader.grub.enable = mkDefault false;
        loader.generic-extlinux-compatible.enable = mkDefault true;
-
+       loader.systemd-boot.enable = mkForce false;
        initrd.availableKernelModules = [ "usbhid" "usb_storage" "vc4" "pcie_brcmstb" "reset-raspberrypi" ];
      };
 

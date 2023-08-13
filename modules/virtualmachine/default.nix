@@ -16,6 +16,7 @@ in
         system = {
           printing.enable = mkForce false;
           networking.wifi.enable = mkForce false;
+          boot.mode = "legacy";
         };
       };
 
