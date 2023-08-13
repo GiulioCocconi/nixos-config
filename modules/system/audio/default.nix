@@ -6,7 +6,7 @@ let
 in
   {
     options.cogisys.system.audio = with types; {
-      enable = mkEnableOpt "audio";
+      enable = mkBoolOpt false "Enable audio";
     };
 
     config = mkIf cfg.enable {

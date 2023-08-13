@@ -7,8 +7,13 @@ let
 in
   {
     options.cogisys.system.networking = with types; {
+<<<<<<< HEAD
       enable = mkEnableOption "networking";
       wifi = { enable = mkEnableOption "wifi"; };
+=======
+      enable = mkBoolOpt false "Enable networking management.";
+      wifi = { enable = mkBoolOpt false "Enable wifi connection."; };
+>>>>>>> parent of 2a5cb23 (Using mkEnableOption in all modules)
     };
     config = mkMerge [
       (mkIf cfg.enable {

@@ -3,16 +3,13 @@ with lib;
 
 let
   cfg = config.cogisys.services.tailscale;
-  networking = config.cogisys.system.networking;
 in
   {
     options.cogisys.services.tailscale = with types; {
-      enable = mkEnableOption "tailscale";
+      enable = mkBoolOpt false "Enable tailscale configuration.";
     };
 
     config = mkIf cfg.enable {
-
-      assertions = [(mkAssertionModule networking "Networking" "tailscale")];
 
       services.tailscale = {
         enable = true;

@@ -7,8 +7,8 @@ let
 in
   {
     options.cogisys.tools.git = with types; {
-      enable = mkEnableOption "git";
-      useOauth = mkEnableOption "oauth credential manager";
+      enable = mkBoolOpt false "Enable git.";
+      useOauth = mkBoolOpt false "Configure oauth credential manager.";
     };
 
     config = mkMerge [

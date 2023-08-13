@@ -8,8 +8,8 @@ let
 in
   {
     options.cogisys.system.printing = with types; {
-      enable = mkEnableOption "printing";
-      wifi = { enable = mkBoolOpt wifi.enable "Enable WiFi printing."; };
+      enable = mkBoolOpt false "Enable printing.";
+      wifi = { enable = mkBoolOpt wifi.enable "Enable wifi printing."; };
     };
 
     config = mkMerge [

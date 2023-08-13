@@ -6,8 +6,8 @@ let
 in
   {
     options.cogisys.raspberry = with types; {
-      enable = mkEnableOption "RaspberryPi system";
-      model = mkOpt (enum [0 1 2 3 4]) 4 "RaspberryPi model.";
+      enable = mkBoolOpt false "Is the system a raspberry?";
+      model = mkOpt (enum [0 1 2 3 4]) 4 "Raspberry model.";
     };
 
    config = mkIf cfg.enable {

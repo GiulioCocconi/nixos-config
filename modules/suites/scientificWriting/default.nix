@@ -8,7 +8,7 @@ let
 in
   {
     options.cogisys.suites.scientificWriting = with types; {
-      enable = mkEnableOption "scientic writing support";
+      enable = mkBoolOpt false "Enable scientific writing suite.";
     };
 
     config = mkIf cfg.enable {
