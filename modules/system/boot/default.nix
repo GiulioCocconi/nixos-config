@@ -9,7 +9,7 @@ in
     options.cogisys.system.boot = with types; {
       enable = mkEnableOption "booting.";
       dualBoot = mkBoolOpt false "Is the system dual-booting?"; # If true enable osprober
-      rootFilesystem = mkOpt (enum ["ext4" "zfs" "btrfs"]) "ext4";
+      rootFilesystem = mkOpt (enum ["ext4" "zfs" "btrfs"]) "ext4" "Filesystem of root";
     };
 
     config = mkMerge [
@@ -18,8 +18,8 @@ in
           loader = {
           # TODO!
         };
+        supportedFilesystems = [ cfg.rootFilesystem ];
       };
-      supportedFilesystems = [ cfg.rootFilesystem ];
     })
     (mkIf (cfg.enable && cfg.dualBoot) {
         #TODO: Enable osprober
