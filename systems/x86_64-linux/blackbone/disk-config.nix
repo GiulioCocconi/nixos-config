@@ -48,7 +48,7 @@
         "com.sun:auto-snapshot" = "false";
       };
       postCreateHook = ''
-      zfs snapshot rpool@empty
+      zfs snapshot zroot@empty
       '';
 
       datasets = {
