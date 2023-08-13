@@ -42,7 +42,7 @@
         mountpoint = "none";
         compression = "zstd";
         normalization = "formD";
-        realtime = "on";
+        relatime = "on";
         xattr = "sa";
         dnodesize = "auto";
         "com.sun:auto-snapshot" = "false";
