@@ -8,7 +8,7 @@ in
   {
     options.cogisys.system.networking = with types; {
       enable = mkEnableOption "networking";
-      wifi = { enable = mkEnableOption "wifi" };
+      wifi = { enable = mkEnableOption "wifi"; };
     };
     config = mkMerge [
       (mkIf cfg.enable {
