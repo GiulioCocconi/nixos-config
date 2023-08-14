@@ -7,10 +7,12 @@
     common-pc-ssd
   ];
 
-  cogisys.system.boot.rootFilesystem = "zfs";
   zramSwap.enable = true;
 
-  disko.devices = import ./disk-config.nix {};
+  fileSystems."/" =
+    { device = "/dev/disk/by-label/nixos";
+    fsType = "ext4";
+  };
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "usbhid" "ahci" "usb_storage" "sd_mod" "nvme" ];
   boot.initrd.kernelModules = [ ];
