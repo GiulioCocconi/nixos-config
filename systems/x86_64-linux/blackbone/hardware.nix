@@ -21,7 +21,7 @@
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "usbhid" "ahci" "usb_storage" "sd_mod" "nvme" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelModules = [ "kvm-intel" "iwlwifi" ];
   boot.extraModulePackages = [ ];
 
 
