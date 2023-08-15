@@ -14,6 +14,11 @@
     fsType = "ext4";
   };
 
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-label/boot";
+    fsType = "vfat";
+  };
+
   boot.initrd.availableKernelModules = [ "xhci_pci" "usbhid" "ahci" "usb_storage" "sd_mod" "nvme" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
