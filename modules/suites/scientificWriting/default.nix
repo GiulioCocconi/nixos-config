@@ -25,5 +25,7 @@ in
         texmacs
       ] ++ optionals (!light.storage) [sage];
 
+      cogisys.apps.chromium.addMathBookmarks = true;
+
     };
   }
