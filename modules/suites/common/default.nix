@@ -29,7 +29,7 @@ in
 
       hardware.bluetooth.enable = true;
       hardware.enableRedistributableFirmware = true;
-
+	  boot.kernelPackages = pkgs.linuxPackages_zen;
 
       cogisys = {
         nix = enabled;
