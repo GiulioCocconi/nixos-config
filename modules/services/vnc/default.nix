@@ -11,7 +11,7 @@ in
     };
 
     config = mkIf cfg.enable {
-      assertions = [(mkAssertionModule "networking" "vnc")];
+      # assertions = [(mkAssertionModule "networking" "vnc")];
       services.x2goserver.enable = true;
     };
   }

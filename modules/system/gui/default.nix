@@ -25,6 +25,7 @@ in
       ];
 
       environment.systemPackages = with pkgs; [
+        gnome.adwaita-icon-theme
         st
         zathura
         chromium
@@ -33,6 +34,8 @@ in
         libreoffice-fresh
         flameshot
       ];
+
+      # TODO: Manage gtk settings without home-manager
 
       environment.shellAliases.open = "xdg-open";
 

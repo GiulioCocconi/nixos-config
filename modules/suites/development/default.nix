@@ -11,8 +11,11 @@ in
     config = mkIf cfg.enable {
 
       environment.systemPackages = with pkgs; [
+        ix
+        difftastic
         python3
-        clang
+        clang_15
+        lldb_15
         strace
         ltrace
         lsof

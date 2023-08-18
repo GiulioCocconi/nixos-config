@@ -20,6 +20,7 @@ in
         exa
         neovim
         killall
+        rclone
         zip
         xz
         unzip

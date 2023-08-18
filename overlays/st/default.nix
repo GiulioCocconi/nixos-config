@@ -1,4 +1,4 @@
-{channels, ...}:
+{...}:
 
 # https://discourse.nixos.org/t/simple-terminal-st-setup/9763
 
