@@ -7,7 +7,14 @@ with lib; rec {
         isNormalUser = true;
         description = user.fullName;
         initialPassword = user.password or "";
-        extraGroups = [ "video" "audio" ] ++ (optionals (user.isAdmin or false) [ "wheel" ]) ++ (user.extraGroups or []);
+
+        extraGroups = [ "video" "audio" "networkmanager" ]
+          ++ (optionals (user.isAdmin or false) [ "wheel" ])
+          ++ (user.extraGroups or []);
+
+        packages = user.packages or [];
+
+
       })
     list);
 }
