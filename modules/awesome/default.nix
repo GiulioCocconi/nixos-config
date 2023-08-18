@@ -22,7 +22,7 @@ in
 
       services.xserver.windowManager.awesome = {
         enable = true;
-        luaModules = with pkgs.luaPackages; [
+        luaModules = with pkgs.luajitPackages; [
           luarocks
           luautf8
         ];

@@ -1,5 +1,7 @@
-{nixpkgs-f2k, ...}:
-_ : _ :
+{...}:
+final: prev:
 {
-  # awesome = nixpkgs-f2k.packages.${builtins.currentSystem}.awesome-luajit-git;
+  awesome = prev.awesome.override {
+    lua = prev.luajit;
+  };
 }
