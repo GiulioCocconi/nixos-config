@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 
 {
@@ -23,6 +23,7 @@ with lib;
     userName = "giulio";
     fullName = "G. Cocconi";
     isAdmin = true;
+    packages = with pkgs; [ obsidian ];
   }];
 
   system.stateVersion = "23.05";
