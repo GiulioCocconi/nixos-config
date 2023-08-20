@@ -3,6 +3,7 @@ with lib;
 
 let
   cfg = config.cogisys.nix;
+  light = config.cogisys.light;
 in
   {
     options.cogisys.nix = with types; {
@@ -20,7 +21,10 @@ in
 
         gc.automatic = true;
         gc.dates = "weekly";
-        gc.options = "--delete-older-than 30d";
+
+        gc.options = if light.memory
+          then"-d"
+          else "--delete-older-than 30d";
       };
 
 
@@ -30,7 +34,5 @@ in
         vulnix
         nix-output-monitor
       ];
-
-      system.autoUpgrade.enable = true;
     };
   }
