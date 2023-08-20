@@ -13,7 +13,7 @@ in
       environment.systemPackages = with pkgs; [
         ix
         difftastic
-        python3
+        python311
         clang_15
         lldb_15
         strace
