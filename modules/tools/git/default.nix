@@ -27,15 +27,15 @@ in
 
         environment.shellAliases.ggrep = "git grep -n";
 
+        environment.systemPackages = [ pkgs.gh ];
+
       })
 
       (mkIf (cfg.enable && cfg.useOauth) {
 
         assertions = [(mkAssertionModule networking "Networking" "oauth credential manager")];
 
-        environment.systemPackages = with pkgs; [
-          git-credential-oauth
-        ];
+        environment.systemPackages = [ pkgs.git-credential-oauth ];
 
         programs.git.config.credential.helper = [
           "cache --timeout 7200" # Set the cache to 2h
