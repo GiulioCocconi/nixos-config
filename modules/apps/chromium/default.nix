@@ -25,7 +25,7 @@ in
         "BrowserSignin" = 0;
         "SyncDisabled" = 1;
         "BookmarkBarEnabled" = 1;
-        "ExtensionInstallForceList" = [
+        "ExtensionInstallForcelist" = [
           "cjpalhdlnbpafiamejdnhcphjbkeiagm" # Ublock Origin
           "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium
         ];
@@ -68,17 +68,19 @@ in
               ];}
             ];}
             { name = "Misc"; children = [
+              { name = "Tex StackExchange"; url = "tex.stackexchange.com"; }
+              { name = "ProofWiki"; url = "proofwiki.org"; }
               { name = "SageMath"; url = "sagemath.org"; }
               { name = "Lean Community"; url = "leanprover-community.github.io"; }
               { name = "Logic Calculator"; url = "erpelstolz.at/gateway/formular-uk-zentral.html"; }
             ];}
-        ];}
-        {name = "Science"; children = [];}
-        {name = "Programming"; children = [];}
-      ];
+          ];}
+          {name = "Science"; children = [];}
+          {name = "Programming"; children = [];}
+        ];
+      };
     };
+
+
   };
-
-
-};
 }
