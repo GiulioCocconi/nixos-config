@@ -5,6 +5,8 @@ let
   cfg = config.cogisys.system.gui;
   locale = config.cogisys.system.locale;
   virtualmachine = config.cogisys.virtualmachine;
+  light = config.cogisys.light;
+  my_terminal = if light.memory then pkgs.st else pkgs.kitty;
 in
   {
     options.cogisys.system.gui = with types; {
@@ -26,7 +28,7 @@ in
 
       environment.systemPackages = with pkgs; [
         gnome.adwaita-icon-theme
-        st
+        my_terminal
         zathura
         chromium
       ] ++ optionals (!virtualmachine.enable) [
@@ -38,6 +40,8 @@ in
       # TODO: Manage gtk settings without home-manager
 
       environment.shellAliases.open = "xdg-open";
+      environment.variables.TERMINAL = my_terminal.pname;
+
 
     };
   }
