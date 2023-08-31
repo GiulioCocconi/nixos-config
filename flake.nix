@@ -17,14 +17,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Used to get awesomwm using luajit
-    nixpkgs-f2k = {
-      url = "github:fortuneteller2k/nixpkgs-f2k";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.crane.follows = "";
-      inputs.emacs.follows = "";
-      inputs.rust.follows = "";
-    };
       # deploy-rs = {
       # url = "github:serokell/deploy-rs";
       # inputs.nixpkgs.follows = "unstable";
