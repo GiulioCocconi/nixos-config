@@ -18,13 +18,16 @@ in
       environment.systemPackages = with pkgs; [
         (texlive.combine {
           inherit (texlive) scheme-medium
-          standalone preview dvisvgm amsmath;
+          standalone preview dvisvgm amsmath
+          pgfplots;
         })
         asymptote
+        libqalculate
         inkscape-with-extensions
         texmacs
-      ] ++ optionals (!light.storage) [sage];
-
+      ] ++ optionals (!light.storage) [
+        sage
+      ];
       cogisys.apps.chromium.addMathBookmarks = true;
 
     };
