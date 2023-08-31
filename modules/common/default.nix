@@ -18,7 +18,6 @@ in
         fzf
         ripgrep
         exa
-        neovim
         killall
         rclone
         zip
@@ -28,6 +27,11 @@ in
         pciutils
         usbutils
       ];
+
+      programs.neovim = {
+        enable = true;
+        defaultEditor = true;
+      };
 
       hardware.bluetooth.enable = true;
       hardware.enableRedistributableFirmware = true;
@@ -59,6 +63,11 @@ in
       environment.shellAliases = {
         cls = "clear";
         mkdir = "mkdir -p";
+      };
+
+      environment.variables = {
+        EDITOR = "nvim";
+        VISUAL = "nvim";
       };
 
       environment.shellInit = ''
