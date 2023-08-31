@@ -1,4 +1,4 @@
-{ lib, options, config, ... }:
+{ lib, options, config, pkgs, ... }:
 with lib;
 
 let
@@ -14,8 +14,11 @@ in
       services.pipewire = {
         enable = true;
         alsa.enable = true;
+        alsa.support32Bit = true;
         pulse.enable = true;
         jack.enable = true;
       };
+
+      environment.systemPackages = [ pkgs.pulseaudioFull ];
     };
   }
