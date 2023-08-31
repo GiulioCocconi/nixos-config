@@ -1,4 +1,4 @@
-{ lib, options, config, ... }:
+{ lib, options, config,pkgs, ... }:
 with lib;
 
 let
@@ -15,6 +15,12 @@ in
     config = mkMerge [
       (mkIf cfg.enable {
         services.printing.enable = true;
+
+        services.saned.enable = true;
+        hardware.sane.enable = true;
+        hardware.sane.openFirewall = true;
+
+        environment.systemPackages = with pkgs; [ xsane ];
       })
       (mkIf (cfg.enable && cfg.wifi.enable) {
         assertions = [(mkAssertionModule wifi "WiFi" "WiFi printing")];
