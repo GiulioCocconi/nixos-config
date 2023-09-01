@@ -4,7 +4,6 @@ with lib;
 let
   cfg = config.cogisys.apps.chromium;
   gui = config.cogisys.system.gui;
-  networking = config.cogisys.system.networking;
 in
 {
   options.cogisys.apps.chromium = with types; {
@@ -16,7 +15,6 @@ in
   config = mkIf cfg.enable {
     assertions = [
       (mkAssertionModule gui "GUI" "Chromium")
-      (mkAssertionModule networking "Networking" "Chromium")
     ];
 
     programs.chromium = {
