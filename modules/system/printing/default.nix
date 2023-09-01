@@ -3,8 +3,6 @@ with lib;
 
 let
   cfg = config.cogisys.system.printing;
-  wifi = config.cogisys.system.networking.wifi;
-
 in
   {
     options.cogisys.system.printing = with types; {
@@ -23,8 +21,6 @@ in
         environment.systemPackages = with pkgs; [ xsane ];
       })
       (mkIf (cfg.enable && cfg.wifi.enable) {
-        assertions = [(mkAssertionModule wifi "WiFi" "WiFi printing")];
-
         services.avahi = {
           enable = true;
           nssmdns = true;
