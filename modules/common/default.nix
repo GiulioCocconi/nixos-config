@@ -35,7 +35,10 @@ in
 
       hardware.bluetooth.enable = true;
       hardware.enableRedistributableFirmware = true;
-	  boot.kernelPackages = pkgs.linuxPackages_zen;
+
+      boot.kernelPackages = pkgs.linuxPackages_zen;
+
+      services.udisks2.enable = true;
 
       cogisys = {
         nix = enabled;

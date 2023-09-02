@@ -25,7 +25,6 @@ in
         "BookmarkBarEnabled" = 1;
         "ExtensionInstallForcelist" = [
           "cjpalhdlnbpafiamejdnhcphjbkeiagm" # Ublock Origin
-          "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium
         ];
         "ManagedBookmarks" = [{ toplevel_name = "CoGiSys Bookmarks"; }]
         ++ optionals cfg.addNixOSBookmarks [{

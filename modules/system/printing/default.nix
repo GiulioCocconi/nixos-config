@@ -7,7 +7,7 @@ in
   {
     options.cogisys.system.printing = with types; {
       enable = mkBoolOpt false "Enable printing.";
-      wifi = { enable = mkBoolOpt wifi.enable "Enable wifi printing."; };
+      wifi = { enable = mkBoolOpt cfg.enable "Enable wifi printing."; };
     };
 
     config = mkMerge [
