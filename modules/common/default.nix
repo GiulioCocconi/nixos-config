@@ -26,6 +26,8 @@ in
         htop
         pciutils
         usbutils
+        udiskie
+        xdg-user-dirs
       ];
 
       programs.neovim = {
