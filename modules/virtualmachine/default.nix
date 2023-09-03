@@ -10,6 +10,8 @@ in
     software = mkOpt (enum ["virtualbox" "vmware"]) "virtualbox" "Software used for virtualization.";
   };
 
+  imports = optionals cfg.enable [(modulesPath + "/profiles/minimal.nix")];
+
   config = mkIf cfg.enable {
       cogisys = {
         light = enabled;
