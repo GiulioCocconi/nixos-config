@@ -19,6 +19,6 @@ in
         jack.enable = true;
       };
 
-      environment.systemPackages = [ pkgs.pulseaudioFull ];
+      environment.systemPackages = with pkgs; [ pulseaudioFull pamixer ];
     };
   }
