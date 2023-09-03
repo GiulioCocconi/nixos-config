@@ -18,6 +18,7 @@ in
         rofi
         udiskie
         picom
+        libnotify
       ];
 
       services.xserver.windowManager.awesome = {
