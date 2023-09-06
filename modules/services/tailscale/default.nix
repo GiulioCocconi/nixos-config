@@ -12,7 +12,7 @@ in
 
     config = mkIf cfg.enable {
 
-      # assertions = [(mkAssertionModule "networking" "tailscale")];
+      assertions = [(mkAssertionModule networking "networking" "tailscale")];
 
       services.tailscale = {
         enable = true;
