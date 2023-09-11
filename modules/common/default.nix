@@ -17,7 +17,7 @@ in
         file
         fzf
         ripgrep
-        exa
+        eza
         killall
         rclone
         zip
@@ -68,19 +68,35 @@ in
       environment.shellAliases = {
         cls = "clear";
         mkdir = "mkdir -p";
+        ls = "eza";
+        udm = "udisksctl mount -b";
       };
+
+      environment.shellInit = ''
+        mkcd() {
+          mkdir -p $1
+          cd $1
+        }
+      '';
 
       environment.variables = {
         EDITOR = "nvim";
         VISUAL = "nvim";
       };
 
-      environment.shellInit = ''
-      mkcd() {
-        mkdir -p $1
-        cd $1
-      }
+      environment.etc."xdg/user-dirs.defaults".text = ''
+        # /etc/xdg/user-dirs.defaults: DO NOT EDIT -- this file has been generated automatically.
+        DOWNLOAD=dwld
+        DOCUMENTS=docs
+        MUSIC=media/music
+        PICTURES=media/pics
+        VIDEOS=media/videos
       '';
+
+      system.userActivationScripts.updateUserDirs = ''
+      ${pkgs.xdg-user-dirs}/bin/xdg-user-dirs-update --force
+      touch $HOME/test
+      mkdir -p $HOME/reps'';
 
     };
   }
