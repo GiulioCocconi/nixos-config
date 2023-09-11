@@ -5,6 +5,7 @@ let
   cfg = config.cogisys.system.gui;
   locale = config.cogisys.system.locale;
   virtualmachine = config.cogisys.virtualmachine;
+  networking = config.cogisys.system.networking;
 in
   {
     options.cogisys.system.gui = with types; {
@@ -34,7 +35,7 @@ in
         mpv
         libreoffice-fresh
         flameshot
-      ];
+      ] ++ optionals (networking.enable) [element-desktop];
 
       qt.style = "adwaita-dark";
 
