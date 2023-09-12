@@ -8,8 +8,9 @@ in
 {
   options.cogisys.apps.chromium = with types; {
     enable = mkBoolOpt false "Enable chromium.";
-    addNixOSBookmarks = mkBoolOpt true "Add bookmarks related to NixOS.";
-    addMathBookmarks = mkBoolOpt false "Add bookkmarks related to Math/science/programming";
+    addNixOSBookmarks = mkBoolOpt cfg.enable "Add bookmarks related to NixOS.";
+    addMathBookmarks = mkBoolOpt false "Add bookmarks related to Math & science";
+    addProgrammingBookmarks = mkBoolOpt false "Add bookmarks related to programming";
   };
 
   config = mkIf cfg.enable {
@@ -72,8 +73,11 @@ in
               { name = "Logic Calculator"; url = "erpelstolz.at/gateway/formular-uk-zentral.html"; }
             ];}
           ];}
-          {name = "Science"; children = [];}
-          {name = "Programming"; children = [];}
+          { name = "Science"; children = [];}
+        ] ++ optionals cfg.addProgrammingBookmarks [
+          { name = "Programming"; children = [
+            { name = "Elixir Bootlin"; url = "elixir.bootlin.com"; }
+          ];}
         ];
       };
     };
