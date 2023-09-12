@@ -25,6 +25,11 @@ in
         gc.options = if light.memory
           then"-d"
           else "--delete-older-than 30d";
+
+        channel.enable = false; # Channels are evil!
+        nixPath = [
+          "nixpkgs=flake:nixpkgs"
+        ];
       };
 
 
@@ -34,6 +39,7 @@ in
         vulnix
         nix-output-monitor
       ];
+
       environment.variables.NIXPKGS_ALLOW_UNFREE = "1";
     };
   }
