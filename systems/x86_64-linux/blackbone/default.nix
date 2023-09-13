@@ -14,6 +14,7 @@ with lib;
 
     system.networking.wifi = enabled;
 
+    emacs = enabled;
 
     system.gui = enabled;
 
