@@ -31,6 +31,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    snowfall-flake = {
+      url = "github:snowfallorg/flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.snowfall-lib.follows = "snowfall-lib";
+    };
+
   };
 
   outputs = inputs:
@@ -39,7 +45,7 @@
     src = ./.;
     snowfall.namespace = "cogisys";
     channels-config = { allowUnfree = true; };
-
+    overlays = with inputs; [ snowfall-flake.overlays."package/flake" ];
     systems.modules = with inputs; [
       disko.nixosModules.disko
     ];

@@ -28,13 +28,11 @@ in
           else "--delete-older-than 30d";
 
         channel.enable = false; # Channels are evil!
-        nixPath = [
-          "nixpkgs=flake:nixpkgs"
-        ];
       };
 
 
       environment.systemPackages = with pkgs; [
+       snowfallorg.flake
         nixbang
         nix-melt
         vulnix
