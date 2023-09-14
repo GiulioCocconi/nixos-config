@@ -34,32 +34,14 @@
   };
 
   outputs = inputs:
-  let
-    lib = inputs.snowfall-lib.mkLib {
-      inherit inputs;
-      src = ./.;
-
-    };
-  in lib.mkFlake {
-    overlay-package-namespace = "cogisys";
+  inputs.snowfall-lib.mkFlake {
+    inherit inputs;
+    src = ./.;
+    snowfall.namespace = "cogisys";
     channels-config = { allowUnfree = true; };
 
     systems.modules = with inputs; [
-        # nur.nixosModules.nur
-        # home-manager.nixosModules.home-manager {
-          # useUserPackages = true;
-        # }
-
-        disko.nixosModules.disko
-
-      ];
-
-      # checks = builtins.mapAttrs
-        # (system: deploy-lib:
-            # deploy-lib.deployChecks
-            # inputs.self.deploy)
-        # inputs.deploy-rs.lib;
-
-
-      };
-    }
+      disko.nixosModules.disko
+    ];
+  };
+}

@@ -1,5 +1,6 @@
 { config, lib, ... }:
 with lib;
+with lib.cogisys;
 
 {
 
