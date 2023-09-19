@@ -17,6 +17,7 @@ in
         python311
         clang_15
         lldb_15
+        llvmPackages_15.libllvm
         strace
         ltrace
         lsof
