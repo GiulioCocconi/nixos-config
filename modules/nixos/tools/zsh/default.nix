@@ -15,9 +15,17 @@ in
       (mkIf cfg.enable {
         programs.zsh = {
           enable = true;
+
           syntaxHighlighting.enable = true;
           autosuggestions.enable = true;
+
+
+          interactiveShellInit = "zstyle ':completion:*' menu select";
+
         };
+
+
+
 
         # TODO: Add autopairs plugin
 
