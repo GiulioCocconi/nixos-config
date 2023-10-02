@@ -15,8 +15,10 @@
 (defvar language-list nil
   "The list of programming languages supported by this config that are manually managed  (if `is-nix' is non-nil then you can, and actually should, manage your programming languages with nix)")
 
-(defun is-language-active (lang) 
-  (or (and is-nix (getenv (concat "NIX_LANG_" (upcase lang))))
+(defun is-language-active (lang)
+  (or (and is-nix
+	   (or (getenv (concat "NIX_LANG_" (upcase lang)))
+	       (string-equal lang "nix")))
       (member lang language-list)))
 
 (defun add-multiple-hooks (hooks fun)

@@ -20,7 +20,7 @@ in
     # TODO: Use org config instead!
     config = mkIf cfg.enable {
       environment.systemPackages = [
-        (pkgs.writeShellScriptBin "cemacs" "${myEmacs}/bin/emacs --init-directory /etc/emacs.d")
+        (pkgs.writeShellScriptBin "cemacs" "${myEmacs}/bin/emacs --init-directory /etc/emacs.d $@")
       ];
 
 

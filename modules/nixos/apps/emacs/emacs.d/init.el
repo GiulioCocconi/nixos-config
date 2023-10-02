@@ -10,9 +10,10 @@
 
   (package-initialize)
   (unless package-archive-contents
-    (package-refresh-contents))
-  (unless (package-installed-p 'use-package)
-    (package-install 'use-package)))
+    (package-refresh-contents)))
+
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
 
 (require 'use-package)
 (setq use-package-always-ensure t)
@@ -55,7 +56,8 @@
       goto-address-mail-face 'ansi-color-italic
       goto-address-mail-mouse-face 'ansi-color-underline)
 
-(use-package hl-todo)
+(use-package hl-todo
+  :hook ((prog-mode org-mode) . hl-todo-mode))
 
 (set-face-attribute 'default nil :font "Iosevka Nerd Font" :height 130)
 
@@ -75,6 +77,9 @@
 (use-package general
   :config ())
 
+(use-package which-key
+  :init (which-key-mode))
+
 (advice-add 'eshell-life-is-too-much
 	    :after #'(lambda ()
 		       (unless (one-window-p)
@@ -87,31 +92,28 @@
   (eshell))
 
 (use-package counsel)
-(use-package swiper) 
+(use-package swiper)
 (use-package ivy
   :init (ivy-mode)
   :after counsel
+  :bind (("C-c C-r" . ivy-resume)
+	 ("M-x" . counsel-M-x)
+	 ("C-x C-f" . counsel-find-file)
+	 ("<f1> f" . counsel-describe-function)
+	 ("<f1> v" . counsel-describe-variable)
+	 ("<f1> o" . counsel-describe-symbol)
+	 ("<f1> l" . counsel-find-library)
+	 ("<f2> i" . counsel-info-lookup-symbol)
+	 ("<f2> u" . counsel-unicode-char)
+	 ("C-c g" . counsel-git)
+	 ("C-c j" . counsel-git-grep)
+	 ("C-c k" . counsel-ag)
+	 ("C-x l" . counsel-locate)
+	 ("C-S-o" . counsel-rhythmbox))
   :config
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t)
-  (setq search-default-mode #'char-fold-to-regexp)
-  (global-set-key "\C-s" 'swiper)
-  (global-set-key (kbd "C-c C-r") 'ivy-resume)
-  (global-set-key (kbd "<f6>") 'ivy-resume)
-  (global-set-key (kbd "M-x") 'counsel-M-x)
-  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-  (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-  (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-  (global-set-key (kbd "<f1> o") 'counsel-describe-symbol)
-  (global-set-key (kbd "<f1> l") 'counsel-find-library)
-  (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-  (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-  (global-set-key (kbd "C-c g") 'counsel-git)
-  (global-set-key (kbd "C-c j") 'counsel-git-grep)
-  (global-set-key (kbd "C-c k") 'counsel-ag)
-  (global-set-key (kbd "C-x l") 'counsel-locate)
-  (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-  (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history))
+  (setq search-default-mode #'char-fold-to-regexp))
 
 (use-package org)
 
@@ -133,7 +135,10 @@
 (use-package company
   :init (global-company-mode))
 
-(when is-nix
+(use-package helpful
+  )
+
+(when (is-language-active "nix")
   (use-package nix-mode
     :mode "\\.nix\\'"))
 
