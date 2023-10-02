@@ -2,29 +2,66 @@
 with lib;
 with lib.cogisys;
 
+# TODO: Aggiungere funzione helper per nuovi linguaggi
+
 let
   cfg = config.cogisys.suites.development;
 in
   {
     options.cogisys.suites.development = with types; {
-      enable = mkBoolOpt false "Enable development suite.";
+      enable = mkEnableOption "development suite";
+      languages = {
+
+        cpp = {
+          enable = mkBoolOpt cfg.enable "Whether to enable C/C++ support.";
+          toolchain = mkOpt (enum ["GCC" "Clang"]) "Clang" "Toolchain to be used.";
+        };
+
+        llvm.enable = mkBoolOpt (cfg.languages.cpp.enable && cfg.languages.cpp.toolchain == "Clang") "Whether to install libllvm.";
+        python.enable = mkBoolOpt cfg.enable "Whether to enable python3 support.";
+        commonLisp = {
+          enable = mkEnableOption "common lisp support";
+          sbclPkgs = mkOption {
+            type = listOf package;
+            default = [];
+            description = "Common lisp packages to install";
+            example = literalExpression "[ pkgs.sbclPackages.kons-9 ]";
+          };
+        };
+      };
     };
-    config = mkIf cfg.enable {
+    config = mkMerge [
+      (mkIf cfg.enable {
+        environment.systemPackages = with pkgs; [
+          # ix
+          difftastic
+          strace
+          ltrace
+          lsof
+        ];
 
-      environment.systemPackages = with pkgs; [
-        ix
-        difftastic
-        python311
-        clang_15
-        lldb_15
-        llvmPackages_15.libllvm
-        strace
-        ltrace
-        lsof
-      ];
+        environment.shellAliases.ix = "curl -F 'f:1=<-' ix.io";
 
-      cogisys.tools.git.useOauth = true;
-
-    };
+        cogisys.tools.git.useOauth = true;
+      })
+      (mkIf (cfg.enable && cfg.languages.cpp.enable) {
+        environment.variables.NIX_LANG_CPP = "enabled";
+        environment.systemPackages = with pkgs; [cmake] ++ optionals (cfg.languages.cpp.toolchain == "Clang")
+        [clang_15 lldb_15]
+        ++ optionals (cfg.languages.cpp.toolchain == "GCC") [gcc_13 gdb];
+      })
+      (mkIf (cfg.enable && cfg.languages.llvm.enable) {
+        environment.variables.NIX_LANG_LLVM = "enabled";
+        environment.systemPackages = with pkgs.llvmPackages_15; [libllvm];
+      })
+      (mkIf (cfg.enable && cfg.languages.python.enable) {
+        environment.variables.NIX_LANG_PYTHON = "enabled";
+        environment.systemPackages = [pkgs.python311];
+      })
+      (mkIf (cfg.enable && cfg.languages.commonLisp.enable) {
+        environment.variables.NIX_LANG_CLISP = "enabled";
+        environment.systemPackages = [pkgs.sbcl] ++ cfg.languages.commonLisp.sbclPkgs;
+      })
+    ];
   }
 
