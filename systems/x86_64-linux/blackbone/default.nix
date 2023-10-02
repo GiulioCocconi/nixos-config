@@ -9,8 +9,17 @@ with lib.cogisys;
   cogisys = {
     suites = {
       common = enabled;
-      development = enabled;
       scientificWriting = enabled;
+    };
+
+    suites.development = {
+      enable = true;
+      languages = {
+        commonLisp = {
+          enable = true;
+          sbclPkgs = with pkgs.sbclPackages; [ kons-9 ];
+        };
+      };
     };
 
     system.networking.wifi = enabled;
