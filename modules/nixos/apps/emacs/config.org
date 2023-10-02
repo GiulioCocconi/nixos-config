@@ -34,7 +34,7 @@ You have to restore the defaults after the init.
 
 * Utils
 Here there are some misc utils (functions or vars).
-#+begin_src emacs-lisp :tangle emacs.d/init.el
+#+begin_src emacs-lisp :tangle emacs.d/early-init.el
 
   (defvar is-nix (getenv "NIX_EMACS")
     "If non-nil then consider emacs as configured by Nix Emacs Overlay")
@@ -52,11 +52,17 @@ Here there are some misc utils (functions or vars).
       (add-hook hook fun)))
 #+end_src
 
+* ~user-emacs-directory~
+When using Nix, in order to preserve reproducibility, the ~user-emacs-directory~ variable is set to ~/etc/emacs.d~. When the config is loaded ~$HOME/.emacs.d~ should be used in order to avoid write permission errors.
+#+begin_src emacs-lisp :tangle emacs.d/init.el
+  (when is-nix
+    (setq user-emacs-directory "~/emacs.d"))
+#+end_src
+
 * Use-package setup
 If the config isn't managed by Nix then download Melpa, Elpa and Org archives. If it's using Nix then packages should be managed by emacs-overlay's ~emacsWithPackagesFromUsePackage~ ( see https://github.com/nix-community/emacs-overlay ).
 
 #+begin_src emacs-lisp :tangle emacs.d/init.el
-  
   (unless is-nix
     (require 'package)
 
@@ -93,7 +99,8 @@ From https://www.emacswiki.org/emacs/RecentFiles:
 From https://www.emacswiki.org/emacs/BackupDirectory:
 ==By default Emacs saves BackupFiles under the original name with a tilde `~’ appended [...] This is primitive and boring.==
 
-Let's fix that by placing all Backup Files in the temp directory, that's ~/tmp~ on Linux and ~/Temp~ on Windows:
+Let's fix that by placing all Backup Files in the temp directory (which is ~/tmp~ on Linux and ~/Temp~ on Windows)
+
 #+begin_src emacs-lisp :tangle emacs.d/init.el
   (setq backup-directory-alist
 	`((".*" . ,temporary-file-directory)))
@@ -107,12 +114,20 @@ Let's fix that by placing all Backup Files in the temp directory, that's ~/tmp~ 
   (setq-default inhibit-startup-screen t)
   (setq inhibit-splash-screen t)
   (setq inhibit-startup-message t)
-  (setq initial-scratch-message "")
   (scroll-bar-mode -1)
   (tool-bar-mode -1)
   (tooltip-mode -1)
   (menu-bar-mode -1)
   (setq visible-bell nil)
+#+end_src
+
+** Set CoGiSystems scratch message
+#+begin_src emacs-lisp :tangle emacs.d/init.el
+  (setq initial-scratch-message (purecopy "\
+  ;; CoGiSystems emacs
+  ;; Remember to have fun :)
+
+  "))
 #+end_src
 
 ** Line numbers
@@ -125,6 +140,12 @@ Use relative line numbers:
 They should be active when in ~prog-mode~:
 #+begin_src emacs-lisp :tangle emacs.d/init.el
   (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+#+end_src
+
+** Tiling WM
+Emacs will, by default, size its window by charactes, since this usually doesn't fit to an exact pixel size, it might cause Tiling WMs to display unnecessary gaps. Let's fix it!
+#+begin_src emacs-lisp :tangle emacs.d/init.el
+  (setq frame-resize-pixelwise t)
 #+end_src
 
 ** Highlighters
@@ -188,8 +209,26 @@ In ~prog-mode~ there should be autoparens, whilst in ~org-mode~ and ~text-mode~ 
 * Keybindings
 ** General
 #+begin_src emacs-lisp :tangle emacs.d/init.el
-    (use-package general
-  :config ())
+  (use-package general
+    :config ())
+#+end_src
+
+* Eshell
+When Eshell is killed, delete its window (unless it's the only one):
+#+begin_src emacs-lisp :tangle emacs.d/init.el
+  (advice-add 'eshell-life-is-too-much
+	      :after #'(lambda ()
+			 (unless (one-window-p)
+			   (delete-window))))
+#+end_src
+
+I should be able to create a virtual terminal with one keystroke.
+#+begin_src emacs-lisp :tangle emacs.d/init.el
+  (defun split-eshell ()
+    "Create a split window below the current one, with an eshell"
+    (interactive)
+    (select-window (split-window-below))
+    (eshell))
 #+end_src
 
 * Packages
@@ -228,6 +267,14 @@ In ~prog-mode~ there should be autoparens, whilst in ~org-mode~ and ~text-mode~ 
   (use-package org)
 #+end_src
 
+When visiting an org config file Emacs should be asking if tangle on save.
+#+begin_src emacs-lisp :tangle emacs.d/init.el
+  (add-hook 'after-save-hook (lambda ()
+			       (when (and (string-equal (buffer-name) "config.org")
+					  (y-or-n-p "Tangle?"))
+				 (org-babel-tangle))))
+#+end_src
+
 ** Magit
 #+begin_src emacs-lisp :tangle emacs.d/init.el
   (use-package magit)
@@ -237,8 +284,8 @@ In ~prog-mode~ there should be autoparens, whilst in ~org-mode~ and ~text-mode~ 
 Emulate vim bindings in Emacs, set ~evil-want-keybinding~ to ~nil~ for https://github.com/emacs-evil/evil-collection/issues/60.
 
 #+begin_src emacs-lisp :tangle emacs.d/init.el
+  (setq evil-want-keybinding nil)
   (use-package evil
-    :config (setq evil-want-keybinding nil)
     :init (evil-mode 1))
 #+end_src
 
@@ -251,7 +298,8 @@ Add evil collection:
 
 ** Company
 #+begin_src emacs-lisp :tangle emacs.d/init.el
-  (use-package company)
+  (use-package company
+    :init (global-company-mode))
 #+end_src
 
 ** Languages

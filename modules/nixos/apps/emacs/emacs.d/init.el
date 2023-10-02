@@ -1,17 +1,5 @@
-(defvar is-nix (getenv "NIX_EMACS")
-  "If non-nil then consider emacs as configured by Nix Emacs Overlay")
-
-(defvar language-list nil
-  "The list of programming languages supported by this config that are manually managed  (if `is-nix' is non-nil then you can, and actually should, manage your programming languages with nix)")
-
-(defun is-language-active (lang) 
-  (or (and is-nix (getenv (concat "NIX_LANG_" (upcase lang))))
-      (member lang language-list)))
-
-(defun add-multiple-hooks (hooks fun)
-  "Add function to multiple hooks"
-  (dolist (hook hooks)
-    (add-hook hook fun)))
+(when is-nix
+  (setq user-emacs-directory "~/emacs.d"))
 
 (unless is-nix
   (require 'package)
@@ -42,16 +30,23 @@
 (setq-default inhibit-startup-screen t)
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
-(setq initial-scratch-message "")
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (tooltip-mode -1)
 (menu-bar-mode -1)
 (setq visible-bell nil)
 
+(setq initial-scratch-message (purecopy "\
+;; CoGiSystems emacs
+;; Remember to have fun :)
+
+"))
+
 (setq display-line-numbers-type 'relative)
 
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+
+(setq frame-resize-pixelwise t)
 
 (global-goto-address-mode)
 
@@ -78,7 +73,18 @@
 (add-multiple-hooks '(org-mode-hook text-mode-hook) 'visual-line-mode)
 
 (use-package general
-:config ())
+  :config ())
+
+(advice-add 'eshell-life-is-too-much
+	    :after #'(lambda ()
+		       (unless (one-window-p)
+			 (delete-window))))
+
+(defun split-eshell ()
+  "Create a split window below the current one, with an eshell"
+  (interactive)
+  (select-window (split-window-below))
+  (eshell))
 
 (use-package counsel)
 (use-package swiper) 
@@ -109,17 +115,23 @@
 
 (use-package org)
 
+(add-hook 'after-save-hook (lambda ()
+			     (when (and (string-equal (buffer-name) "config.org")
+					(y-or-n-p "Tangle?"))
+			       (org-babel-tangle))))
+
 (use-package magit)
 
+(setq evil-want-keybinding nil)
 (use-package evil
-  :config (setq evil-want-keybinding nil)
   :init (evil-mode 1))
 
 (use-package evil-collection
   :after evil
   :init (evil-collection-init))
 
-(use-package company)
+(use-package company
+  :init (global-company-mode))
 
 (when is-nix
   (use-package nix-mode
