@@ -94,10 +94,6 @@ in
         VIDEOS=media/videos
       '';
 
-      system.userActivationScripts.updateUserDirs = ''
-      ${pkgs.xdg-user-dirs}/bin/xdg-user-dirs-update --force
-      touch $HOME/test
-      mkdir -p $HOME/reps'';
 
     };
   }
