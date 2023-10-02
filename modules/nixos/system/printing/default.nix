@@ -14,6 +14,7 @@ in
     config = mkMerge [
       (mkIf cfg.enable {
         services.printing.enable = true;
+        services.printing.drivers = [ pkgs.gutenprint ];
 
         services.saned.enable = true;
         hardware.sane.enable = true;
