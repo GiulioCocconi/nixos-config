@@ -17,7 +17,6 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1695511445,
         "narHash": "sha256-mnE14re43v3/Jc50Jv0BKPMtEk7FEtDSligP6B5HwlI=",
         "rev": "3de322e06fc88ada5e3589dc8a375b73e749f512",
         "revCount": 411,
