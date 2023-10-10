@@ -52,7 +52,7 @@ Here there are some misc utils (functions or vars).
     "Add function to multiple hooks"
     (dolist (hook hooks)
       (add-hook hook fun)))
-    #+end_src
+#+end_src
 
 * ~user-emacs-directory~
 When using Nix, in order to preserve reproducibility, the ~user-emacs-directory~ variable is set to ~/etc/emacs.d~. When the config is loaded ~$HOME/.emacs.d~ should be used in order to avoid write permission errors.
@@ -62,7 +62,7 @@ When using Nix, in order to preserve reproducibility, the ~user-emacs-directory~
 #+end_src
 
 * Packages setup
-If the config isn't managed by Nix then download Melpa, Elpa and Org archives. If it's using Nix then packages should be managed by emacs-overlay's ~emacsWithPackagesFromUsePackage~ ( see https://github.com/nix-community/emacs-overlay ).
+If the config isn't managed by Nix then download Melpa, Elpa and Org archives. If it's using Nix then packages should be managed by emacs-overlay's ~emacsWithPackagesFromUsePackage~ ( see https://github.com/nix-community/emacs-overlay).
 
 #+begin_src emacs-lisp :tangle emacs.d/init.el
   (unless is-nix
@@ -83,6 +83,16 @@ If it's not on a Linux Platform then we should actually install ~use-package~:
     (package-install 'use-package))
 #+end_src
 
+Let's always ensure packages are present:
+#+begin_src emacs-lisp :tangle emacs.d/init.el
+  (setq use-package-always-ensure t)
+#+end_src
+
+Let's enable AOT compilation when is not managed by Nix:
+#+begin_src emacs-lisp :tangle emacs.d/init.el
+  (unless is-nix
+    (setq package-native-compile t))
+#+end_src
 
 Then we can require and configure it:
 #+begin_src emacs-lisp :tangle emacs.d/init.el
@@ -155,29 +165,18 @@ Emacs will, by default, size its window by charactes, since this usually doesn't
 #+end_src
 
 ** Highlighters
-*** goto-address-mode
-Use ~goto-address-mode~ to highlight internet and mail addresses.
-BUG: (https://google.com)
-
-#+begin_src emacs-lisp :tangle emacs.d/init.el
-  (global-goto-address-mode)
-#+end_src
-
-Set the addresses to be displayed in italic and underlined.
-
-#+begin_src emacs-lisp :tangle emacs.d/init.el
-  (setq goto-address-url-face 'ansi-color-italic
-	goto-address-url-mouse-face 'ansi-color-underline
-	goto-address-mail-face 'ansi-color-italic
-	goto-address-mail-mouse-face 'ansi-color-underline)
-#+end_src
-
 *** hl-todo
-Use ~hl-todo~ to underline certain comment's tags, enable it in ~prog-mode~ and ~org-mode~.
-
+Use ~hl-todo~ to highlight certain comment's tags, enable it in ~prog-mode~ and ~org-mode~.
 #+begin_src emacs-lisp :tangle emacs.d/init.el
   (use-package hl-todo
-    :hook ((prog-mode org-mode) . hl-todo-mode)
+    :hook ((prog-mode org-mode) . hl-todo-mode))
+#+end_src
+
+*** highlight-numbers
+Use ~highlight-numbers~ to highlight numbers literals, enable it in ~prog-mode~.
+#+begin_src emacs-lisp :tangle emacs.d/init.el
+  (use-package highlight-numbers
+    :hook (prog-mode . highlight-numbers-mode))
 #+end_src
 
 ** Fonts & theme
@@ -200,8 +199,10 @@ Use ~doom-one~ as default theme:
     (doom-themes-org-config))
 #+end_src
 
+
+
 ** Misc
-In ~prog-mode~ there should be autoparens, whilst in ~org-mode~ and ~text-mode~ visual-line-mode should be enabled.
+In ~prog-mode~ there should be autoparens, whilst in ~org-mode~ and ~text-mode~ visual-line-mode should be enabled (in order not to truncate lines).
 
 #+begin_src emacs-lisp :tangle emacs.d/init.el
   (add-hook 'prog-mode-hook 'electric-pair-mode)
@@ -209,17 +210,38 @@ In ~prog-mode~ there should be autoparens, whilst in ~org-mode~ and ~text-mode~ 
 #+end_src
 
 * Keybindings
-** General
-#+begin_src emacs-lisp :tangle emacs.d/init.el
-  (use-package general
-    :config ())
-#+end_src
-
 ** which-key
 #+begin_src emacs-lisp :tangle emacs.d/init.el
   (use-package which-key
     :init (which-key-mode))
 #+end_src
+
+** General
+Use ~SPC~ as leader key (like Spacemacs does) and bind some useful commands.
+#+begin_src emacs-lisp :tangle emacs.d/init.el
+  (use-package general
+    :config
+    (general-evil-setup t)
+
+    (general-create-definer leader-key-definer
+      :keymaps '(normal insert visual emacs)
+      :prefix "SPC"
+      :global-prefix "C-SPC")
+
+    (leader-key-definer
+      "SPC" '(counsel-M-x :which-key "execute command")
+      "."   'repeat
+      "f"   '(:ignore t :which-key "Files")
+      "ff"  'find-file
+      "b"   '(:ignore t :which-key "Buffers")
+      "bk"  'kill-buffer
+      "bi"  'ibuffer
+      "w"   '(:ignore t :which-key "Windows")
+      "ws"  'split-window-below
+      "wv"  'split-window-horizontally
+      "ww"  '(other-window :which-key "cycle")))
+#+end_src
+
 * Eshell
 When Eshell is killed, delete its window (unless it's the only one):
 #+begin_src emacs-lisp :tangle emacs.d/init.el
@@ -229,7 +251,6 @@ When Eshell is killed, delete its window (unless it's the only one):
 			   (delete-window))))
 #+end_src
 
-I should be able to create a virtual terminal with one keystroke.
 #+begin_src emacs-lisp :tangle emacs.d/init.el
   (defun split-eshell ()
     "Create a split window below the current one, with an eshell"
@@ -248,7 +269,6 @@ I should be able to create a virtual terminal with one keystroke.
     :after counsel
     :bind (("C-c C-r" . ivy-resume)
 	   ("M-x" . counsel-M-x)
-	   ("C-x C-f" . counsel-find-file)
 	   ("<f1> f" . counsel-describe-function)
 	   ("<f1> v" . counsel-describe-variable)
 	   ("<f1> o" . counsel-describe-symbol)
@@ -263,7 +283,7 @@ I should be able to create a virtual terminal with one keystroke.
     :config
     (setq ivy-use-virtual-buffers t)
     (setq enable-recursive-minibuffers t)
-    (setq search-default-mode #'char-fold-to-regexp)
+    (setq search-default-mode #'char-fold-to-regexp))
 #+end_src
 
 ** Org
@@ -271,7 +291,7 @@ I should be able to create a virtual terminal with one keystroke.
   (use-package org)
 #+end_src
 
-When visiting an org config file Emacs should be asking if tangle on save.
+When saving an org config file Emacs should be asking if tangle.
 #+begin_src emacs-lisp :tangle emacs.d/init.el
   (add-hook 'after-save-hook (lambda ()
 			       (when (and (string-equal (buffer-name) "config.org")
@@ -304,12 +324,14 @@ Add evil collection:
 #+begin_src emacs-lisp :tangle emacs.d/init.el
   (use-package company
     :init (global-company-mode))
+
+  (use-package company-quickhelp
+    :init (company-quickhelp-mode))
 #+end_src
 
 ** Helpful
 #+begin_src emacs-lisp :tangle emacs.d/init.el
-  (use-package helpful
-    )
+  (use-package helpful)
 #+end_src
 
 ** Languages

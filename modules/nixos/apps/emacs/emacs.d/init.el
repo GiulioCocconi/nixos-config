@@ -15,6 +15,11 @@
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
+(setq use-package-always-ensure t)
+
+(unless is-nix
+  (setq package-native-compile t))
+
 (require 'use-package)
 (setq use-package-always-ensure t)
 
@@ -49,15 +54,11 @@
 
 (setq frame-resize-pixelwise t)
 
-(global-goto-address-mode)
-
-(setq goto-address-url-face 'ansi-color-italic
-      goto-address-url-mouse-face 'ansi-color-underline
-      goto-address-mail-face 'ansi-color-italic
-      goto-address-mail-mouse-face 'ansi-color-underline)
-
 (use-package hl-todo
   :hook ((prog-mode org-mode) . hl-todo-mode))
+
+(use-package highlight-numbers
+  :hook (prog-mode . highlight-numbers-mode))
 
 (set-face-attribute 'default nil :font "Iosevka Nerd Font" :height 130)
 
@@ -74,11 +75,30 @@
 (add-hook 'prog-mode-hook 'electric-pair-mode)
 (add-multiple-hooks '(org-mode-hook text-mode-hook) 'visual-line-mode)
 
-(use-package general
-  :config ())
-
 (use-package which-key
   :init (which-key-mode))
+
+(use-package general
+  :config
+  (general-evil-setup t)
+
+  (general-create-definer leader-key-definer
+    :keymaps '(normal insert visual emacs)
+    :prefix "SPC"
+    :global-prefix "C-SPC")
+
+  (leader-key-definer
+    "SPC" '(counsel-M-x :which-key "execute command")
+    "."   'repeat
+    "f"   '(:ignore t :which-key "Files")
+    "ff"  'find-file
+    "b"   '(:ignore t :which-key "Buffers")
+    "bk"  'kill-buffer
+    "bi"  'ibuffer
+    "w"   '(:ignore t :which-key "Windows")
+    "ws"  'split-window-below
+    "wv"  'split-window-horizontally
+    "ww"  '(other-window :which-key "cycle")))
 
 (advice-add 'eshell-life-is-too-much
 	    :after #'(lambda ()
@@ -92,13 +112,12 @@
   (eshell))
 
 (use-package counsel)
-(use-package swiper)
+(use-package swiper) 
 (use-package ivy
   :init (ivy-mode)
   :after counsel
   :bind (("C-c C-r" . ivy-resume)
 	 ("M-x" . counsel-M-x)
-	 ("C-x C-f" . counsel-find-file)
 	 ("<f1> f" . counsel-describe-function)
 	 ("<f1> v" . counsel-describe-variable)
 	 ("<f1> o" . counsel-describe-symbol)
@@ -135,8 +154,10 @@
 (use-package company
   :init (global-company-mode))
 
-(use-package helpful
-  )
+(use-package company-quickhelp
+  :init (company-quickhelp-mode))
+
+(use-package helpful)
 
 (when (is-language-active "nix")
   (use-package nix-mode
