@@ -34,7 +34,7 @@ with lib.cogisys;
     userName = "giulio";
     fullName = "G. Cocconi";
     isAdmin = true;
-    packages = with pkgs; [ obsidian ];
+    packages = with pkgs; [ obsidian racket ];
   }];
 
   system.stateVersion = "23.05";
