@@ -46,13 +46,13 @@ in
       })
       (mkIf (cfg.enable && cfg.languages.cpp.enable) {
         environment.variables.NIX_LANG_CPP = "enabled";
-        environment.systemPackages = with pkgs; [cmake] ++ optionals (cfg.languages.cpp.toolchain == "Clang")
-        [clang_15 lldb_15]
-        ++ optionals (cfg.languages.cpp.toolchain == "GCC") [gcc_13 gdb];
+        environment.systemPackages = with pkgs; [cmake]
+          ++ optionals (cfg.languages.cpp.toolchain == "Clang") [clang_16 lldb_16]
+          ++ optionals (cfg.languages.cpp.toolchain == "GCC") [gcc_13 gdb];
       })
       (mkIf (cfg.enable && cfg.languages.llvm.enable) {
         environment.variables.NIX_LANG_LLVM = "enabled";
-        environment.systemPackages = with pkgs.llvmPackages_15; [libllvm];
+        environment.systemPackages = with pkgs.llvmPackages_16; [libllvm];
       })
       (mkIf (cfg.enable && cfg.languages.python.enable) {
         environment.variables.NIX_LANG_PYTHON = "enabled";
