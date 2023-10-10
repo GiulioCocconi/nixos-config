@@ -33,11 +33,11 @@ in
     config = mkMerge [
       (mkIf cfg.enable {
         environment.systemPackages = with pkgs; [
-          # ix
           difftastic
           strace
           ltrace
           lsof
+          gnumake
         ];
 
         environment.shellAliases.ix = "curl -F 'f:1=<-' ix.io";
