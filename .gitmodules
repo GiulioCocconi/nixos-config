@@ -1,0 +1,3 @@
+[submodule "modules/nixos/awesome/config"]
+	path = modules/nixos/awesome/config
+	url = https://github.com/GiulioCocconi/awesomewm
