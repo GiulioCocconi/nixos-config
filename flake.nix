@@ -16,6 +16,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    awesome-config = {
+      url = "github:GiulioCocconi/awesomewm";
+      flake = false;
+    };
+
       # deploy-rs = {
       # url = "github:serokell/deploy-rs";
       # inputs.nixpkgs.follows = "unstable";
