@@ -30,7 +30,7 @@ in
         "BookmarkBarEnabled" = 1;
         "ExtensionInstallForcelist" = [
           "cjpalhdlnbpafiamejdnhcphjbkeiagm" # Ublock Origin
-          "djlgdeklopcjagknhlchbdjekgpgenad" # Dark theme
+          "emffkefkbkpkgpdeeooapgaicgmcbolj" # Wikiwand
         ];
         "ManagedBookmarks" = [{ toplevel_name = "CoGiSys Bookmarks"; }]
         ++ optionals cfg.addNixOSBookmarks [{
