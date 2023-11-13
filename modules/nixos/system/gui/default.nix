@@ -35,6 +35,8 @@ in
       ] ++ optionals (!virtualmachine.enable) [
         mpv
         libreoffice-fresh
+        gnome.nautilus
+        mate.eom
         flameshot
       ] ++ optionals (networking.enable) [element-desktop];
 
