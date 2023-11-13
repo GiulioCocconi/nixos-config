@@ -16,6 +16,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    emacs-config = {
+      url = "github:GiulioCocconi/cemacs";
+      flake = false;
+    };
+
     awesome-config = {
       url = "github:GiulioCocconi/awesomewm";
       flake = false;

@@ -36,6 +36,22 @@
         "type": "github"
       }
     },
+    "emacs-config": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1699912392,
+        "narHash": "sha256-lLJ84vShKQzUDXNBn2XsF2zWjJPFCl5YJLQ6CeITe0Y=",
+        "owner": "GiulioCocconi",
+        "repo": "cemacs",
+        "rev": "8e62f3c073aee718e2ed4e8fb3f8712442b47219",
+        "type": "github"
+      },
+      "original": {
+        "owner": "GiulioCocconi",
+        "repo": "cemacs",
+        "type": "github"
+      }
+    },
     "emacs-overlay": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -45,11 +61,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1699781857,
-        "narHash": "sha256-0KFhWECrnADm/VKrB53BgT/3LD+jMJG1vVG+dQng+rk=",
+        "lastModified": 1699897167,
+        "narHash": "sha256-pe8oBaI3w7QhmruPKuqpWPS0Q22Z4TLETpf9/ET4f3M=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "574004568151819a92d44728614334e91a16c2c3",
+        "rev": "df15eee224e887ad80534d27f25d25adaaae4512",
         "type": "github"
       },
       "original": {
@@ -177,11 +193,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1699291058,
-        "narHash": "sha256-5ggduoaAMPHUy4riL+OrlAZE14Kh7JWX4oLEs22ZqfU=",
+        "lastModified": 1699596684,
+        "narHash": "sha256-XSXP8zjBZJBVvpNb2WmY0eW8O2ce+sVyj1T0/iBRIvg=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "41de143fda10e33be0f47eab2bfe08a50f234267",
+        "rev": "da4024d0ead5d7820f6bd15147d3fe2a0c0cec73",
         "type": "github"
       },
       "original": {
@@ -195,6 +211,7 @@
       "inputs": {
         "awesome-config": "awesome-config",
         "disko": "disko",
+        "emacs-config": "emacs-config",
         "emacs-overlay": "emacs-overlay",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
