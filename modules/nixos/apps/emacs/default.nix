@@ -1,12 +1,11 @@
-{config, options, lib, pkgs, ...}:
+{config, options, lib, pkgs, inputs, ...}:
 with lib;
 with lib.cogisys;
 
 let
   cfg = config.cogisys.emacs;
 
-  # TODO: Use flake input in order to host the config in a GH repository.
-  configDir = ./emacs.d;
+  configDir = "${inputs.emacs-config.outPath}/emacs.d";
   
   myEmacs = pkgs.emacsWithPackagesFromUsePackage {
     package = pkgs.emacs-unstable;
@@ -24,7 +23,10 @@ in
 
     assertions = [(mkAssertion (builtins.pathExists configDir)
       "Emacs config dir (${configDir}) couldn't be found")];
-    
+
+    # TODO: Avoid using /etc/emacs.d/. You should use the input dir
+    # (change also is-pure-nix check in the org file)
+
     environment.etc."emacs.d".source = configDir;
 
     environment.systemPackages = [
