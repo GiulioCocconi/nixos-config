@@ -25,6 +25,7 @@ in
         asymptote
         libqalculate
         inkscape-with-extensions
+        sioyek
         texmacs
       ] ++ optionals (!light.storage) [
         sage
