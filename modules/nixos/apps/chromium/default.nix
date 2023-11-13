@@ -19,6 +19,9 @@ in
       (mkAssertionModule gui "GUI" "Chromium")
     ];
 
+
+    environment.variables.BROWSER = "chromium";
+
     programs.chromium = {
       enable = true;
       extraOpts = { # https://chromeenterprise.google/policies/
@@ -83,7 +86,5 @@ in
         ];
       };
     };
-
-
   };
 }
