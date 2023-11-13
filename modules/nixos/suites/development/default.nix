@@ -2,8 +2,6 @@
 with lib;
 with lib.cogisys;
 
-# TODO: Aggiungere funzione helper per nuovi linguaggi
-
 let
   cfg = config.cogisys.suites.development;
 in
@@ -43,6 +41,8 @@ in
         environment.shellAliases.ix = "curl -F 'f:1=<-' ix.io";
 
         cogisys.tools.git.useOauth = true;
+
+        documentation.dev.enable = true;
       })
       (mkIf (cfg.enable && cfg.languages.cpp.enable) {
         environment.variables.NIX_LANG_CPP = "enabled";
