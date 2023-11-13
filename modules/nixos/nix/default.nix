@@ -29,25 +29,30 @@ in
 
         };
 
-        gc.automatic = true;
-        gc.dates = "weekly";
 
-        gc.options = if light.memory
-          then"-d"
-          else "--delete-older-than 30d";
+        gc = {
+          automatic = true;
+          dates = "weekly";
+
+          options = if light.memory
+            then"-d"
+            else "--delete-older-than 30d";
+
+        };
 
         channel.enable = false; # Channels are evil!
       };
 
 
       environment.systemPackages = with pkgs; [
-       snowfallorg.flake
+        snowfallorg.flake
         nixbang
         nix-melt
         vulnix
         nix-output-monitor
       ];
 
+      documentation.nixos.enable = false;
       environment.variables.NIXPKGS_ALLOW_UNFREE = "1";
     };
   }
