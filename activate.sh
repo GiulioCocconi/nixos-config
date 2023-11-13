@@ -6,7 +6,7 @@ git pull 2> /dev/null
 
 if [[ $1 == "--upgrade" ]]; then
 	nix flake update
-	git add flake.lock
+	git add flake.lock flake.nix
 	git commit -m "Updated"
 fi
 
