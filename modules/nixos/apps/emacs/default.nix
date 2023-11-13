@@ -4,28 +4,37 @@ with lib.cogisys;
 
 let
   cfg = config.cogisys.emacs;
+
+  # TODO: Use flake input in order to host the config in a GH repository.
+  configDir = ./emacs.d;
+  
   myEmacs = pkgs.emacsWithPackagesFromUsePackage {
     package = pkgs.emacs-unstable;
-
-    config = ./emacs.d/init.el;
+    config = "${configDir}/init.el";
     defaultInitFile = false;
     alwaysEnsure = true;
   };
 in
-  {
-    options.cogisys.emacs = with types; {
-      enable = mkEnableOption "emacs";
-    };
+{
+  options.cogisys.emacs = with types; {
+    enable = mkEnableOption "emacs";
+  };
 
-    # TODO: Use org config instead!
-    config = mkIf cfg.enable {
-      environment.systemPackages = [
-        (pkgs.writeShellScriptBin "cemacs" "${myEmacs}/bin/emacs --init-directory /etc/emacs.d $@")
-      ];
+  config = mkIf cfg.enable {
 
+    assertions = [(mkAssertion (builtins.pathExists configDir)
+      "Emacs config dir (${configDir}) couldn't be found")];
+    
+    environment.etc."emacs.d".source = configDir;
 
-      environment.etc."emacs.d".source = ./emacs.d;
-      environment.shellAliases.emacs = "emacs --init-directory /etc/emacs.d";
-      environment.variables.NIX_EMACS = "TRUE";
-    };
-  }
+    environment.systemPackages = [
+      myEmacs
+      
+      # Emacs >= 29.1 required!
+      (pkgs.writeShellScriptBin "cemacs"
+        "${myEmacs}/bin/emacs --init-directory /etc/emacs.d $@")
+    ];
+
+    environment.variables.NIX_EMACS = "TRUE";
+  };
+}
