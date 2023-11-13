@@ -43,6 +43,7 @@ in
             { name = "The Nix hour"; url = "youtube.com/playlist?list=PLyzwHTVJlRc8yjlx4VR4LU5A5O44og9in"; }
             { name = "Twaeg"; url = "tweag.io"; }
             { name = "Determinate Systems"; url = "determinate.systems"; }
+            { name = "Nix Versions"; url = "lazamar.co.uk/nix-versions"; }
           ];
         }] ++ optionals cfg.addMathBookmarks [
           { name = "Math"; children = [
