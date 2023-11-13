@@ -34,7 +34,7 @@ with lib.cogisys;
     userName = "giulio";
     fullName = "G. Cocconi";
     isAdmin = true;
-    packages = with pkgs; [ obsidian racket ];
+    packages = with pkgs; [ racket mathematica libsForQt5.kdenlive ];
   }];
 
   system.stateVersion = "23.05";
