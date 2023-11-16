@@ -13,7 +13,6 @@ with lib.cogisys;
     suites = {
       common = enabled;
       development = enabled;
-      scientificWriting = enabled;
     };
 
     system.networking.wifi = enabled;
