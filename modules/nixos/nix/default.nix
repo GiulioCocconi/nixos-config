@@ -29,7 +29,6 @@ in
 
         };
 
-
         gc = {
           automatic = true;
           dates = "weekly";
@@ -40,7 +39,12 @@ in
 
         };
 
-        channel.enable = false; # Channels are evil!
+        # Channels are evil! Use `nixpkgs` from flake inputs
+        channel.enable = false;
+        nixPath = [
+          "nixpkgs=${pkgs.path}"
+        ];
+
       };
 
 
