@@ -3,7 +3,7 @@ with lib;
 with lib.cogisys;
 
 let
-  cfg = config.cogisys.emacs;
+  cfg = config.cogisys.apps.emacs;
 
   configDir = "${inputs.emacs-config.outPath}/emacs.d";
   
@@ -15,7 +15,7 @@ let
   };
 in
 {
-  options.cogisys.emacs = with types; {
+  options.cogisys.apps.emacs = with types; {
     enable = mkEnableOption "emacs";
   };
 

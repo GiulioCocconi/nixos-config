@@ -24,8 +24,7 @@ with lib.cogisys;
 
     system.networking.wifi = enabled;
 
-    emacs = enabled;
-
+    apps.emacs = enabled;
     system.gui = enabled;
 
   };
