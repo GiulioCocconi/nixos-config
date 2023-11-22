@@ -32,6 +32,7 @@ in
         gnome.adwaita-icon-theme
         zathura
         chromium
+        qpdf
       ] ++ optionals (!virtualmachine.enable) [
         mpv
         libreoffice-fresh
