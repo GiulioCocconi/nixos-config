@@ -27,14 +27,10 @@ in
     # TODO: Avoid using /etc/emacs.d/. You should use the input dir
     # (change also is-pure-nix check in the org file)
 
-    environment.etc."emacs.d".source = configDir;
-
     environment.systemPackages = [
-      myEmacs
-      
       # Emacs >= 29.1 required!
       (pkgs.writeShellScriptBin "cemacs"
-        "${myEmacs}/bin/emacs --init-directory /etc/emacs.d $@")
+        "EMACS_PURE=TRUE ${myEmacs}/bin/emacs --init-directory ${configDir} $@")
     ];
 
     environment.variables.NIX_EMACS = "TRUE";
