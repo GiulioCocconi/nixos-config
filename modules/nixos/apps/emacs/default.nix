@@ -31,6 +31,7 @@ in
       # Emacs >= 29.1 required!
       (pkgs.writeShellScriptBin "cemacs"
         "EMACS_PURE=TRUE ${myEmacs}/bin/emacs --init-directory ${configDir} $@")
+      myEmacs # Required in order to load impure configs
     ];
 
     environment.variables.NIX_EMACS = "TRUE";
