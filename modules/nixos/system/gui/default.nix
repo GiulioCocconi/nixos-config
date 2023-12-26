@@ -30,11 +30,11 @@ in
 
       environment.systemPackages = with pkgs; [
         gnome.adwaita-icon-theme
-        zathura
         chromium
-        qpdf
       ] ++ optionals (!virtualmachine.enable) [
         mpv
+        zathura
+        qpdf
         libreoffice-fresh
         gnome.nautilus
         mate.eom
