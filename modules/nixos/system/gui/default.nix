@@ -39,7 +39,11 @@ in
         gnome.nautilus
         mate.eom
         flameshot
-      ] ++ optionals (networking.enable) [element-desktop];
+      ] ++ optionals (!virtualmachine.enable && networking.enable) [
+        element-desktop
+        filezilla
+        thunderbird
+      ];
 
       qt.style = "adwaita-dark";
 

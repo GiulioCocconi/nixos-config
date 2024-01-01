@@ -13,6 +13,12 @@ in
     };
     config = mkMerge [
       (mkIf cfg.enable {
+
+        environment.systemPackages = with pkgs; [
+          curlftpfs
+          inetutils
+        ];
+
         networking = {
           networkmanager.enable = true;
           firewall.enable = true;
