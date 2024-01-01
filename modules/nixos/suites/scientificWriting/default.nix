@@ -28,7 +28,7 @@ in
         sioyek
         texmacs
       ] ++ optionals (!light.storage) [
-        sage
+        # sage
       ];
       cogisys.apps.chromium.addMathBookmarks = true;
 
