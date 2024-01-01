@@ -4,12 +4,18 @@ with lib.cogisys;
 
 let
   cfg = config.cogisys.apps.emacs;
-
-  configDir = "${inputs.emacs-config.outPath}/emacs.d";
+  
+  configDrv = pkgs.stdenv.mkDerivation {
+    name = "cemacs-config";
+    src = inputs.emacs-config.outPath;
+    buildInputs = [ pkgs.emacs ];
+    buildPhase = "emacs --batch -l org config.org -f org-babel-tangle";
+    installPhase = "cp -r emacs.d $out";
+  };
   
   myEmacs = pkgs.emacsWithPackagesFromUsePackage {
     package = pkgs.emacs-unstable;
-    config = "${configDir}/init.el";
+    config = "${configDrv.outPath}/init.el";
     defaultInitFile = false;
     alwaysEnsure = true;
   };
@@ -19,18 +25,16 @@ in
     enable = mkEnableOption "emacs";
   };
 
+  # TODO: Use the org file as SSOT, avoid using configDir. The config
+  #       should be generated *ONLY* from the org file when the flake
+  #       downloads emacs-config input.
+  
   config = mkIf cfg.enable {
-
-    assertions = [(mkAssertion (builtins.pathExists configDir)
-      "Emacs config dir (${configDir}) couldn't be found")];
-
-    # TODO: Avoid using /etc/emacs.d/. You should use the input dir
-    # (change also is-pure-nix check in the org file)
 
     environment.systemPackages = [
       # Emacs >= 29.1 required!
       (pkgs.writeShellScriptBin "cemacs"
-        "EMACS_PURE=TRUE ${myEmacs}/bin/emacs --init-directory ${configDir} $@")
+        "EMACS_PURE=TRUE ${myEmacs}/bin/emacs --init-directory ${configDrv.outPath} $@")
       myEmacs # Required in order to load impure configs
     ];
 
