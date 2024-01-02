@@ -3,10 +3,10 @@ with lib;
 with lib.cogisys;
 
 let
-  cfg = config.cogisys.suites.common;
+  cfg = config.cogisys.common;
 in
   {
-    options.cogisys.suites.common = with types; {
+    options.cogisys.common = with types; {
       enable = mkBoolOpt true "Enable common configuration.";
     };
 
@@ -31,6 +31,8 @@ in
         xdg-user-dirs
       ];
 
+      programs.nano.enable = mkDefault false;
+
       programs.neovim = {
         enable = true;
         defaultEditor = true;
@@ -39,7 +41,7 @@ in
       hardware.bluetooth.enable = true;
       hardware.enableRedistributableFirmware = true;
 
-      boot.kernelPackages = pkgs.linuxPackages_zen;
+      boot.kernelPackages = mkDefault pkgs.linuxPackages_zen;
 
       services.udisks2.enable = true;
 

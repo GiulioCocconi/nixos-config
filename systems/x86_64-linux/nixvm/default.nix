@@ -10,10 +10,7 @@ with lib.cogisys;
 
     virtualmachine = enabled;
 
-    suites = {
-      common = enabled;
-      development = enabled;
-    };
+    suites.development = enabled;
 
     system.networking.wifi = enabled;
     system.gui = enabled;

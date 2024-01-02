@@ -10,7 +10,6 @@ with lib.cogisys;
     raspberry = enabled;
 
     suites = {
-      common = enabled;
       development = enabled;
       scientificWriting = enabled;
     };

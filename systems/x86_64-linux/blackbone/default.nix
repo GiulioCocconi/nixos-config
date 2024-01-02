@@ -7,10 +7,7 @@ with lib.cogisys;
   imports = [ ./hardware.nix ];
 
   cogisys = {
-    suites = {
-      common = enabled;
-      scientificWriting = enabled;
-    };
+    suites.scientificWriting = enabled;
 
     suites.development = {
       enable = true;
