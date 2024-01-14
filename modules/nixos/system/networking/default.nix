@@ -20,7 +20,7 @@ in
         ];
 
         networking = {
-          networkmanager.enable = true;
+          # networkmanager.enable = true;
           firewall.enable = true;
           hostId = if (rootFS == "zfs") then
             builtins.substring 0 8 (builtins.readFile /etc/machine-id)
@@ -37,7 +37,7 @@ in
       (mkIf (cfg.enable && cfg.wifi.enable) {
         networking = {
           wireless.iwd.enable = true;
-          networkmanager.wifi.backend = "iwd";
+          # networkmanager.wifi.backend = "iwd";
         };
       })
     ];
