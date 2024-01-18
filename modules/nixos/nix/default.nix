@@ -36,7 +36,6 @@ in
           options = if light.memory
             then"-d"
             else "--delete-older-than 30d";
-
         };
 
         # Channels are evil! Use `nixpkgs` from flake inputs
@@ -44,9 +43,12 @@ in
         nixPath = [
           "nixpkgs=${pkgs.path}"
         ];
+        settings.nix-path = config.nix.nixPath;
 
       };
 
+      services.lorri.enable = true;
+      programs.direnv.enable = true;
 
       environment.systemPackages = with pkgs; [
         snowfallorg.flake
