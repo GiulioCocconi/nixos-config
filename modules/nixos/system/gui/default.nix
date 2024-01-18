@@ -33,7 +33,7 @@ in
         chromium
       ] ++ optionals (!virtualmachine.enable) [
         mpv
-        zathura
+        evince
         qpdf
         libreoffice-fresh
         gnome.nautilus
@@ -43,6 +43,7 @@ in
         element-desktop
         filezilla
         thunderbird
+        # nyxt
       ];
 
       qt.style = "adwaita-dark";
