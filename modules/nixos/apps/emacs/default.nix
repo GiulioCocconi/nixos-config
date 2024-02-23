@@ -31,13 +31,19 @@ in
 
   config = mkIf cfg.enable {
 
+    fonts.packages = with pkgs; [
+      (nerdfonts.override { fonts = [ "Iosevka" ]; })
+      (google-fonts.override { fonts = [ "CormorantGaramond" ]; })
+    ];
+    
     environment.systemPackages = [
-      # Emacs >= 29.1 required!
       (pkgs.writeShellScriptBin "cemacs"
         "EMACS_PURE=TRUE ${myEmacs}/bin/emacs --init-directory ${configDrv.outPath} $@")
       myEmacs # Required in order to load impure configs
     ];
 
-    environment.variables.NIX_EMACS = "TRUE";
+    environment.variables = {
+      NIX_EMACS = "TRUE";
+    };
   };
 }
