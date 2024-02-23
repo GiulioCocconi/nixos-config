@@ -4,7 +4,10 @@ with lib.cogisys;
 
 let
   cfg = config.cogisys.apps.emacs;
-  
+
+  # The ORG file in emacs-config input is the SSOT, the config
+  # is generated from that file using `configDrv`
+
   configDrv = pkgs.stdenv.mkDerivation {
     name = "cemacs-config";
     src = inputs.emacs-config.outPath;
@@ -12,7 +15,7 @@ let
     buildPhase = "emacs --batch -l org config.org -f org-babel-tangle";
     installPhase = "cp -r emacs.d $out";
   };
-  
+
   myEmacs = pkgs.emacsWithPackagesFromUsePackage {
     package = pkgs.emacs-unstable;
     config = "${configDrv.outPath}/init.el";
@@ -25,10 +28,7 @@ in
     enable = mkEnableOption "emacs";
   };
 
-  # TODO: Use the org file as SSOT, avoid using configDir. The config
-  #       should be generated *ONLY* from the org file when the flake
-  #       downloads emacs-config input.
-  
+
   config = mkIf cfg.enable {
 
     environment.systemPackages = [
