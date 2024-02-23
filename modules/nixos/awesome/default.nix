@@ -17,7 +17,6 @@ let
 
   configFlags = "--search ${configPath} -c ${configFile}";
   
-  
   luaModules = with pkgs.luajitPackages; [
     luarocks
     luautf8
@@ -29,6 +28,7 @@ in
     enable = mkBoolOpt false "Enable awesomewm.";
   };
 
+  
   config = mkIf cfg.enable {
     assertions = [
       (mkAssertionModule gui "GUI" "awesomewm")
@@ -37,6 +37,11 @@ in
     ];
 
     services.xserver.displayManager.sddm.enable = true;
+    
+    fonts.packages = with pkgs; [
+      (nerdfonts.override { fonts = [ "Iosevka" ]; })
+    ];
+    
     environment.systemPackages = with pkgs; [
       rofi
       udiskie
