@@ -8,7 +8,7 @@ with lib; rec {
         description = user.fullName;
         initialPassword = user.password or "";
 
-        extraGroups = [ "video" "audio" "networkmanager" ]
+        extraGroups = [ "video" "audio" ]
           ++ (optionals (user.isAdmin or false) [ "wheel" ])
           ++ (user.extraGroups or []);
 
