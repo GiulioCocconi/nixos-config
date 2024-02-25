@@ -20,12 +20,11 @@ in
 
       services.xserver = {
         enable = true;
-        layout = locale.keyboardLayout;
+        xkb.layout = locale.keyboardLayout;
       };
 
       fonts.packages = with pkgs; [
         (nerdfonts.override { fonts = [ "Iosevka" ]; })
-        (google-fonts.override { fonts = []; })
       ];
 
       environment.systemPackages = with pkgs; [

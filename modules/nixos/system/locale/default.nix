@@ -20,6 +20,5 @@ in
 
       i18n.defaultLocale = cfg.locale;
       console.keyMap = cfg.keyboardLayout;
-      services.xserver.layout = cfg.keyboardLayout;
     };
   }
