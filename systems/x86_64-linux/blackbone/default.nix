@@ -30,8 +30,10 @@ with lib.cogisys;
     userName = "giulio";
     fullName = "G. Cocconi";
     isAdmin = true;
-    packages = with pkgs; [ racket mathematica libsForQt5.kdenlive ];
+    packages = with pkgs; [ racket mathematica libsForQt5.kdenlive qucs-s ];
   }];
+
+  virtualisation.virtualbox.host.enable = true;
 
   system.stateVersion = "23.05";
 
