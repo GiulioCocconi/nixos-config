@@ -1,7 +1,7 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 with lib;
 
-stdenvNoCC.makeDerivation {
+pkgs.stdenvNoCC.mkDerivation {
   pname = "cormorantFonts";
   version = "unstable";
 
@@ -16,9 +16,9 @@ stdenvNoCC.makeDerivation {
 
   installPhase = ''
     INSTALL_DIR=$out/share/fonts/truetype/cormorant-fonts
-    mkdir -p $INSTALL_DIR 
+    mkdir -p $INSTALL_DIR
     cp Cormorant/fonts/ttf/*.ttf $INSTALL_DIR
 
   '';
-  
+
 }
