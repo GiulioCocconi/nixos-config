@@ -1,7 +1,10 @@
-{...}:
+{config, inputs, ...}:
+let
+  stable = import inputs.nixpkgs-stable { config = config.nixpkgs.config; };
+in
 final: prev: {
-
-  mathematica = prev.mathematica.override {
+  let stableMathematica = inputs.nixpkgs-stable.legacyPackages.${final.system}.mathematica; in
+  mathematica = stableMathematica.override {
     source = prev.requireFile {
       name = "Mathematica.sh";
       sha256 = "0rmrspvf1aqgpvl9g53xmibw28f83vzrrhw6dmfm4l7y05cr315y";
