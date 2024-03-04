@@ -43,13 +43,15 @@ in
       (pkgs.writeShellScriptBin "cemacs"
         ''
             EMACS_CMD="${myEmacs}/bin/emacs --init-directory ${emacsDir} $@"
-            ELISP_CMD="(message (get-vc-root \"$1\"))"
-            ROOT_PATH=$(emacs --batch --load ${emacsDir}/early-init.el --eval "$ELISP_CMD" 2>&1 | tail -1)
+            if [[ ! $1 =~ ^.*\/(default|shell).nix ]]; then
+                ELISP_CMD="(message (get-vc-root \"$1\"))"
+                ROOT_PATH=$(emacs --batch --load ${emacsDir}/early-init.el --eval "$ELISP_CMD" 2>&1 | tail -1)
 
-            if [ -e "$ROOT_PATH/shell.nix" ]; then
-               SHELL_FILE="$ROOT_PATH/shell.nix"
-            elif [ -e "$ROOT_PATH/default.nix" ]; then
-               SHELL_FILE="$ROOT_PATH/default.nix"
+                if [ -e "$ROOT_PATH/shell.nix" ]; then
+                  SHELL_FILE="$ROOT_PATH/shell.nix"
+                elif [ -e "$ROOT_PATH/default.nix" ]; then
+                  SHELL_FILE="$ROOT_PATH/default.nix"
+                fi
             fi
 
             if [[ $SHELL_FILE == "" ]]; then
