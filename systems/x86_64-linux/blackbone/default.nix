@@ -8,16 +8,7 @@ with lib.cogisys;
 
   cogisys = {
     suites.scientificWriting = enabled;
-
-    suites.development = {
-      enable = true;
-      languages = {
-        commonLisp = {
-          enable = true;
-          sbclPkgs = with pkgs.sbclPackages; [ kons-9 ];
-        };
-      };
-    };
+    suites.development = enabled;
 
     system.networking.wifi = enabled;
 
@@ -30,7 +21,7 @@ with lib.cogisys;
     userName = "giulio";
     fullName = "G. Cocconi";
     isAdmin = true;
-    packages = with pkgs; [ racket libsForQt5.kdenlive qucs-s ];
+    packages = with pkgs; [ mathematica racket libsForQt5.kdenlive qucs-s ];
   }];
 
   virtualisation.virtualbox.host.enable = true;
