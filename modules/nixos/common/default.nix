@@ -28,6 +28,7 @@ in
         pciutils
         usbutils
         udiskie
+        aria2
         xdg-user-dirs
       ];
 
