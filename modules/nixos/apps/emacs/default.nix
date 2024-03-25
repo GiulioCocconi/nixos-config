@@ -19,7 +19,6 @@ let
   emacsDir = configDrv.outPath;
 
   myEmacs = pkgs.emacsWithPackagesFromUsePackage {
-    package = pkgs.emacs-unstable;
     config = "${emacsDir}/init.el";
     defaultInitFile = false;
     alwaysEnsure = true;
@@ -43,7 +42,14 @@ in
       (pkgs.writeShellScriptBin "cemacs"
         ''
             EMACS_CMD="${myEmacs}/bin/emacs --init-directory ${emacsDir} $@"
+
+            # if there is a nix-shell environment in the project root directory
+            # then load cemacs in it.
+
+            # if you're editing a nix-shell file, ignore the environment, else
+            # figure out what the root dir is and load cemacs.
             if [[ ! $1 =~ ^.*\/(default|shell).nix ]]; then
+                # figure out the project root directory
                 ELISP_CMD="(message (get-vc-root \"$1\"))"
                 ROOT_PATH=$(emacs --batch --load ${emacsDir}/early-init.el --eval "$ELISP_CMD" 2>&1 | tail -1)
 
@@ -55,15 +61,19 @@ in
             fi
 
             if [[ $SHELL_FILE == "" ]]; then
-               EMACS_PURE=TRUE $EMACS_CMD
+               EMACS_PURE=TRUE setsid $EMACS_CMD &
             else
-               EMACS_PURE=TRUE nix-shell --run "$EMACS_CMD" $SHELL_FILE
+               EMACS_PURE=TRUE nix-shell --run "setsid $EMACS_CMD &" $SHELL_FILE
             fi
         '')
       myEmacs # Required in order to load impure configs
     ];
 
     environment.variables = {
+
+      # EMACS_PURE is not here since cemacs might be used in an impure configuration
+      # in this system
+
       NIX_EMACS = "TRUE";
     };
   };
