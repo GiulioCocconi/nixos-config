@@ -6,7 +6,7 @@ echo "Building CogiSystems configuration for host $(hostname) :)"
 
 if [[ $1 == "--upgrade" ]]; then
 
-    if ! git diff --quiet || ! git diff --cached --quiet; then
+    if ! git diff --staged --quiet; then
 		echo "Commit the changes before running an upgrade!"
         exit 1
     fi
