@@ -1,3 +1,9 @@
+# Copyright (c) 2024 Giulio Cocconi
+# SPDX-License-Identifier: MIT
+
+# Copyright (c) 2024 Giulio Cocconi
+# SPDX-License-Identifier: MIT
+
 {
   description = "CoGi Systems ";
 

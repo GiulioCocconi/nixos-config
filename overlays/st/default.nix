@@ -1,3 +1,6 @@
+# Copyright (c) 2024 Giulio Cocconi
+# SPDX-License-Identifier: MIT
+
 {...}:
 
 # https://discourse.nixos.org/t/simple-terminal-st-setup/9763

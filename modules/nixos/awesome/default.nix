@@ -1,3 +1,6 @@
+# Copyright (c) 2024 Giulio Cocconi
+# SPDX-License-Identifier: MIT
+
 { lib, config, options, pkgs, inputs, ... }:
 with lib;
 with lib.cogisys;
