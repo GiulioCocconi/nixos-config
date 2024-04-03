@@ -9,8 +9,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
-    #unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
     disko = {
@@ -47,6 +45,11 @@
       url = "github:snowfallorg/flake";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.snowfall-lib.follows = "snowfall-lib";
+    };
+
+    rippkgs = {
+      url = "github:replit/rippkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
   };
