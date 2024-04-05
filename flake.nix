@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 {
-  description = "CoGi Systems ";
+  description = "CoGi Systems";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
