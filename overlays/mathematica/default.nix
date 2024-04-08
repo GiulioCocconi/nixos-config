@@ -1,14 +1,7 @@
 # Copyright (c) 2024 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
-{nixpkgs-stable, ...}:
-let
-  stable = import nixpkgs-stable {
-    config = {
-      allowUnfree = true;
-    };
-  };
-in
+{...}:
 final: prev: {
   mathematica = prev.mathematica.override {
     source = prev.requireFile {
