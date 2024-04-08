@@ -58,6 +58,7 @@ in
               { name = "Math with bad drawings"; url = "mathwithbaddrawings.org"; }
               { name = "Math3ma"; url = "math3ma.com"; }
               { name = "Infinity is really big"; url = "infinityisreallybig.com"; }
+              { name = "Wolfram Writings"; url = "writings.stephenwolfram.com"; }
             ];}
             { name = "Courses"; children = [
               { name = "Linear Algebra"; children = [
