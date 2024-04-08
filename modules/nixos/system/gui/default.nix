@@ -10,49 +10,88 @@ let
   locale = config.cogisys.system.locale;
   virtualmachine = config.cogisys.virtualmachine;
   networking = config.cogisys.system.networking;
+  gtkConfigFile = "gtk-4.0/settings.ini";
+
+  custom-theme = pkgs.stdenvNoCC.mkDerivation rec {
+    name = "custom-theme";
+    src = ./default-theme;
+    propagatedBuildInputs = with pkgs; [
+      cogisys.breezeCursor
+      gnome.adwaita-icon-theme
+    ];
+    installPhase = "mkdir -p $out/share/icons/default && cp * $out/share/icons/default";
+  };
 in
-  {
-    options.cogisys.system.gui = with types; {
-      enable = mkBoolOpt false "Enable gui.";
+{
+  options.cogisys.system.gui = with types; {
+    enable = mkBoolOpt false "Enable gui.";
+  };
+
+  config = mkIf cfg.enable {
+
+    cogisys.apps.chromium = enabled;
+    cogisys.tools.terminal = enabled;
+
+    services.xserver = {
+      enable = true;
+      xkb.layout = locale.keyboardLayout;
     };
 
-    config = mkIf cfg.enable {
+    fonts.enableDefaultPackages = true;
+    fonts.packages = with pkgs; [
+      (nerdfonts.override { fonts = [ "Iosevka" ]; })
+    ];
 
-      cogisys.apps.chromium = enabled;
-      cogisys.tools.terminal = enabled;
+    services.xserver.excludePackages = [ pkgs.xterm ];
 
-      services.xserver = {
-        enable = true;
-        xkb.layout = locale.keyboardLayout;
-      };
+    environment.systemPackages = with pkgs; [
+      custom-theme
+      gnome.adwaita-icon-theme
+      chromium
+    ] ++ optionals (!virtualmachine.enable) [
+      mpv
+      evince
+      qpdf
+      libreoffice-fresh
+      gnome.nautilus
+      mate.eom
+      flameshot
+    ] ++ optionals (!virtualmachine.enable && networking.enable) [
+      element-desktop
+      filezilla
+      thunderbird
+      # nyxt
+    ];
 
-      fonts.packages = with pkgs; [
-        (nerdfonts.override { fonts = [ "Iosevka" ]; })
-      ];
+    qt.style = "adwaita-dark";
 
-      environment.systemPackages = with pkgs; [
-        gnome.adwaita-icon-theme
-        chromium
-      ] ++ optionals (!virtualmachine.enable) [
-        mpv
-        evince
-        qpdf
-        libreoffice-fresh
-        gnome.nautilus
-        mate.eom
-        flameshot
-      ] ++ optionals (!virtualmachine.enable && networking.enable) [
-        element-desktop
-        filezilla
-        thunderbird
-        # nyxt
-      ];
 
-      qt.style = "adwaita-dark";
+    environment.variables = {
+      # XCURSOR_PATH = "$XCURSOR_PATH\${XCURSOR_PATH:+:}"
+      #               + "${breeze-cursor.outPath}/share/icons";
+      XCURSOR_THEME = "Breeze";
 
-      # TODO: Manage gtk settings without home-manager
-      #       (https://github.com/nix-community/home-manager/blob/master/modules/misc/gtk.nix)
-
-      environment.shellAliases.open = "xdg-open";
     };
-  }
+
+    environment.etc.${gtkConfigFile}.text = ''
+      [settings]
+      gtk-application-prefer-dark-theme = true
+      gtk-theme-name=Adwaita
+      gtk-icon-theme-name=Adwaita
+      gtk-font-name=Sans 10
+      gtk-cursor-theme-name=Breeze
+      gtk-cursor-theme-size=0
+      gtk-toolbar-style=GTK_TOOLBAR_BOTH_HORIZ
+      gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
+      gtk-button-images=0
+      gtk-menu-images=0
+      gtk-enable-event-sounds=1
+      gtk-enable-input-feedback-sounds=1
+      gtk-xft-antialias=1
+      gtk-xft-hinting=1
+      gtk-xft-hintstyle=hintmedium
+      gtk-xft-rgba=none
+    '';
+    environment.shellAliases.open = "xdg-open";
+  };
+}
