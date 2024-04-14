@@ -17,6 +17,7 @@ with lib.cogisys;
 
     apps.emacs = enabled;
     system.gui = enabled;
+    tools.gnupg = enabled;
 
   };
 
