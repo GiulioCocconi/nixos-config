@@ -56,12 +56,20 @@ in
                 ELISP_CMD="(message (get-vc-root \"$1\"))"
                 ROOT_PATH=$(emacs --batch --load ${emacsDir}/early-init.el --eval "$ELISP_CMD" 2>&1 | tail -1)
 
-                if [ -e "$ROOT_PATH/shell.nix" ]; then
-                  SHELL_FILE="$ROOT_PATH/shell.nix"
-                elif [ -e "$ROOT_PATH/default.nix" ]; then
-                  SHELL_FILE="$ROOT_PATH/default.nix"
-                fi
-            fi
+                # Search for the shell file in the root dir and in the cwd.  
+                search_for_shell_file() {
+                    for path in "$@"; do
+                        if [ -e $path ]; then
+                            SHELL_FILE=$path
+                            return
+                        fi
+                    done
+                }
+
+                search_for_shell_file "$ROOT_PATH/shell.nix"\
+                                      "$ROOT_PATH/default.nix"\
+                                      "$(pwd)/shell.nix"\
+                                      "$(pwd)/default.nix"
 
             if [[ $SHELL_FILE == "" ]]; then
                EMACS_PURE=TRUE setsid $EMACS_CMD &
