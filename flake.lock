@@ -82,11 +82,11 @@
     "emacs-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1713385013,
-        "narHash": "sha256-5IyI2N/iULnP9k58dM8dwIdEMRDSA53MEDeLBArid6o=",
+        "lastModified": 1713461711,
+        "narHash": "sha256-C9SjjZ1sRCsfJR/PxEmo36s5ZYyGamGefslcBZKv74g=",
         "owner": "GiulioCocconi",
         "repo": "cemacs",
-        "rev": "467fd9908565545daf0b88ff12d09d6f5e041eac",
+        "rev": "6a832f9b35ef63394447c45d27255b6c9e4df4e9",
         "type": "github"
       },
       "original": {
@@ -104,11 +104,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1713457120,
-        "narHash": "sha256-WY1IhYC3CnAEyqoDD9o1nTmpJw0oFjyIBWmqXHsMt1o=",
+        "lastModified": 1713546495,
+        "narHash": "sha256-5I/Nn0ibs16JVU5xLEjPx3AXBQxs86wxrJOWH8iVHTg=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "b8bf90d80070c41f391f0919c0f2683687110ccb",
+        "rev": "c5caaf3b6d4f711e5a408ada4dc4c36537a18372",
         "type": "github"
       },
       "original": {
@@ -263,11 +263,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1713441075,
-        "narHash": "sha256-3GGeFsEO8ivD+TcDEqe4s/d0VLvMYGNDGtx0ZnBxkUs=",
+        "lastModified": 1713521961,
+        "narHash": "sha256-EwR8wW9AqJhSIY+0oxWRybUZ32BVKuZ9bjlRh8SJvQ8=",
         "owner": "nixos",
         "repo": "nixos-hardware",
-        "rev": "6f976e53752e5b9ab08f9a3b1b0b9c67815c9754",
+        "rev": "5d48925b815fd202781bfae8fb6f45c07112fdb2",
         "type": "github"
       },
       "original": {
@@ -278,11 +278,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1713248628,
-        "narHash": "sha256-NLznXB5AOnniUtZsyy/aPWOk8ussTuePp2acb9U+ISA=",
+        "lastModified": 1713297878,
+        "narHash": "sha256-hOkzkhLT59wR8VaMbh1ESjtZLbGi+XNaBN6h49SPqEc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "5672bc9dbf9d88246ddab5ac454e82318d094bb8",
+        "rev": "66adc1e47f8784803f2deb6cacd5e07264ec2d5c",
         "type": "github"
       },
       "original": {
@@ -337,11 +337,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1712153583,
-        "narHash": "sha256-R7RGuoU79ODW/hnlz1+bzCciPfjcgxk0sQh7vgbgIhI=",
+        "lastModified": 1713550073,
+        "narHash": "sha256-+f058P0gFSpwE5q2rBsoVx4sakoM0yZFF6Xp/HfV3E4=",
         "owner": "replit",
         "repo": "rippkgs",
-        "rev": "951a4e80183000659ab6b939e7ba37bf2cab55a6",
+        "rev": "fe9864e16a6618703bd13b7ccc1183f138e922cf",
         "type": "github"
       },
       "original": {
