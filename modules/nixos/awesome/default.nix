@@ -9,10 +9,10 @@ let
   cfg = config.cogisys.awesome;
   gui = config.cogisys.system.gui;
 
-  getLuaPath = lib: dir: "${lib}/${dir}/lua/${pkgs.awesome.lua.luaversion}";
-  makeSearchPath = lib.concatMapStrings (path:
-    " --search " + (getLuaPath path "share") +
-    " --search " + (getLuaPath path "lib")
+  getLuaPath = luaModuleStore: dir: "${luaModuleStore}/${dir}/lua/${pkgs.awesome.lua.luaversion}";
+  makeSearchPath = lib.concatMapStrings (modulePath:
+    " --search " + (getLuaPath modulePath "share") +
+    " --search " + (getLuaPath modulePath "lib")
   );
 
   configPath = inputs.awesome-config.outPath;
@@ -31,7 +31,6 @@ in
     enable = mkBoolOpt false "Enable awesomewm.";
   };
 
-  
   config = mkIf cfg.enable {
     assertions = [
       (mkAssertionModule gui "GUI" "awesomewm")
@@ -39,7 +38,7 @@ in
         "Awesome config file (${configFile}) does not exists")
     ];
 
-    services.xserver.displayManager.sddm.enable = true;
+    services.displayManager.sddm.enable = true;
     
     fonts.packages = with pkgs; [
       (nerdfonts.override { fonts = [ "Iosevka" ]; })
