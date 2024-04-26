@@ -19,6 +19,8 @@ in
         ltrace
         lsof
         gnumake
+		    man-pages
+		    man-pages-posix
       ];
 
       environment.shellAliases.ix = "curl -F 'f:1=<-' ix.io";
