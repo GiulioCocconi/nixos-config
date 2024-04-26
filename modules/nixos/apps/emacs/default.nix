@@ -51,30 +51,35 @@ in
 
             # if you're editing a nix-shell file, ignore the environment, else
             # figure out what the root dir is and load cemacs.
-            if [[ ! $1 =~ ^.*\/(default|shell).nix ]]; then
+            search_for_shell_file() {
+                for path in "$@"; do
+                    if [ -e $path ]; then
+                        SHELL_FILE=$path
+                        return
+                    fi
+                done
+            }
+
+            if [[ $1 == "" ]]; then
+                search_for_shell_file "$(pwd)/shell.nix"\
+                                      "$(pwd)/default.nix"
+
+            elif [[ ! $1 =~ ^.*\/(default|shell).nix ]]; then
                 # figure out the project root directory
                 ELISP_CMD="(message (get-vc-root \"$1\"))"
-                ROOT_PATH=$(emacs --batch --load ${emacsDir}/early-init.el --eval "$ELISP_CMD" 2>&1 | tail -1)
-
-                # Search for the shell file in the root dir and in the cwd.  
-                search_for_shell_file() {
-                    for path in "$@"; do
-                        if [ -e $path ]; then
-                            SHELL_FILE=$path
-                            return
-                        fi
-                    done
-                }
+                ROOT_PATH=$(emacs --batch --load ./emacs.d/early-init.el\
+                            --eval "$ELISP_CMD" 2>&1 | tail -1)
 
                 search_for_shell_file "$ROOT_PATH/shell.nix"\
                                       "$ROOT_PATH/default.nix"\
                                       "$(pwd)/shell.nix"\
                                       "$(pwd)/default.nix"
+            fi
 
             if [[ $SHELL_FILE == "" ]]; then
-               EMACS_PURE=TRUE setsid $EMACS_CMD &
+                 EMACS_PURE=TRUE setsid $EMACS_CMD &
             else
-               EMACS_PURE=TRUE nix-shell --run "setsid $EMACS_CMD &" $SHELL_FILE
+                EMACS_PURE=TRUE nix-shell --run "setsid $EMACS_CMD &" $SHELL_FILE
             fi
         '')
       myEmacs # Required in order to load impure configs
