@@ -25,8 +25,6 @@ in
         enable = true;
         enableSSHSupport = true;
       };
-
-      environment.etc."gnupg".source = ./config;
     })
     (mkIf gui.enable {
       environment.systemPackages = with pkgs; [ gpa ];
