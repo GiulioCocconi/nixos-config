@@ -6,6 +6,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+	nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
     disko = {
@@ -35,7 +36,7 @@
 
     snowfall-lib = {
       url = "github:snowfallorg/lib";
-      inputs.nixpkgs.follows = "nixpkgs";
+	  inputs.nixpkgs.follows = "nixpkgs-stable"; # SET TO UNSTABLE AFTER THIS: https://github.com/gytis-ivaskevicius/flake-utils-plus/pull/146
     };
 
     snowfall-flake = {
