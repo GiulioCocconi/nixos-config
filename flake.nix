@@ -36,7 +36,7 @@
 
     snowfall-lib = {
       url = "github:snowfallorg/lib";
-	  inputs.nixpkgs.follows = "nixpkgs-stable"; # SET TO UNSTABLE AFTER THIS: https://github.com/gytis-ivaskevicius/flake-utils-plus/pull/146
+	  inputs.nixpkgs.follows = "nixpkgs";
     };
 
     snowfall-flake = {
