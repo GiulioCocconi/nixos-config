@@ -90,16 +90,10 @@ in
         EDITOR = "nvim";
         VISUAL = "nvim";
       };
-
-      environment.etc."xdg/user-dirs.defaults".text = ''
-        # /etc/xdg/user-dirs.defaults: DO NOT EDIT -- this file has been generated automatically.
-        DOWNLOAD=dwld
-        DOCUMENTS=docs
-        MUSIC=media/music
-        PICTURES=media/pics
-        VIDEOS=media/videos
+      
+      systemd.extraConfig = ''
+        DefaultTimeoutStopSec=10s
       '';
-
 
     };
   }
