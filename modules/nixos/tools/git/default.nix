@@ -26,6 +26,7 @@ in
             pull = { rebase = true; };
             push = { autoSetupRemote = true; };
             core = { whitespace = "trailing-space,space-before-tab"; };
+            http = { postBuffer = 524288000; };
           };
         };
 
