@@ -6,7 +6,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-	nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
     disko = {
@@ -41,7 +40,7 @@
 
     snowfall-flake = {
       url = "github:snowfallorg/flake";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.snowfall-lib.follows = "snowfall-lib";
     };
 
@@ -58,7 +57,12 @@
     src = ./.;
     snowfall.namespace = "cogisys";
     channels-config = { allowUnfree = true; };
-    overlays = with inputs; [ snowfall-flake.overlays."package/flake" ];
+    
+    overlays = with inputs; [
+      snowfall-flake.overlays."package/flake"
+      rippkgs.overlays.default
+    ];
+    
     systems.modules = with inputs; [
       disko.nixosModules.disko
     ];
