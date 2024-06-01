@@ -52,6 +52,9 @@ in
       awesome
     ];
 
+    services.xserver.updateDbusEnvironment = true;
+
+
     services.xserver.windowManager.session = singleton
       { name = "awesome";
         start =
