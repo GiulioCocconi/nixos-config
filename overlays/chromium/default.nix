@@ -5,7 +5,6 @@
 
 final: prev: {
   chromium = prev.chromium.override {
-    ungoogled = true;
     enableWideVine = true;
   };
 }
