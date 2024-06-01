@@ -19,11 +19,19 @@ in
 
       assertions = [(mkAssertionModule gui "GUI" "scientific writing")];
 
+      fonts.packages = with pkgs; [
+        (google-fonts.override { fonts = [
+                                   "CormorantGaramond"
+                                   "CormorantInfant"
+                                   "PoetsenOne"
+                                   "Merriweather"
+                                 ]; })];
+
       environment.systemPackages = with pkgs; [
         (texlive.combine {
           inherit (texlive) scheme-medium
-          standalone preview dvisvgm amsmath
-          pgfplots;
+            standalone preview dvisvgm amsmath
+            pgfplots;
         })
         asymptote
         libqalculate
