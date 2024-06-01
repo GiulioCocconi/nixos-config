@@ -11,23 +11,20 @@ let
   gui = config.cogisys.system.gui;
 in
 {
-  options.cogisys.tools.gnupg = with types; {
-    enable = mkEnableOption "gnupg";
-  };
+	options.cogisys.tools.gnupg = with types; {
+		enable = mkEnableOption "gnupg";
+	};
 
-  config = mkMerge [
-    (mkIf cfg.enable {
-      assertions = [
-        (mkAssertionModule networking "networking" "opengp")
-      ];
+	config = mkIf cfg.enable {
+		assertions = [
+			(mkAssertionModule networking "networking" "opengp")
+		];
 
-      programs.gnupg.agent = {
-        enable = true;
-        enableSSHSupport = true;
-      };
-    })
-    (mkIf gui.enable {
-      environment.systemPackages = with pkgs; [ gpa ];
-    })
-  ];
+		programs.gnupg.agent = {
+			enable = true;
+			enableSSHSupport = true;
+		};
+
+		environment.systemPackages = optional gui.enable pkgs.gpa;
+	};
 }
