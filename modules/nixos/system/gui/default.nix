@@ -46,14 +46,14 @@ in
 
     environment.systemPackages = with pkgs; [
       custom-theme
-      gnome.adwaita-icon-theme
+      adwaita-icon-theme
       chromium
     ] ++ optionals (!virtualmachine.enable) [
       mpv
       evince
       qpdf
       libreoffice-fresh
-      gnome.nautilus
+      nautilus
       mate.eom
       flameshot
     ] ++ optionals (!virtualmachine.enable && networking.enable) [
