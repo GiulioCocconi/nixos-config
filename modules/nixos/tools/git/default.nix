@@ -22,11 +22,12 @@ in
           package = pkgs.gitFull;
 
           config = {
-            init = { defaultBranch = "main"; };
-            pull = { rebase = true; };
-            push = { autoSetupRemote = true; };
-            core = { whitespace = "trailing-space,space-before-tab"; };
-            http = { postBuffer = 524288000; };
+            init   = { defaultBranch = "main"; };
+            pull   = { rebase = true; };
+            push   = { autoSetupRemote = true; };
+            core   = { whitespace = "trailing-space,space-before-tab"; };
+            http   = { postBuffer = 524288000; };
+            advice = { detachedHead = false; };
           };
         };
 
@@ -48,4 +49,4 @@ in
         ];
 
       })];
-    }
+  }
