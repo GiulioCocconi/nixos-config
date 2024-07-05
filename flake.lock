@@ -82,11 +82,11 @@
     "emacs-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1714058992,
-        "narHash": "sha256-JP0W0NwKIbsvHbeNFe6x0Aiv8KIsFC1XAsuEe0eR8O8=",
+        "lastModified": 1720211733,
+        "narHash": "sha256-cTZYej0lIUKmcsu8s8mSBPBdHz2xrzIZxAVhXvXxLj8=",
         "owner": "GiulioCocconi",
         "repo": "cemacs",
-        "rev": "cd3fb8f2a0d9c84445c0119e407e7d810d935a82",
+        "rev": "d5322a382dc095ce3d5bd865f675cb64ac80febb",
         "type": "github"
       },
       "original": {
