@@ -17,7 +17,7 @@ let
     src = ./default-theme;
     propagatedBuildInputs = with pkgs; [
       cogisys.breezeCursor
-      gnome.adwaita-icon-theme
+      pkgs.adwaita-icon-theme
     ];
     installPhase = "mkdir -p $out/share/icons/default && cp * $out/share/icons/default";
   };
