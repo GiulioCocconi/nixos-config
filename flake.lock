@@ -82,11 +82,11 @@
     "emacs-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1723044276,
-        "narHash": "sha256-N+E4dEoIgjJ1CWrnEZz5K4rxrq6O+lplAQGcIJLSehc=",
+        "lastModified": 1723540574,
+        "narHash": "sha256-MjWCugSVl2RIrs3axawF0Ixv+c7cfCCXfX3N0GmNHUk=",
         "owner": "GiulioCocconi",
         "repo": "cemacs",
-        "rev": "f08341fae852e5db19580f3472a62530b7cb5027",
+        "rev": "049d172215bc036b3c40a17237cb4867c1bab944",
         "type": "github"
       },
       "original": {
@@ -104,11 +104,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1723537093,
-        "narHash": "sha256-YoclvX0SlGomH5FCnbQZwsbT+7JNX/yuO6V7J+t/G7M=",
+        "lastModified": 1723540261,
+        "narHash": "sha256-jniQno8FCotJ0OUSxd43Zl5q0UsKbKvrtATduvrhO2g=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "e8be6f791bcd48f2ddb180793499013bfb92def5",
+        "rev": "aa3997dd78a00dec18e4d22f6073f78778c75301",
         "type": "github"
       },
       "original": {
