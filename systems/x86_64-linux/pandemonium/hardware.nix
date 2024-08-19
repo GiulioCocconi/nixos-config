@@ -1,16 +1,23 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{ config, lib, pkgs, inputs, modulesPath, ... }:
 
 {
-  imports =
-    [ 
-    	(modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = with inputs.nixos-hardware.nixosModules; [ 
+    (modulesPath + "/installer/scan/not-detected.nix")
+    common-cpu-amd-pstate
+    common-gpu-amd
+    # common-pc-laptop
+    common-pc-laptop-acpi_call
+    common-pc-laptop-ssd
+];
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
 
+  boot.kernelParams = [
+    "acpi_backlight=native"
+    "psmouse.synaptics_intertouch=0"
+  ];
+  
   fileSystems."/" =
     { device = "/dev/disk/by-label/nixos";
       fsType = "ext4";

@@ -23,6 +23,6 @@ in
         jack.enable = true;
       };
 
-      environment.systemPackages = with pkgs; [ pulseaudioFull pamixer ];
+      environment.systemPackages = with pkgs; [ pulseaudioFull pamixer pavucontrol ];
     };
   }

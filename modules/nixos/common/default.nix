@@ -48,7 +48,8 @@ in
       boot.kernelPackages = mkDefault pkgs.linuxPackages_zen;
 
       services.udisks2.enable = true;
-
+      services.fwupd.enable = mkDefault true;
+      
       cogisys = {
         nix = enabled;
         awesome = enabled;
