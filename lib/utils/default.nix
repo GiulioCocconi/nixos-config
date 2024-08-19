@@ -1,7 +1,7 @@
 # Copyright (c) 2024 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
-{lib, pkgs, ...}:
+{lib, ...}:
 
 with lib; rec {
   writeFileService = {file, text}: {
@@ -11,7 +11,7 @@ with lib; rec {
     serviceConfig = {
       Type = "oneshot";
       Restart = "on-failure";
-      ExecStart = "${pkgs.runtimeShell} -c 'echo ${text} > ${file}'";
+      ExecStart = "$bash -c 'echo ${text} > ${file}'";
     };
   };
 }

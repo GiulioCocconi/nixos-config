@@ -39,6 +39,7 @@ in
     ];
 
     services.displayManager.sddm.enable = true;
+    services.acpid.enable = true;
 
     fonts.packages = with pkgs; [
       (nerdfonts.override { fonts = [ "Iosevka" ]; })
@@ -53,7 +54,6 @@ in
     ];
 
     services.xserver.updateDbusEnvironment = true;
-	services.acpid.enabled = true;
 
     services.xserver.windowManager.session = singleton
       { name = "awesome";
