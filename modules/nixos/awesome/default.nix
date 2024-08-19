@@ -19,12 +19,12 @@ let
   configFile = "${configPath}/rc.lua";
 
   configFlags = "--search ${configPath} -c ${configFile}";
-  
+
   luaModules = with pkgs.luajitPackages; [
     luarocks
     luautf8
   ];
-  
+
 in
 {
   options.cogisys.awesome = with types; {
@@ -39,11 +39,11 @@ in
     ];
 
     services.displayManager.sddm.enable = true;
-    
+
     fonts.packages = with pkgs; [
       (nerdfonts.override { fonts = [ "Iosevka" ]; })
     ];
-    
+
     environment.systemPackages = with pkgs; [
       rofi
       udiskie
@@ -53,7 +53,7 @@ in
     ];
 
     services.xserver.updateDbusEnvironment = true;
-
+	services.acpid.enabled = true;
 
     services.xserver.windowManager.session = singleton
       { name = "awesome";
