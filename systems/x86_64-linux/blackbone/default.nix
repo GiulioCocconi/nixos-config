@@ -25,7 +25,7 @@ with lib.cogisys;
     userName = "giulio";
     fullName = "G. Cocconi";
     isAdmin = true;
-    packages = with pkgs; [ mathematica racket libsForQt5.kdenlive qucs-s ngspice ];
+    packages = with pkgs; [ libsForQt5.kdenlive qucs-s ngspice ];
   }];
 
   virtualisation.virtualbox.host.enable = true;
