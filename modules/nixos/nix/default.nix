@@ -51,13 +51,11 @@ in
 
     };
 
-    services.lorri.enable = true;
     programs.direnv.enable = true;
 
     environment.systemPackages = with pkgs; [
       snowfallorg.flake
       nixbang
-      nix-melt
       vulnix
       nix-output-monitor
     ];
