@@ -20,12 +20,15 @@ in
       assertions = [(mkAssertionModule gui "GUI" "scientific writing")];
 
       fonts.packages = with pkgs; [
-        (google-fonts.override { fonts = [
-                                   "CormorantGaramond"
-                                   "CormorantInfant"
-                                   "PoetsenOne"
-                                   "Merriweather"
-                                 ]; })];
+        (google-fonts.override {
+          fonts = [
+            "CormorantGaramond"
+            "CormorantInfant"
+            "PoetsenOne"
+            "Merriweather"
+          ];
+        })
+      ];
 
       environment.systemPackages = with pkgs; [
         (texlive.combine {
@@ -33,7 +36,7 @@ in
             standalone preview dvisvgm amsmath
             pgfplots;
         })
-        asymptote
+        texstudio
         libqalculate
         inkscape-with-extensions
         sioyek
