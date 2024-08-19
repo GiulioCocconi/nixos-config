@@ -41,7 +41,9 @@ in
         enable = true;
         defaultEditor = true;
       };
-
+      
+      programs.dconf.enable = true;
+      
       hardware.bluetooth.enable = true;
       hardware.enableRedistributableFirmware = true;
 

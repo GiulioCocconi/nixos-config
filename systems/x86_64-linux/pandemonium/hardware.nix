@@ -2,6 +2,9 @@
 # SPDX-License-Identifier: MIT
 { config, lib, pkgs, inputs, modulesPath, ... }:
 
+with lib;
+with lib.cogisys;
+
 {
   imports = with inputs.nixos-hardware.nixosModules; [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -31,15 +34,16 @@
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
-  # FIX: MIC LED shouldn't be always on
+
+  environment.systemPackages = [ pkgs.acpi ];
+  
+  swapDevices = [ ];
+
+  # FIX: MIC LED should always be off
   systemd.services.mic-led-fix = writeFileService {
     file = "/sys/class/sound/ctl-led/mic/mode";
     text = "off";
   };
-  
-  
-  swapDevices = [ ];
-
   networking.useDHCP = lib.mkDefault true;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

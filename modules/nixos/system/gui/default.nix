@@ -57,7 +57,6 @@ in
       mate.eom
       flameshot
     ] ++ optionals (!virtualmachine.enable && networking.enable) [
-      element-desktop
       filezilla
       thunderbird
       # nyxt
