@@ -1,11 +1,13 @@
+# Copyright (c) 2024 Giulio Cocconi
+# SPDX-License-Identifier: MIT
 { config, lib, pkgs, inputs, modulesPath, ... }:
 
 {
-  imports = with inputs.nixos-hardware.nixosModules; [ 
+  imports = with inputs.nixos-hardware.nixosModules; [
     (modulesPath + "/installer/scan/not-detected.nix")
     common-cpu-amd-pstate
     common-gpu-amd
-    # common-pc-laptop
+    common-pc-laptop
     common-pc-laptop-acpi_call
     common-pc-laptop-ssd
 ];
@@ -17,7 +19,7 @@
     "acpi_backlight=native"
     "psmouse.synaptics_intertouch=0"
   ];
-  
+
   fileSystems."/" =
     { device = "/dev/disk/by-label/nixos";
       fsType = "ext4";
@@ -29,6 +31,13 @@
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
+  # FIX: MIC LED shouldn't be always on
+  systemd.services.mic-led-fix = writeFileService {
+    file = "/sys/class/sound/ctl-led/mic/mode";
+    text = "off";
+  };
+  
+  
   swapDevices = [ ];
 
   networking.useDHCP = lib.mkDefault true;
