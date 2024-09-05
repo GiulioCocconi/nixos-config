@@ -48,6 +48,7 @@ in
       hardware.enableRedistributableFirmware = true;
 
       boot.kernelPackages = mkDefault pkgs.linuxPackages_zen;
+      boot.tmp.useTmpfs = false;
 
       services.udisks2.enable = true;
       services.fwupd.enable = mkDefault true;
