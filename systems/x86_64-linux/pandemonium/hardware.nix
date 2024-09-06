@@ -44,6 +44,11 @@ with lib.cogisys;
     file = "/sys/class/sound/ctl-led/mic/mode";
     text = "off";
   };
+
+  # FIX: The default audio card should be the one controlling the computer speakers,
+  #      not HDMI
+  environment.variables.AUDIODEV = "hw:1,0";
+
   networking.useDHCP = lib.mkDefault true;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
