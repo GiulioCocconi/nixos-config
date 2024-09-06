@@ -32,8 +32,11 @@ in
         usbutils
         udiskie
         aria2
+        acpilight
         xdg-user-dirs
       ];
+
+      services.udev.packages = [ pkgs.acpilight ];
 
       programs.nano.enable = mkDefault false;
 
