@@ -25,6 +25,7 @@ in
 
     environment.systemPackages = with pkgs; [
       pulseaudioFull
+      alsa-utils
       pamixer
       pavucontrol
       easyeffects
