@@ -49,6 +49,15 @@ with lib.cogisys;
   #      not HDMI
   environment.variables.AUDIODEV = "hw:1,0";
 
+  # FIX: Use natural (inversed) scrolling for touchpad
+  environment.etc."X11/xorg.conf.d/50-natural-scrolling.conf".text = ''
+    Section "InputClass"
+      Identifier "Touchpad"
+      MatchIsTouchpad "on"
+      Option "ButtonMapping" "1 2 3 5 4 6 7"
+    EndSection
+  '';
+
   networking.useDHCP = lib.mkDefault true;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
