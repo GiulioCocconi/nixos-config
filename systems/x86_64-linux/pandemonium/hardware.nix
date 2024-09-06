@@ -35,8 +35,8 @@ with lib.cogisys;
     };
 
 
-  environment.systemPackages = [ pkgs.acpi ];
-  
+  environment.systemPackages = with pkgs; [ acpi thinkfan ];
+
   swapDevices = [ ];
 
   # FIX: MIC LED should always be off
