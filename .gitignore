@@ -1,1 +1,2 @@
 .#*
+modules/nixos/secrets/default.nix
