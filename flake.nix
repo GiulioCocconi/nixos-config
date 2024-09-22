@@ -61,6 +61,7 @@
     overlays = with inputs; [
       snowfall-flake.overlays."package/flake"
       rippkgs.overlays.default
+      emacs-overlay.overlays.default
     ];
     
     systems.modules = with inputs; [
