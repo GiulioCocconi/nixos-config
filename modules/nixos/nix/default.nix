@@ -57,7 +57,8 @@ in
       snowfallorg.flake
       nixbang
       vulnix
-      nix-output-monitor
+      rippkgs
+      rippkgs-index
     ];
 
     documentation.nixos.enable = false;
