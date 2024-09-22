@@ -48,7 +48,7 @@ in
       programs.dconf.enable = true;
       
       hardware.bluetooth.enable = true;
-      hardware.enableRedistributableFirmware = true;
+      hardware.enableAllFirmware = true;
 
       boot.kernelPackages = mkDefault pkgs.linuxPackages_zen;
       boot.tmp.useTmpfs = false;
@@ -58,7 +58,9 @@ in
       
       cogisys = {
         nix = enabled;
+
         awesome = enabled;
+
         tools = {
           git = enabled;
           zsh = enabled;
