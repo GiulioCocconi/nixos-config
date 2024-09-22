@@ -20,5 +20,7 @@ in
         openFirewall = true;
       };
 
+      programs.ssh.startAgent = true;
+
     };
   }
