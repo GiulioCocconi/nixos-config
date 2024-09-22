@@ -22,7 +22,6 @@ in
 
 		programs.gnupg.agent = {
 			enable = true;
-			enableSSHSupport = true;
 		};
 
 		environment.systemPackages = optional gui.enable pkgs.gpa;
