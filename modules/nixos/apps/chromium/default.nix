@@ -64,7 +64,7 @@ in
             { name = "Blogs"; children = [
               { name = "Terence Tao"; url = "terrytao.wordpress.com"; }
               { name = "Jeremy Kun"; url = "jeremykun.com"; }
-              { name = "Math with bad drawings"; url = "mathwithbaddrawings.org"; }
+              { name = "Math with bad drawings"; url = "mathwithbaddrawings.com"; }
               { name = "Math3ma"; url = "math3ma.com"; }
               { name = "Infinity is really big"; url = "infinityisreallybig.com"; }
               { name = "Wolfram Writings"; url = "writings.stephenwolfram.com"; }
