@@ -41,8 +41,8 @@ with lib.cogisys;
 
   # FIX: MIC LED should always be off
   systemd.services.mic-led-fix = writeFileService {
-    file = "/sys/class/sound/ctl-led/mic/mode";
-    text = "off";
+    file = "/sys/class/leds/platform::micmute/brightness";
+    text = "0";
   };
 
   # FIX: The default audio card should be the one controlling the computer speakers,
@@ -57,6 +57,11 @@ with lib.cogisys;
       Option "ButtonMapping" "1 2 3 5 4 6 7"
     EndSection
   '';
+
+  environment.shellAliases = {
+    kbdlight = "xbacklight -ctrl tpcapi::kbd_backlight --set";
+    
+  };
 
   networking.useDHCP = lib.mkDefault true;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
