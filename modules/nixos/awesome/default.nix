@@ -42,7 +42,7 @@ in
     services.acpid.enable = true;
 
     fonts.packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "Iosevka" ]; })
+      nerd-fonts.iosevka
     ];
 
     environment.systemPackages = with pkgs; [

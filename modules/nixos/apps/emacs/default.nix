@@ -37,47 +37,14 @@ in
   config = mkIf cfg.enable {
 
     fonts.packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "Iosevka" ]; })
+      nerd-fonts.iosevka
       (google-fonts.override { fonts = [ "CormorantGaramond" ]; })
     ];
 
     environment.systemPackages = [
       (pkgs.writeShellScriptBin "cemacs"
         ''
-            EMACS_CMD="${myEmacs}/bin/emacs --init-directory ${emacsDir} $@"
-
-            # if there is a nix-shell environment in the project root directory
-            # then load cemacs in it.
-
-            # if you're editing a nix-shell file, ignore the environment, else
-            # figure out what the root dir is and load cemacs.
-            search_for_shell_file() {
-                for path in "$@"; do
-                    if [ -e $path ]; then
-                        SHELL_FILE=$path
-                        return
-                    fi
-                done
-            }
-
-            if [[ $1 == "" ]]; then
-                search_for_shell_file "$(pwd)/shell.nix"
-
-            elif [[ ! $1 =~ ^.*\/shell.nix ]]; then
-                # figure out the project root directory
-                ELISP_CMD="(message (get-vc-root \"$1\"))"
-                ROOT_PATH=$(emacs --batch --load ./emacs.d/early-init.el\
-                            --eval "$ELISP_CMD" 2>&1 | tail -1)
-
-                search_for_shell_file "$ROOT_PATH/shell.nix"\
-                                      "$(pwd)/shell.nix"
-            fi
-
-            if [[ $SHELL_FILE == "" ]]; then
-                 EMACS_PURE=TRUE setsid $EMACS_CMD &
-            else
-                EMACS_PURE=TRUE nix-shell --run "setsid $EMACS_CMD &" $SHELL_FILE
-            fi
+            EMACS_PURE=TRUE setsid ${myEmacs}/bin/emacs --init-directory ${emacsDir} $@ &
         '')
       myEmacs # Required in order to load impure configs
     ];

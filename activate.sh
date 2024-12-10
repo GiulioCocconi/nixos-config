@@ -14,7 +14,7 @@ if [[ $1 == "--upgrade" ]]; then
     nix flake update
     git add flake.lock flake.nix
 
-    [ ! -n $(git status | grep "Your branch is ahead of") ] && read -p "Push? [y/N] " push
+    [[ -z $(git status | grep "Your branch is ahead of") ]] && read -p "Push? [y/N] " push
     
     git commit -m "Updated"
 

@@ -6,7 +6,7 @@ final: prev: {
   mathematica = prev.mathematica.override {
     source = prev.requireFile {
       name = "Mathematica.sh";
-      sha256 = "0rmrspvf1aqgpvl9g53xmibw28f83vzrrhw6dmfm4l7y05cr315y";
+      sha256 = "1zbcsrrb500izm9n3k91a811pgak406d1ja88xa8blcv18s6lsjc";
       hashMode = "recursive";
       message = ''
       The installer is not present! To install matematica, first download the installer from

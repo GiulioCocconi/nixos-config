@@ -39,7 +39,7 @@ in
 
     fonts.enableDefaultPackages = true;
     fonts.packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "Iosevka" ]; })
+      nerd-fonts.iosevka
     ];
 
     services.xserver.excludePackages = [ pkgs.xterm ];
