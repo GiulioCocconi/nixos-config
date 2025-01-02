@@ -4,6 +4,8 @@ set -e
 cd $(dirname $0)
 echo "Building CogiSystems configuration for host $(hostname) :)"
 
+git pull
+
 if [[ $1 == "--upgrade" ]]; then
 
     if ! git diff --staged --quiet; then
