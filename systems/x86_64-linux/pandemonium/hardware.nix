@@ -11,7 +11,6 @@ with lib.cogisys;
     common-cpu-amd-pstate
     common-gpu-amd
     common-pc-laptop
-    common-pc-laptop-acpi_call
     common-pc-laptop-ssd
 ];
 
