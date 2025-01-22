@@ -25,7 +25,7 @@ with lib.cogisys;
     userName = "giulio";
     fullName = "G. Cocconi";
     isAdmin = true;
-    packages = with pkgs; [ mathematica ];
+    packages = with pkgs; [ mathematica geogebra];
   }];
 
   virtualisation.virtualbox.host.enable = true;
