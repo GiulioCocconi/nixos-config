@@ -38,8 +38,8 @@ in
       enable = true;
       extraOpts = { # https://chromeenterprise.google/policies/
         "BrowserSignin" = 0;
-        "SyncDisabled" = 1;
-        "BookmarkBarEnabled" = 1;
+        "SyncDisabled" = true;
+        "BookmarkBarEnabled" = true;
         "ExtensionInstallForcelist" = [
           "cjpalhdlnbpafiamejdnhcphjbkeiagm" # Ublock Origin
           "emffkefkbkpkgpdeeooapgaicgmcbolj" # Wikiwand

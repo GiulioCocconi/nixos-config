@@ -17,7 +17,7 @@ let
     src = ./default-theme;
     propagatedBuildInputs = with pkgs; [
       cogisys.breezeCursor
-      pkgs.adwaita-icon-theme
+      adwaita-icon-theme
     ];
     installPhase = "mkdir -p $out/share/icons/default && cp * $out/share/icons/default";
   };
@@ -35,14 +35,13 @@ in
     services.xserver = {
       enable = true;
       xkb.layout = locale.keyboardLayout;
+      excludePackages = [ pkgs.xterm ];
     };
 
     fonts.enableDefaultPackages = true;
     fonts.packages = with pkgs; [
       nerd-fonts.iosevka
     ];
-
-    services.xserver.excludePackages = [ pkgs.xterm ];
 
     environment.systemPackages = with pkgs; [
       custom-theme
@@ -56,10 +55,10 @@ in
       nautilus
       mate.eom
       flameshot
+      arandr
     ] ++ optionals (!virtualmachine.enable && networking.enable) [
       filezilla
       thunderbird
-      # nyxt
     ];
 
     qt.style = "adwaita-dark";
@@ -74,7 +73,7 @@ in
 
     environment.etc.${gtkConfigFile}.text = ''
       [settings]
-      gtk-application-prefer-dark-theme = true
+      gtk-application-prefer-dark-theme=true
       gtk-theme-name=Adwaita
       gtk-icon-theme-name=Adwaita
       gtk-font-name=Sans 10
