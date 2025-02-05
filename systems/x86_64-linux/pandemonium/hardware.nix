@@ -61,7 +61,7 @@ with lib.cogisys;
   '';
 
   environment.shellAliases = {
-    kbdlight = "xbacklight -ctrl tpcapi::kbd_backlight --set";
+    kbdlight = "xbacklight -ctrl tpcapi::kbd_backlight -set";
     
   };
 
