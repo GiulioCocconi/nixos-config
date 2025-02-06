@@ -8,8 +8,10 @@ with lib.cogisys;
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    ./disko-config.nix
   ];
+
+
+  disko.devices = import ./disko-config.nix {};
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "usb_storage" ];
   boot.kernelModules = [ "kvm-intel" ];

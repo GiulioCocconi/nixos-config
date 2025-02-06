@@ -8,6 +8,11 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
+     lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -69,7 +74,7 @@
       emacs-overlay.overlays.default
     ];
     
-    systems.modules = with inputs; [
+    systems.modules.nixos = with inputs; [
       disko.nixosModules.disko
     ];
   };

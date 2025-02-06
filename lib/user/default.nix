@@ -12,14 +12,18 @@ with lib; rec {
         initialPassword = user.password or "";
 
         extraGroups = [ "video" "audio" "jackaudio" ]
-          ++ (optionals (user.isAdmin or false) [ "wheel" ])
-          ++ (user.extraGroups or []);
+                      ++ (optionals user.isAdmin [ "wheel" ])
+                      ++ (user.extraGroups or []);
 
         packages = user.packages or [];
 
+        openssh.authorizedKeys.keys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHjgpR2oQ0LIjJil4hmPhIsu1Ua6JKGUHEPyasfV/zIp"
+        ] ++ (user.sshAuthKey or []);
+
 
       })
-    list);
+      list);
 }
 
 

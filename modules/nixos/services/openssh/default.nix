@@ -7,6 +7,7 @@ with lib.cogisys;
 
 let
   cfg = config.cogisys.services.openssh;
+  terminalDefinition = {};
 in
   {
     options.cogisys.services.openssh = with types; {
@@ -20,6 +21,10 @@ in
         openFirewall = true;
       };
 
+      users.users.root.openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHjgpR2oQ0LIjJil4hmPhIsu1Ua6JKGUHEPyasfV/zIp"
+      ];
+      
       programs.ssh.startAgent = true;
 
     };

@@ -7,6 +7,7 @@ with lib.cogisys;
 
 let
   cfg = config.cogisys.common;
+  gui = config.cogisys.system.gui;
 in
   {
     options.cogisys.common = with types; {
@@ -60,7 +61,7 @@ in
         cogisys = {
           nix = enabled;
 
-          awesome = enabled;
+          awesome.enable = gui.enable;
 
           tools = {
             git = enabled;
