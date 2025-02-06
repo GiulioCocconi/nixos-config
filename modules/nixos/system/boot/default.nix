@@ -36,6 +36,7 @@ in
         grub.device = cfg.device;
         grub.useOSProber = cfg.dualBoot;
       };
+      kernelParams = [ "quiet" ];
       supportedFilesystems = [ cfg.rootFilesystem ];
     };
   };
