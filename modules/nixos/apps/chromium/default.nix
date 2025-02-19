@@ -40,6 +40,7 @@ in
         "BrowserSignin" = 0;
         "SyncDisabled" = true;
         "BookmarkBarEnabled" = true;
+        "GenAiDefaultSettings" = 1;
         "ExtensionInstallForcelist" = [
           "cjpalhdlnbpafiamejdnhcphjbkeiagm" # Ublock Origin
           "emffkefkbkpkgpdeeooapgaicgmcbolj" # Wikiwand
