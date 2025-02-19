@@ -39,6 +39,8 @@ with lib.cogisys;
 
   environment.systemPackages = with pkgs; [ acpi thinkfan ];
 
+  # TODO: Set autorandr using nix syntax!
+
   swapDevices = [ ];
 
   # FIX: MIC LED should always be off
