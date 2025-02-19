@@ -76,6 +76,7 @@
     
     systems.modules.nixos = with inputs; [
       disko.nixosModules.disko
+      lix-module.nixosModules.default
     ];
   };
 }
