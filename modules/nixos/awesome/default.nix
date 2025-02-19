@@ -16,14 +16,21 @@ let
   );
 
   configPath = inputs.awesome-config.outPath;
-  configFile = "${configPath}/rc.lua";
 
-  configFlags = "--search ${configPath} -c ${configFile}";
 
   luaModules = with pkgs.luajitPackages; [
     luarocks
     luautf8
   ];
+  
+  configFlags = configPath: "--search ${configPath} -c ${configPath}/rc.lua";
+
+  mkAwesomeSession = n: configPath: {
+    name = n;
+    start = ''${pkgs.awesome}/bin/awesome ${makeSearchPath luaModules} ${configFlags configPath} &
+            waitPID=$!'';
+  };
+  
 
 in
 {
@@ -34,8 +41,8 @@ in
   config = mkIf cfg.enable {
     assertions = [
       (mkAssertionModule gui "GUI" "awesomewm")
-      (mkAssertion (builtins.pathExists configFile)
-        "Awesome config file (${configFile}) does not exists")
+      (mkAssertion (builtins.pathExists configPath)
+        "Awesome config file (${configPath}) does not exists")
     ];
 
     services.displayManager.sddm.enable = true;
@@ -55,13 +62,9 @@ in
 
     services.xserver.updateDbusEnvironment = true;
 
-    services.xserver.windowManager.session = singleton
-      { name = "awesome";
-        start =
-          ''
-            ${pkgs.awesome}/bin/awesome ${makeSearchPath luaModules} ${configFlags} &
-            waitPID=$!
-          '';
-      };
+    services.xserver.windowManager.session = [
+      (mkAwesomeSession "Awesome" configPath)
+      (mkAwesomeSession "awesome-debug" "/home/giulio/awesomewm")
+    ];
   };
 }

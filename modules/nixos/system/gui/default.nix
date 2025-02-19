@@ -38,6 +38,9 @@ in
       excludePackages = [ pkgs.xterm ];
     };
 
+
+    services.autorandr.enable = true;
+
     fonts.enableDefaultPackages = true;
     fonts.packages = with pkgs; [
       nerd-fonts.iosevka
