@@ -15,7 +15,6 @@ with lib.cogisys;
 ];
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "usb_storage" "sd_mod" ];
-  boot.kernelModules = [ "kvm-amd" ];
 
   hardware.trackpoint.enable = true;
   hardware.trackpoint.emulateWheel = true;
