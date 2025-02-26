@@ -28,5 +28,11 @@ in
         checkReversePath = "loose";
       };
 
+      system.activationScripts.tailscale-up.text = ''
+        ${pkgs.tailscale}/bin/tailscale down
+        ${pkgs.tailscale}/bin/tailscale set --posture-checking=true
+        ${pkgs.tailscale}/bin/tailscale up
+      '';
+
     };
   }
