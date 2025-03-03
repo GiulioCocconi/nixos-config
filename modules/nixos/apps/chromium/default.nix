@@ -44,6 +44,7 @@ in
         "ExtensionInstallForcelist" = [
           "cjpalhdlnbpafiamejdnhcphjbkeiagm" # Ublock Origin
           "emffkefkbkpkgpdeeooapgaicgmcbolj" # Wikiwand
+	  "efaidnbmnnnibpcajpcglclefindmkaj" # Adobe Reader
         ];
         "ManagedBookmarks" = [{ toplevel_name = "CoGiSys Bookmarks"; }]
         ++ optionals cfg.addNixOSBookmarks [{
