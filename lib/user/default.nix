@@ -3,7 +3,13 @@
 
 {lib, ...}:
 
-with lib; rec {
+with lib;
+
+let
+  sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHjgpR2oQ0LIjJil4hmPhIsu1Ua6JKGUHEPyasfV/zIp";
+in
+
+rec {
   mkUsers = list:
     builtins.listToAttrs (builtins.map (user:
       nameValuePair user.userName {
@@ -18,12 +24,16 @@ with lib; rec {
         packages = user.packages or [];
 
         openssh.authorizedKeys.keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHjgpR2oQ0LIjJil4hmPhIsu1Ua6JKGUHEPyasfV/zIp"
+          sshPublicKey
         ] ++ (user.sshAuthKey or []);
 
 
       })
-      list);
+      list) // {
+        root = {
+          openssh.authorizedKeys.keys = [sshPublicKey];
+        };
+      };
 }
 
 

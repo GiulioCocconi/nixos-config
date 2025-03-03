@@ -120,7 +120,7 @@ if [[ "$_arg_upgrade" != "off" ]]; then
 fi
 
 if [[ -n "$_arg_remote" ]]; then
-    command_arguments+=("--target-host" "root@$_arg_remote")
+    command_arguments+=("--target-host" "giulio@$_arg_remote")
 
 fi
 

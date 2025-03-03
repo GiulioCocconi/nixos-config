@@ -7,7 +7,10 @@ with lib.cogisys;
 
 let
   domainName = "fo.co.gi";
-  rewrite = domain: answer: {inherit domain answer;};
+  rewrite = domain: answer: [ 
+  	{inherit domain answer;}
+	  {inherit answer; domain = "*.${domain}";}
+  ];
 in
 {
 
@@ -47,7 +50,7 @@ in
     
     nextcloud = {
       enable = true;
-      hostName = "cloud.hl.co.gi";
+      hostName = "cloud.${domainName}";
 
       # Need to manually increment with every major upgrade.
       package = pkgs.nextcloud30;
@@ -95,9 +98,7 @@ in
             "8.8.8.8"
           ];
         };
-        filtering.rewrites = [
-          (rewrite "*.${domainName}" "100.126.103.65")
-        ];
+        filtering.rewrites = rewrite domainName "100.126.103.65";
       };
     };
   };
