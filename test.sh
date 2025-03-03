@@ -100,6 +100,9 @@ hostname=$(hostname)
 
 command_arguments=("--impure" "--use-remote-sudo" "--flake" ".#$hostname" "--show-trace")
 
+cd $(dirname $0)
+echo "Building CoGiSystems configuration for $(hostname)"
+
 if [[ "$_arg_upgrade" != "off" ]]; then
     if ! git diff --staged --quiet; then
 	echo "Commit the changes before running an upgrade!"

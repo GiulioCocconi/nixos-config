@@ -24,7 +24,7 @@ in
 
         networking = {
           # networkmanager.enable = true;
-          firewall.enable = true;
+          firewall.enable = mkDefault true;
           hostId = if (rootFS == "zfs") then
             builtins.substring 0 8 (builtins.readFile /etc/machine-id)
             else null;
