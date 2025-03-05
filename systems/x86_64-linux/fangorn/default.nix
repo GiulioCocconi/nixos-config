@@ -33,6 +33,8 @@ in
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
       virtualHosts = {
+
+
         cloud = {
           serverName = "cloud.${domainName}";
           listen = [{addr = "0.0.0.0"; port = 8081;}];
@@ -44,6 +46,24 @@ in
           serverName = "dns.${domainName}";
           listen = [{addr = "0.0.0.0"; port = 80;}];
           locations."/".proxyPass = "http://127.0.0.1:27701";
+        };
+
+
+        fallback = {
+          serverName = "*.${domainName}";
+          #TODO: Implementare destination
+        };
+
+        home = {
+          serverName = domainName;
+          listen = [{addr = "0.0.0.0"; port = 80;}];
+          #TODO: Creare webpage
+          locations."/" = {
+            return = "200 '<html><body>Home</body></html>'";
+            extraConfig = ''
+               default_type text/html;
+            '';
+          };
         };
       };
     };
@@ -99,6 +119,23 @@ in
           ];
         };
         filtering.rewrites = rewrite domainName "100.126.103.65";
+        filters = [
+          {
+            name = "AdGuard DNS filter";
+            url = "https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt";
+            enabled = true;
+          }
+          {
+            name = "AdAway Default Blocklist";
+            url = "https://adaway.org/hosts.txt";
+            enabled = true;
+          }
+          {
+            name = "OISD (Big)";
+            url = "https://big.oisd.nl";
+            enabled = true;
+          }
+        ];
       };
     };
   };
