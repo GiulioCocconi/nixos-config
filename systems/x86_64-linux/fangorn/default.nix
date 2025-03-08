@@ -22,7 +22,6 @@ in
     system.gui = disabled;
     system.audio = disabled;
     system.printing = disabled;
-
   };
 
   services = {
@@ -59,7 +58,7 @@ in
           listen = [{addr = "0.0.0.0"; port = 80;}];
           #TODO: Creare webpage
           locations."/" = {
-            return = "200 '<html><body>Home</body></html>'";
+            return = "200 '<html><body><p>WIP: Home</p></body></html>'";
             extraConfig = ''
                default_type text/html;
             '';

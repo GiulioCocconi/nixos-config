@@ -27,5 +27,8 @@ in
       allowedUDPPorts = [ config.services.tailscale.port ];
       checkReversePath = "loose";
     };
+
+    environment.shellAliases.tailscale = "sudo tailscale";
+
   };
 }

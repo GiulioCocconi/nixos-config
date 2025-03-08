@@ -113,10 +113,5 @@ in
       '';
 
     })
-    (mkIf config.services.fwupd.enable {
-      system.activationScripts = with pkgs; {
-        restart-fwupd = "${systemd}/bin/systemctl stop fwupd.service";
-      };
-    })
   ];
 }
