@@ -57,6 +57,7 @@ in
 
       services.udisks2.enable = true;
       services.fwupd.enable = mkDefault true;
+   
       
       cogisys = {
         nix = enabled;
@@ -113,5 +114,12 @@ in
       '';
 
     })
+
+    (mkIf config.services.fwupd.enable {
+      system.activationScripts = with pkgs; {
+        restart-fwupd = "${systemd}/bin/systemctl stop fwupd.service";
+      };
+    })
+    
   ];
 }
