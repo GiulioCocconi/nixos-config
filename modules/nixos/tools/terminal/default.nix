@@ -25,6 +25,7 @@ in
       (mkIf cfg.enable {
         environment.systemPackages = [cfg.package];
         environment.variables.TERMINAL = cfg.package.mainProgram or cfg.package.pname;
+        environment.shellAliases.clear = "printf '\033[2J\033[3J\033[1;1H'"; # Clear the screen and the scroll bar
       })
       (mkIf (cfg.enable && (cfg.package.pname == "kitty")) {
         environment.variables.KITTY_CONFIG_DIRECTORY = "/etc/kitty";

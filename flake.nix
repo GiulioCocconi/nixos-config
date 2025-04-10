@@ -12,7 +12,7 @@
       url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -67,13 +67,13 @@
     src = ./.;
     snowfall.namespace = "cogisys";
     channels-config = { allowUnfree = true; };
-    
+
     overlays = with inputs; [
       snowfall-flake.overlays."package/flake"
       rippkgs.overlays.default
       emacs-overlay.overlays.default
     ];
-    
+
     systems.modules.nixos = with inputs; [
       disko.nixosModules.disko
       lix-module.nixosModules.default

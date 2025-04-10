@@ -7,7 +7,7 @@ with lib.cogisys;
 
 let
   domainName = "fo.co.gi";
-  rewrite = domain: answer: [ 
+  rewrite = domain: answer: [
   	{inherit domain answer;}
 	  {inherit answer; domain = "*.${domain}";}
   ];
@@ -33,20 +33,11 @@ in
       recommendedTlsSettings = true;
       virtualHosts = {
 
-
-        cloud = {
-          serverName = "cloud.${domainName}";
-          listen = [{addr = "0.0.0.0"; port = 8081;}];
-          locations."/".proxyPass = "http://127.0.0.1";
-        };
-
-        
         dns = {
           serverName = "dns.${domainName}";
           listen = [{addr = "0.0.0.0"; port = 80;}];
           locations."/".proxyPass = "http://127.0.0.1:27701";
         };
-
 
         fallback = {
           serverName = "*.${domainName}";
@@ -56,23 +47,59 @@ in
         home = {
           serverName = domainName;
           listen = [{addr = "0.0.0.0"; port = 80;}];
-          #TODO: Creare webpage
-          locations."/" = {
-            return = "200 '<html><body><p>WIP: Home</p></body></html>'";
-            extraConfig = ''
-               default_type text/html;
-            '';
-          };
+          locations."/".proxyPass = "http://127.0.0.1:27702";
         };
       };
     };
-    
+
+
+    glance = {
+      enable = true;
+      settings = {
+
+        server.port = 27702;
+
+        pages = [
+          { name = "Startpage";
+            width = "slim";
+            hide-desktop-navigation = true;
+            center-vertically = true;
+            columns = [
+              {
+                size = "full";
+                widgets = [
+                  {
+                    type = "monitor";
+                    cache = "1m";
+                    title = "Fangorn";
+                    sites = [
+                      {
+                        title = "AdGuard Home";
+                        url = "http://dns.${domainName}";
+                        icon = "si:adguard";
+                      }
+                      {
+                        title = "NextCloud";
+                        url = "http://cloud.${domainName}";
+                        icon = "si:nextcloud";
+                      }
+                    ];
+                  }
+                ];
+              }
+            ];
+          }
+        ];
+      };
+    };
+
+
     nextcloud = {
       enable = true;
       hostName = "cloud.${domainName}";
 
       # Need to manually increment with every major upgrade.
-      package = pkgs.nextcloud30;
+      package = pkgs.nextcloud31;
 
       # Let NixOS install and configure the database automatically.
       database.createLocally = true;
@@ -92,12 +119,15 @@ in
 
       };
 
+      settings.trusted_proxies = ["127.0.0.1"];
+
       config = {
         dbtype = "pgsql";
         adminuser = "admin";
         adminpassFile = (pkgs.writeText "nextcloudPass" "admin").outPath;
       };
     };
+
     adguardhome = {
       enable = true;
       host = "127.0.0.1";
@@ -139,10 +169,7 @@ in
     };
   };
 
-
   networking.firewall.allowedTCPPorts = [ 80 443 53 ];
-
-
 
   users.users = mkUsers [{
     userName = "giulio";

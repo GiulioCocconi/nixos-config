@@ -18,7 +18,7 @@ with lib.cogisys;
 
   hardware.trackpoint.enable = true;
   hardware.trackpoint.emulateWheel = true;
-  
+
   boot.kernelParams = [
     "acpi_backlight=native"
     "psmouse.synaptics_intertouch=0"
@@ -63,7 +63,7 @@ with lib.cogisys;
 
   environment.shellAliases = {
     kbdlight = "xbacklight -ctrl tpcapi::kbd_backlight -set";
-    
+
   };
 
   networking.useDHCP = lib.mkDefault true;

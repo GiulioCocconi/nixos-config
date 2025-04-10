@@ -46,19 +46,21 @@ in
         enable = true;
         defaultEditor = true;
       };
-      
+
       programs.dconf.enable = true;
-      
+
       hardware.bluetooth.enable = mkDefault true;
       hardware.enableAllFirmware = true;
 
       boot.kernelPackages = mkDefault pkgs.linuxPackages_zen;
       boot.tmp.useTmpfs = false;
 
-      services.udisks2.enable = true;
+      services.udisks2.enable = mkDefault true;
       services.fwupd.enable = mkDefault true;
-   
-      
+      services.chrony.enable = true;
+      services.ntp.enable = false;
+
+
       cogisys = {
         nix = enabled;
 
@@ -102,7 +104,7 @@ in
         EDITOR = "nvim";
         DO_NOT_TRACK = 1;
       };
-      
+
       systemd.extraConfig = ''
         DefaultTimeoutStopSec=10s
       '';
@@ -120,6 +122,6 @@ in
         restart-fwupd = "${systemd}/bin/systemctl stop fwupd.service";
       };
     })
-    
+
   ];
 }

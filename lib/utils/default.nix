@@ -4,7 +4,7 @@
 {lib, ...}:
 let
   pkgs = import <nixpkgs> {}; # Ugly fix, should be passed as an attribute
-in 
+in
 with lib; rec {
   writeFileService = {file, text}: {
     wantedBy = [ "multi-user.service" ];

@@ -23,8 +23,8 @@ in
         hardware.sane.enable = true;
         hardware.sane.openFirewall = true;
 
-        environment.systemPackages = with pkgs; [ 
-	  xsane 
+        environment.systemPackages = with pkgs; [
+	  xsane
 	];
       })
       (mkIf (cfg.enable && cfg.wifi.enable) {

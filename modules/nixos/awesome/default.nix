@@ -22,7 +22,7 @@ let
     luarocks
     luautf8
   ];
-  
+
   configFlags = configPath: "--search ${configPath} -c ${configPath}/rc.lua";
 
   mkAwesomeSession = n: configPath: {
@@ -30,7 +30,7 @@ let
     start = ''${pkgs.awesome}/bin/awesome ${makeSearchPath luaModules} ${configFlags configPath} &
             waitPID=$!'';
   };
-  
+
 
 in
 {

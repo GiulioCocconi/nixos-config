@@ -19,7 +19,7 @@ in
 
     config = mkIf cfg.enable {
       time.timeZone = cfg.timeZone;
-      services.ntp.enable = true;
+      services.chrony.enable = true;
 
       i18n.defaultLocale = cfg.locale;
       console.keyMap = cfg.keyboardLayout;
