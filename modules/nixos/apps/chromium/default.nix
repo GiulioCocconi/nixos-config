@@ -42,7 +42,8 @@ in
         "BookmarkBarEnabled" = true;
         "GenAiDefaultSettings" = 1;
         "ExtensionInstallForcelist" = [
-          "cjpalhdlnbpafiamejdnhcphjbkeiagm" # Ublock Origin
+          "bgnkhhnnamicmpeenaelnjfhikgbkllg" # Adguard
+          "gkeojjjcdcopjkbelgbcpckplegclfeg" # Adguard extra
           "emffkefkbkpkgpdeeooapgaicgmcbolj" # Wikiwand
           "efaidnbmnnnibpcajpcglclefindmkaj" # Adobe Reader
           "lmjnegcaeklhafolokijcfjliaokphfk" # Video downloadhelper

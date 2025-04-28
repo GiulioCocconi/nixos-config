@@ -53,14 +53,6 @@ in
 
     programs.direnv.enable = true;
 
-    environment.systemPackages = with pkgs; [
-      snowfallorg.flake
-      nixbang
-      vulnix
-      rippkgs
-      rippkgs-index
-    ];
-
     documentation.nixos.enable = false;
     environment.variables.NIXPKGS_ALLOW_UNFREE = "1";
 
