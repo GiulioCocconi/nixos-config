@@ -16,8 +16,11 @@ with lib.cogisys;
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "usb_storage" "sd_mod" ];
 
-  hardware.trackpoint.enable = true;
-  hardware.trackpoint.emulateWheel = true;
+  hardware.trackpoint = {
+    enable = true;
+    emulateWheel = true;
+    fakeButtons = true;
+  }
 
   boot.kernelParams = [
     "acpi_backlight=native"
@@ -63,7 +66,6 @@ with lib.cogisys;
 
   environment.shellAliases = {
     kbdlight = "xbacklight -ctrl tpcapi::kbd_backlight -set";
-
   };
 
   networking.useDHCP = lib.mkDefault true;
