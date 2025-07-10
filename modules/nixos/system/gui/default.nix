@@ -49,7 +49,6 @@ in
     environment.systemPackages = with pkgs; [
       custom-theme
       adwaita-icon-theme
-      chromium
     ] ++ optionals (!virtualmachine.enable) [
       mpv
       evince
@@ -93,6 +92,11 @@ in
       gtk-xft-hintstyle=hintmedium
       gtk-xft-rgba=none
     '';
-    environment.shellAliases.open = "xdg-open";
+    
+    environment.shellAliases = {
+      open = "xdg-open";
+      pbcopy= "${pkgs.xsel} --clipboard --input";
+      pbpaste= "${pkgs.xsel} --clipboard --output";
+    };
   };
 }

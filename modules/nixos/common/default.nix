@@ -90,6 +90,7 @@ in
         cls = "clear";
         mkdir = "mkdir -p";
         ls = "eza";
+	cal = "cal -m";
         udm = "udisksctl mount -b";
       };
 

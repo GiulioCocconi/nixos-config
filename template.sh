@@ -17,7 +17,7 @@ hostname=$(hostname)
 [[ -n "$_arg_hostname" ]] && hostname="$_arg_hostname"
 
 
-command_arguments=("--impure" "--use-remote-sudo" "--flake" ".#$hostname" "--show-trace")
+command_arguments=("--impure" "--sudo" "--flake" ".#$hostname" "--show-trace")
 
 cd $(dirname $0)
 echo "Building CoGiSystems configuration for $hostname"
