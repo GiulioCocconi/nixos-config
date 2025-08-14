@@ -30,5 +30,9 @@ in
 
     environment.shellAliases.tailscale = "sudo tailscale";
 
+    environment.variables = {
+      TS_NO_LOGS_NO_SUPPORT="true";
+    };
+
   };
 }

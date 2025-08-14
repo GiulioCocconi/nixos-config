@@ -70,7 +70,7 @@ in
       # XCURSOR_PATH = "$XCURSOR_PATH\${XCURSOR_PATH:+:}"
       #               + "${breeze-cursor.outPath}/share/icons";
       XCURSOR_THEME = "Breeze";
-
+      QT_QPA_PLATFORMTHEME = "qt5ct";
     };
 
     environment.etc.${gtkConfigFile}.text = ''
@@ -95,8 +95,8 @@ in
     
     environment.shellAliases = {
       open = "xdg-open";
-      pbcopy= "${pkgs.xsel} --clipboard --input";
-      pbpaste= "${pkgs.xsel} --clipboard --output";
+      pbcopy = "${pkgs.xsel}/bin/xsel --clipboard --input";
+      pbpaste = "${pkgs.xsel}/bin/xsel --clipboard --output";
     };
   };
 }

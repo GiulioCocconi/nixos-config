@@ -44,9 +44,9 @@ in
       # Channels are evil! Use `nixpkgs` from flake inputs
       channel.enable = false;
       nixPath = [
-        "nixpkgs=${pkgs.path}"
+        (builtins.trace pkgs.path "nixpkgs=${pkgs.path}")
       ];
-      settings.nix-path = config.nix.nixPath;
+      settings.nix-path = mkForce config.nix.nixPath;
 
     };
 

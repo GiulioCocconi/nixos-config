@@ -31,12 +31,26 @@ in
     ];
     boot = {
       loader = {
-        grub.enable = (cfg.mode == "legacy");
-        systemd-boot.enable = (cfg.mode == "UEFI");
-        grub.device = cfg.device;
-        grub.useOSProber = cfg.dualBoot;
+        grub = {
+          enable = (cfg.mode == "legacy");
+          device = cfg.device;
+          useOSProber = cfg.dualBoot;
+        }; 
+        
+        systemd-boot = {
+          enable = (cfg.mode == "UEFI");
+          editor = false;
+        };
       };
-      kernelParams = [ "quiet" ];
+      
+      kernelParams = [
+        "quiet"
+        "splash"
+        "systemd.show_status=auto"
+        "rd.udev.log_level=3"
+      ];
+      consoleLogLevel = 2;
+      
       supportedFilesystems = [ cfg.rootFilesystem ];
     };
   };

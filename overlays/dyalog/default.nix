@@ -1,4 +1,4 @@
-# Copyright (c) 2024 Giulio Cocconi
+# Copyright (c) 2025 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
 {...}:
