@@ -99,7 +99,7 @@ hostname=$(hostname)
 [[ -n "$_arg_hostname" ]] && hostname="$_arg_hostname"
 
 
-command_arguments=("--impure" "--sudo" "--flake" ".#$hostname" "--show-trace")
+command_arguments=("." "--hostname" "$hostname")
 
 cd $(dirname $0)
 echo "Building CoGiSystems configuration for $hostname"
@@ -120,7 +120,7 @@ if [[ "$_arg_upgrade" != "off" ]]; then
     git commit -m "Updated"
 
     [[ ${push^^} == "Y" || ${push^^} == "yes" ]] && git push
-   command_arguments+=("--upgrade")
+   command_arguments+=("--update")
 fi
 
 if [[ -n "$_arg_remote" ]]; then
@@ -128,6 +128,6 @@ if [[ -n "$_arg_remote" ]]; then
 
 fi
 
-nixos-rebuild switch "${command_arguments[@]}"
+nh os switch "${command_arguments[@]}"
 
 # ] <-- needed because of Argbash

@@ -51,6 +51,7 @@ in
     };
 
     programs.direnv.enable = true;
+    programs.nh.enable = true;
 
     documentation.nixos.enable = false;
     environment.variables.NIXPKGS_ALLOW_UNFREE = "1";

@@ -39,6 +39,13 @@ in
           locations."/".proxyPass = "http://127.0.0.1:27701";
         };
 
+
+        news = {
+          serverName = "news.${domainName}";
+          listen = [{addr = "0.0.0.0"; port = 80;}];
+          locations."/".proxyPass = "http://127.0.0.1:27703";
+        }
+
         fallback = {
           serverName = "*.${domainName}";
           #TODO: Implementare destination
@@ -167,6 +174,20 @@ in
         ];
       };
     };
+
+    miniflux = {
+      enable = true;
+
+      config = {
+        LISTEN_ADDR = "localhost:27703";
+      };
+      
+      adminCredentialsFile = (pkgs.writeText "minifluxPass"
+      ''ADMIN_USERNAME=admin
+      ADMIN_PASSWORD=admin1'').outPath;
+      
+    };
+    
   };
 
   networking.firewall.allowedTCPPorts = [ 80 443 53 ];

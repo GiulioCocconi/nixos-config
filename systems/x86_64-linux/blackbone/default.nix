@@ -25,7 +25,7 @@ with lib.cogisys;
     userName = "giulio";
     fullName = "G. Cocconi";
     isAdmin = true;
-    packages = with pkgs; [ libsForQt5.kdenlive qucs-s ngspice mathematica jetbrains.clion prismlauncher dyalog ride obs-studio ];
+    packages = with pkgs; [ kdePackages.kdenlive qucs-s ngspice mathematica jetbrains.clion prismlauncher dyalog ride obs-studio ];
   }];
 
   virtualisation.virtualbox.host.enable = true;
