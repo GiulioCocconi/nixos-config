@@ -29,6 +29,8 @@ in
 
   config = mkIf cfg.enable {
 
+    cogisys.apps.mpv = enabled;
+    
     cogisys.apps.chromium = enabled;
     cogisys.tools.terminal = enabled;
 
@@ -50,7 +52,6 @@ in
       custom-theme
       adwaita-icon-theme
     ] ++ optionals (!virtualmachine.enable) [
-      mpv
       evince
       qpdf
       libreoffice-fresh

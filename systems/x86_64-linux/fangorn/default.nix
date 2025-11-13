@@ -101,6 +101,9 @@ in
     };
 
 
+    security.auditd.enable = true;
+    security.audit.enable = "lock";
+
     nextcloud = {
       enable = true;
       hostName = "cloud.${domainName}";
