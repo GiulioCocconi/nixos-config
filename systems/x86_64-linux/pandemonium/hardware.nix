@@ -20,7 +20,7 @@ with lib.cogisys;
     enable = true;
     emulateWheel = true;
     fakeButtons = true;
-  }
+  };
 
   boot.kernelParams = [
     "acpi_backlight=native"
