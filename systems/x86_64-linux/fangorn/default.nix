@@ -8,8 +8,8 @@ with lib.cogisys;
 let
   domainName = "fo.co.gi";
   rewrite = domain: answer: [
-  	{inherit domain answer;}
-	  {inherit answer; domain = "*.${domain}";}
+    {inherit domain answer; enabled = true; }
+    {inherit answer; domain = "*.${domain}"; enabled = true; }
   ];
 in
 {
@@ -24,6 +24,10 @@ in
     system.printing = disabled;
   };
 
+
+  security.auditd.enable = true;
+  security.audit.enable = "lock";
+  
   services = {
     nginx = {
       enable = true;
@@ -44,7 +48,7 @@ in
           serverName = "news.${domainName}";
           listen = [{addr = "0.0.0.0"; port = 80;}];
           locations."/".proxyPass = "http://127.0.0.1:27703";
-        }
+        };
 
         fallback = {
           serverName = "*.${domainName}";
@@ -101,15 +105,13 @@ in
     };
 
 
-    security.auditd.enable = true;
-    security.audit.enable = "lock";
 
     nextcloud = {
       enable = true;
       hostName = "cloud.${domainName}";
 
       # Need to manually increment with every major upgrade.
-      package = pkgs.nextcloud31;
+      package = pkgs.nextcloud32;
 
       # Let NixOS install and configure the database automatically.
       database.createLocally = true;
@@ -186,7 +188,7 @@ in
       };
       
       adminCredentialsFile = (pkgs.writeText "minifluxPass"
-      ''ADMIN_USERNAME=admin
+        ''ADMIN_USERNAME=admin
       ADMIN_PASSWORD=admin1'').outPath;
       
     };
