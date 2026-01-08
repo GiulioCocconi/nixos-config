@@ -28,6 +28,10 @@ in
             core   = { whitespace = "trailing-space,space-before-tab"; };
             http   = { postBuffer = 524288000; };
             advice = { detachedHead = false; };
+            alias  = {
+              gone = ''!git branch --format="%(refname:short) %(upstream:track)" | grep "\[gone\]"'';
+              rm-gone = ''!git branch --format="%(refname:short) %(upstream:track)" | grep "\[gone\]" | cut -f1 -d " " | xargs -I{} git branch -D {}'';
+            }; 
           };
         };
 

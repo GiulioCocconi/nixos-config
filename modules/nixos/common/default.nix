@@ -52,7 +52,7 @@ in
       hardware.bluetooth.enable = mkDefault true;
       hardware.enableAllFirmware = true;
 
-      boot.kernelPackages = mkDefault pkgs.linuxPackages_zen;
+      boot.kernelPackages = mkDefault pkgs.linuxPackages_xanmod_latest;
       boot.tmp.useTmpfs = false;
 
       services.udisks2.enable = mkDefault true;

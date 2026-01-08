@@ -6,6 +6,6 @@
 
 final: prev: {
   prismlauncher-unwrapped = prev.prismlauncher-unwrapped.overrideAttrs (oldAttrs: rec {
-    patches = oldAttrs.patches ++ [ ./offline.patch ];
+    patches = [ ./offline.patch ];
   });
 }
