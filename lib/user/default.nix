@@ -18,7 +18,7 @@ rec {
         initialPassword = user.password or "";
 
         extraGroups = [ "video" "audio" "jackaudio" ]
-                      ++ (optionals user.isAdmin [ "wheel" ])
+                      ++ (optionals user.isAdmin [ "wheel" "dialout" ])
                       ++ (user.extraGroups or []);
 
         packages = user.packages or [];

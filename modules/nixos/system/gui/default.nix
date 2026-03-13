@@ -30,8 +30,8 @@ in
   config = mkIf cfg.enable {
 
     cogisys.apps.mpv = enabled;
-    
     cogisys.apps.chromium = enabled;
+    
     cogisys.tools.terminal = enabled;
 
     services.xserver = {
@@ -39,8 +39,7 @@ in
       xkb.layout = locale.keyboardLayout;
       excludePackages = [ pkgs.xterm ];
     };
-
-
+    
     services.autorandr.enable = true;
 
     fonts.enableDefaultPackages = true;
@@ -59,6 +58,7 @@ in
       mate.eom
       flameshot
       arandr
+      logseq
     ] ++ optionals (!virtualmachine.enable && networking.enable) [
       filezilla
       thunderbird
