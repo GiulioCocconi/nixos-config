@@ -28,7 +28,7 @@ with lib.cogisys;
     packages = with pkgs; [  qucs-s ngspice mathematica jetbrains.clion obs-studio ];
   }];
 
-  virtualisation.virtualbox.host.enable = true;
+  # virtualisation.virtualbox.host.enable = true;
 
   system.stateVersion = "23.05";
 
