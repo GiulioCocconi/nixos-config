@@ -30,8 +30,7 @@ let
     start = ''${pkgs.awesome}/bin/awesome ${makeSearchPath luaModules} ${configFlags configPath} &
             waitPID=$!'';
   };
-
-
+  
 in
 {
   options.cogisys.awesome = with types; {
@@ -61,6 +60,20 @@ in
     ];
 
     services.xserver.updateDbusEnvironment = true;
+    
+    xdg.portal = {
+      enable = true;
+
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gtk
+      ];
+
+      config = {
+        common = {
+          default = [ "gtk" ];
+        };
+      };
+    };
 
     services.xserver.windowManager.session = [
       (mkAwesomeSession "Awesome" configPath)
