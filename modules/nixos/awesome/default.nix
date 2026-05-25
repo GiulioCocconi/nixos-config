@@ -59,6 +59,10 @@ in
       awesome
     ];
 
+    environment.sessionVariables = {
+      GTK_USE_PORTAL = "0";
+    };
+
     services.xserver.updateDbusEnvironment = true;
     
     xdg.portal = {
