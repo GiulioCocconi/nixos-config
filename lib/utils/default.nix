@@ -2,18 +2,18 @@
 # SPDX-License-Identifier: MIT
 
 {lib, ...}:
-let
-  pkgs = import <nixpkgs> {}; # Ugly fix, should be passed as an attribute
-in
+
 with lib; rec {
   writeFileService = {file, text}: {
-    wantedBy = [ "multi-user.service" ];
+    wantedBy = [ "multi-user.target" ];
     startLimitBurst = 5;
     startLimitIntervalSec = 1;
+    script = ''
+      echo ${escapeShellArg text} > ${escapeShellArg file}
+    '';
     serviceConfig = {
       Type = "oneshot";
       Restart = "on-failure";
-      ExecStart = "${pkgs.runtimeShell} -c 'echo ${text} > ${file}'";
     };
   };
 }

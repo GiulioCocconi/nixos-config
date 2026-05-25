@@ -26,7 +26,7 @@ in
 
      environment.systemPackages = [
        pkgs.libraspberrypi
-       pkgs.python311Packages.gpiozero
+       pkgs.python3Packages.gpiozero
      ] ++ optionals (cfg.model > 3) [
        pkgs.cogisys.nix-rpi-eeprom-update
      ];
