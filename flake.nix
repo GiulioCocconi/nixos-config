@@ -1,4 +1,4 @@
-# Copyright (c) 2024 Giulio Cocconi
+# Copyright (c) 2026 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
 {
@@ -31,6 +31,11 @@
     emacs-config = {
       url = "github:GiulioCocconi/cemacs";
       flake = false;
+    };
+
+    somewm = {
+      url = "github:trip-zip/somewm/release/1.4";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     awesome-config = {

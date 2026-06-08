@@ -58,7 +58,6 @@ in
       mate.eom
       flameshot
       arandr
-      logseq
     ] ++ optionals (!virtualmachine.enable && networking.enable) [
       filezilla
       thunderbird

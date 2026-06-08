@@ -65,6 +65,7 @@ in
         nix = enabled;
 
         awesome.enable = gui.enable;
+	somewm.enable = gui.enable;
 
         tools = {
           git = enabled;

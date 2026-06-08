@@ -412,7 +412,8 @@
         "nixpkgs": "nixpkgs_2",
         "rippkgs": "rippkgs",
         "snowfall-flake": "snowfall-flake",
-        "snowfall-lib": "snowfall-lib"
+        "snowfall-lib": "snowfall-lib",
+        "somewm": "somewm"
       }
     },
     "rust-analyzer-src": {
@@ -475,6 +476,27 @@
       "original": {
         "owner": "snowfallorg",
         "repo": "lib",
+        "type": "github"
+      }
+    },
+    "somewm": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1780677292,
+        "narHash": "sha256-DMZF8BVilkP4I2+eV8yItfS89tEYAmgRaTtfjLSiAC8=",
+        "owner": "trip-zip",
+        "repo": "somewm",
+        "rev": "58fa5036aa06316c288f74ffb1c499d9951205c7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "trip-zip",
+        "ref": "release/1.4",
+        "repo": "somewm",
         "type": "github"
       }
     },

@@ -1,0 +1,85 @@
+# Copyright (c) 2026 Giulio Cocconi
+# SPDX-License-Identifier: MIT
+
+{ lib, config, options, pkgs, inputs, ... }:
+with lib;
+with lib.cogisys;
+
+let
+  cfg = config.cogisys.awesome;
+  gui = config.cogisys.system.gui;
+
+  configPath = inputs.awesome-config.outPath;
+
+
+  luaModules = with pkgs.luajitPackages; [
+    luarocks
+    luautf8
+  ];
+
+  somewm = pkgs.somewm.override {
+    extraLuaPackages = luaModules;
+  };
+
+  configFlags = configPath: "--search ${configPath} -c ${configPath}/rc.lua";
+
+  mkSomeWMSession = n: configPath: {
+    name = n;
+    start = ''${somewm}/bin/somewm ${configFlags configPath} &
+            waitPID=$!'';
+  };
+  
+in
+{
+  options.cogisys.somewm = with types; {
+    enable = mkBoolOpt false "Enable somewm.";
+  };
+
+  config = mkIf cfg.enable {
+    assertions = [
+      (mkAssertionModule gui "GUI" "somewm")
+      (mkAssertion (builtins.pathExists configPath)
+        "Awesome config file (${configPath}) does not exists")
+    ];
+
+    services.displayManager.sddm.enable = true;
+    services.acpid.enable = true;
+
+    fonts.packages = with pkgs; [
+      nerd-fonts.iosevka
+    ];
+
+    environment.systemPackages = [
+      pkgs.rofi
+      pkgs.udiskie
+      pkgs.picom
+      pkgs.libnotify
+      somewm
+    ];
+
+    environment.sessionVariables = {
+      GTK_USE_PORTAL = "0";
+    };
+
+    services.xserver.updateDbusEnvironment = true;
+    
+    xdg.portal = {
+      enable = true;
+
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gtk
+      ];
+
+      config = {
+        common = {
+          default = [ "gtk" ];
+        };
+      };
+    };
+
+    services.xserver.windowManager.session = [
+      (mkAwesomeSession "somewm" configPath)
+      (mkAwesomeSession "somewm-debug" "/home/giulio/awesomewm")
+    ];
+  };
+}
