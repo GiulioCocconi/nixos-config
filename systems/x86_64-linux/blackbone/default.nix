@@ -16,6 +16,8 @@ with lib.cogisys;
     system.networking.wifi = enabled;
 
     apps.emacs = enabled;
+    apps.obs = enabled;
+    
     system.gui = enabled;
     tools.gnupg = enabled;
 
@@ -25,11 +27,19 @@ with lib.cogisys;
     userName = "giulio";
     fullName = "G. Cocconi";
     isAdmin = true;
-    packages = with pkgs; [  qucs-s ngspice mathematica jetbrains.clion obs-studio ];
+    packages = with pkgs; [  qucs-s ngspice mathematica jetbrains.clion ];
   }];
 
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
+
+  services.usbmuxd.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    ifuse
+    libimobiledevice
+    rsync
+  ];
 
   system.stateVersion = "23.05";
 

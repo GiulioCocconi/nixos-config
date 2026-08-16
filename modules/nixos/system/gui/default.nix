@@ -55,7 +55,7 @@ in
       qpdf
       libreoffice-fresh
       nautilus
-      mate.eom
+      eom
       flameshot
       arandr
     ] ++ optionals (!virtualmachine.enable && networking.enable) [

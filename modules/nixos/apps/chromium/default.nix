@@ -43,12 +43,10 @@ in
         "ExtensionInstallForcelist" = [
           "bgnkhhnnamicmpeenaelnjfhikgbkllg" # Adguard
           "gkeojjjcdcopjkbelgbcpckplegclfeg" # Adguard extra
-          "emffkefkbkpkgpdeeooapgaicgmcbolj" # Wikiwand
           "efaidnbmnnnibpcajpcglclefindmkaj" # Adobe Reader
           "lmjnegcaeklhafolokijcfjliaokphfk" # Video downloadhelper
           "gjjbmfigjpgnehjioicaalopaikcnheo" # Dark Theme
           "jghecgabfgfdldnmbfkhmffcabddioke" # Volume Master
-          "eekailopagacbcdloonjhbiecobagjci" # Go back with backspace
         ];
         "ManagedBookmarks" = [{ toplevel_name = "CoGiSys Bookmarks"; }]
                              ++ optionals cfg.addNixOSBookmarks [{

@@ -45,8 +45,11 @@ in
           http   = { postBuffer = 524288000; };
           
           advice = { detachedHead = false; };
-          
-	        fetch  = { prune = true; };
+
+	  fetch  = { prune = true; };
+
+	  rebase = { autosquash = true; };
+
           
           alias  = {
             gone = ''!git branch --format="%(refname:short) %(upstream:track)" | grep "\[gone\]"'';

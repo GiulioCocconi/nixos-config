@@ -6,7 +6,7 @@ with lib;
 with lib.cogisys;
 
 let
-  cfg = config.cogisys.awesome;
+  cfg = config.cogisys.somewm;
   gui = config.cogisys.system.gui;
 
   configPath = inputs.awesome-config.outPath;
@@ -18,16 +18,22 @@ let
   ];
 
   somewm = pkgs.somewm.override {
-    extraLuaPackages = luaModules;
+    extraLuaPackages = _ : luaModules;
   };
 
   configFlags = configPath: "--search ${configPath} -c ${configPath}/rc.lua";
 
-  mkSomeWMSession = n: configPath: {
-    name = n;
-    start = ''${somewm}/bin/somewm ${configFlags configPath} &
-            waitPID=$!'';
-  };
+  mkSomeWMSession = n: extraArgs:
+    (pkgs.writeTextDir "share/wayland-sessions/${n}.desktop" ''
+      [Desktop Entry]
+      Name=${n}
+      Comment=somewm Wayland session
+      Exec=${pkgs.dbus}/bin/dbus-run-session ${somewm}/bin/somewm ${extraArgs}
+      Type=Application
+      DesktopNames=${n}
+    '').overrideAttrs (_: {
+      passthru.providedSessions = [ n ];
+    });
   
 in
 {
@@ -43,6 +49,7 @@ in
     ];
 
     services.displayManager.sddm.enable = true;
+    services.displayManager.sddm.wayland.enable = true;
     services.acpid.enable = true;
 
     fonts.packages = with pkgs; [
@@ -57,29 +64,16 @@ in
       somewm
     ];
 
-    environment.sessionVariables = {
-      GTK_USE_PORTAL = "0";
-    };
 
     services.xserver.updateDbusEnvironment = true;
     
-    xdg.portal = {
-      enable = true;
+    xdg.portal.enable = true;
+    xdg.portal.wlr.enable = true;
+    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-wlr ];
 
-      extraPortals = [
-        pkgs.xdg-desktop-portal-gtk
-      ];
-
-      config = {
-        common = {
-          default = [ "gtk" ];
-        };
-      };
-    };
-
-    services.xserver.windowManager.session = [
-      (mkAwesomeSession "somewm" configPath)
-      (mkAwesomeSession "somewm-debug" "/home/giulio/awesomewm")
+    services.displayManager.sessionPackages = [
+      (mkSomeWMSession "somewm" (configFlags configPath))
+      (mkSomeWMSession "somewm-debug" (configFlags "/home/giulio/awesomewm"))
     ];
   };
 }
