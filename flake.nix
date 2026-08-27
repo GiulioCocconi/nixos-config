@@ -8,10 +8,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
-     lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.0.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     disko = {
       url = "github:nix-community/disko";
@@ -43,45 +39,29 @@
       flake = false;
     };
 
-      # deploy-rs = {
-      # url = "github:serokell/deploy-rs";
-      # inputs.nixpkgs.follows = "unstable";
-    # };
-
-    snowfall-lib = {
-      url = "github:snowfallorg/lib";
-	  inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    snowfall-flake = {
-      url = "github:snowfallorg/flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.snowfall-lib.follows = "snowfall-lib";
-    };
-
     rippkgs = {
       url = "github:replit/rippkgs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    flakelight.url = "github:nix-community/flakelight";
   };
 
-  outputs = inputs:
-  inputs.snowfall-lib.mkFlake {
-    inherit inputs;
-    src = ./.;
-    snowfall.namespace = "cogisys";
-    channels-config = { allowUnfree = true; };
+  outputs = { flakelight, ... } @ inputs:
+    flakelight ./. {
+      inherit inputs;
 
-    overlays = with inputs; [
-      snowfall-flake.overlays."package/flake"
-      rippkgs.overlays.default
-      emacs-overlay.overlays.default
-    ];
+      nixpkgs.config.allowUnfree = true;
 
-    systems.modules.nixos = with inputs; [
-      disko.nixosModules.disko
-      lix-module.nixosModules.default
-    ];
-  };
+      # Custom CoGi Systems helper library, exposed as a normal flake `lib`
+      # output instead of being injected into the Nixpkgs `lib` namespace.
+      lib = { lib, ... }: {
+        cogisys = (import ./lib/module { inherit lib; })
+          // (import ./lib/utils { inherit lib; })
+          // (import ./lib/user { inherit lib; });
+      };
+
+      # Aggregated reusable NixOS module, exposed as a normal flake module.
+      nixosModules.cogisys = ./modules/nixos;
+    };
 }
