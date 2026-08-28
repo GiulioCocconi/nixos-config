@@ -3,11 +3,11 @@
     "awesome-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1787948912,
+        "lastModified": 1787949175,
         "narHash": "sha256-9saXpIYXFqywQYogMTpHQcA2OVp6nBNMURa13zHwZws=",
         "owner": "GiulioCocconi",
         "repo": "awesomewm",
-        "rev": "4129639aef51a921ecbcf19b0094b9378ec87c25",
+        "rev": "4a651dac9c6cc7ff85ad0f97b18b264729d1fb3d",
         "type": "github"
       },
       "original": {
