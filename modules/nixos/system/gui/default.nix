@@ -1,9 +1,9 @@
 # Copyright (c) 2024 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
-{ lib, config, options, pkgs, ... }:
+{ lib, cogisysLib, config, options, pkgs, ... }:
 with lib;
-with lib.cogisys;
+with cogisysLib;
 
 let
   cfg = config.cogisys.system.gui;
@@ -16,7 +16,7 @@ let
     name = "custom-theme";
     src = ./default-theme;
     propagatedBuildInputs = with pkgs; [
-      cogisys.breezeCursor
+      pkgs.breezeCursor
       adwaita-icon-theme
     ];
     installPhase = "mkdir -p $out/share/icons/default && cp * $out/share/icons/default";
@@ -31,7 +31,7 @@ in
 
     cogisys.apps.mpv = enabled;
     cogisys.apps.chromium = enabled;
-    
+
     cogisys.tools.terminal = enabled;
 
     services.xserver = {
@@ -39,7 +39,7 @@ in
       xkb.layout = locale.keyboardLayout;
       excludePackages = [ pkgs.xterm ];
     };
-    
+
     services.autorandr.enable = true;
 
     fonts.enableDefaultPackages = true;
@@ -92,7 +92,7 @@ in
       gtk-xft-hintstyle=hintmedium
       gtk-xft-rgba=none
     '';
-    
+
     environment.shellAliases = {
       open = "xdg-open";
       pbcopy = "${pkgs.xsel}/bin/xsel --clipboard --input";

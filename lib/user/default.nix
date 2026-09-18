@@ -1,7 +1,7 @@
 # Copyright (c) 2024 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
-{lib, ...}:
+{ lib, ... }:
 
 with lib;
 
@@ -11,29 +11,31 @@ in
 
 rec {
   mkUsers = list:
-    builtins.listToAttrs (builtins.map (user:
-      nameValuePair user.userName {
-        isNormalUser = true;
-        description = user.fullName;
-        initialPassword = user.password or "";
+    builtins.listToAttrs
+      (builtins.map
+        (user:
+          nameValuePair user.userName {
+            isNormalUser = true;
+            description = user.fullName;
+            initialPassword = user.password or "";
 
-        extraGroups = [ "video" "audio" "jackaudio" ]
-                      ++ (optionals user.isAdmin [ "wheel" "dialout" ])
-                      ++ (user.extraGroups or []);
+            extraGroups = [ "video" "audio" "jackaudio" ]
+            ++ (optionals user.isAdmin [ "wheel" "dialout" ])
+            ++ (user.extraGroups or [ ]);
 
-        packages = user.packages or [];
+            packages = user.packages or [ ];
 
-        openssh.authorizedKeys.keys = [
-          sshPublicKey
-        ] ++ (user.sshAuthKey or []);
+            openssh.authorizedKeys.keys = [
+              sshPublicKey
+            ] ++ (user.sshAuthKey or [ ]);
 
 
-      })
-      list) // {
-        root = {
-          openssh.authorizedKeys.keys = [sshPublicKey];
-        };
+          })
+        list) // {
+      root = {
+        openssh.authorizedKeys.keys = [ sshPublicKey ];
       };
+    };
 }
 
 

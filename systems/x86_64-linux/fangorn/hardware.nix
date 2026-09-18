@@ -1,9 +1,9 @@
 # Copyright (c) 2024 Giulio Cocconi
 # SPDX-License-Identifier: MIT
-{ config, lib, pkgs, inputs, modulesPath, disko, ... }:
+{ config, lib, cogisysLib, pkgs, inputs, modulesPath, disko, ... }:
 
 with lib;
-with lib.cogisys;
+with cogisysLib;
 
 {
   imports = [
@@ -11,7 +11,7 @@ with lib.cogisys;
   ];
 
 
-  disko.devices = import ./disko-config.nix {};
+  disko.devices = import ./disko-config.nix { };
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "usb_storage" ];
   boot.kernelModules = [ "kvm-intel" ];

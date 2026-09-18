@@ -1,9 +1,9 @@
 # Copyright (c) 2024 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
-{ lib, options, config, ...}:
+{ lib, cogisysLib, options, config, ... }:
 with lib;
-with lib.cogisys;
+with cogisysLib;
 
 let
   cfg = config.cogisys.apps.steam;
@@ -15,7 +15,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [(mkAssertionModule gui "GUI" "Steam")];
+    assertions = [ (mkAssertionModule gui "GUI" "Steam") ];
 
     programs.steam = {
       enable = true;

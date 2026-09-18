@@ -1,9 +1,9 @@
 # Copyright (c) 2024 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
-{ lib, config, options, ...}:
+{ lib, cogisysLib, config, options, ... }:
 with lib;
-with lib.cogisys;
+with cogisysLib;
 
 let
   cfg = config.cogisys.virtualmachine;
@@ -19,14 +19,14 @@ let
 
     serviceConfig.ExecStart =
       "${config.boot.kernelPackages.virtualboxGuestAdditions}/bin/VBoxClient -fv ${flags}";
-    };
+  };
 
 in
 {
 
   options.cogisys.virtualmachine = with types; {
     enable = mkBoolOpt false "Is the system a virtualmachine?";
-    software = mkOpt (enum ["virtualbox" "vmware"]) "virtualbox" "Software used for virtualization.";
+    software = mkOpt (enum [ "virtualbox" "vmware" ]) "virtualbox" "Software used for virtualization.";
   };
 
   config = mkMerge [

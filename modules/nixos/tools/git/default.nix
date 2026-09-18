@@ -1,13 +1,14 @@
 # Copyright (c) 2024 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
-{ lib, options, config, pkgs, ... }:
+{ lib, cogisysLib, options, config, pkgs, ... }:
 with lib;
-with lib.cogisys;
+with cogisysLib;
 
 let
   cfg = config.cogisys.tools.git;
   networking = config.cogisys.system.networking;
+  bblame-script = (builtins.readFile ./git-bblame);
 in
 {
   options.cogisys.tools.git = with types; {
@@ -22,13 +23,13 @@ in
         package = pkgs.gitFull;
 
         config = {
-          init   = { defaultBranch = "main"; };
-          
-          pull   = { rebase = true; };
-          
-          push   = { autoSetupRemote = true; };
-          
-          core   = {
+          init = { defaultBranch = "main"; };
+
+          pull = { rebase = true; };
+
+          push = { autoSetupRemote = true; };
+
+          core = {
             whitespace = "trailing-space,space-before-tab";
             pager = "delta";
           };
@@ -39,34 +40,36 @@ in
           };
 
           interactive = { diffFilter = "delta --color-only"; };
-          
-          merge  = { conflictStyle = "zdiff3"; };
-          
-          http   = { postBuffer = 524288000; };
-          
+
+          merge = { conflictStyle = "zdiff3"; };
+
+          http = { postBuffer = 524288000; };
+
           advice = { detachedHead = false; };
 
-	  fetch  = { prune = true; };
+          fetch = { prune = true; };
 
-	  rebase = { autosquash = true; };
+          rebase = { autosquash = true; };
 
-          
-          alias  = {
+          rerere = { enabled = true; };
+
+          diff = { algorithm = "histogram"; };
+
+          alias = {
             gone = ''!git branch --format="%(refname:short) %(upstream:track)" | grep "\[gone\]"'';
             rm-gone = ''!git branch --format="%(refname:short) %(upstream:track)" | grep "\[gone\]" | cut -f1 -d " " | xargs -I{} git branch -D {}'';
-          }; 
+          };
         };
       };
 
       environment.shellAliases.ggrep = "git grep -n";
 
-      environment.systemPackages = with pkgs; [ gh delta ];
-
+      environment.systemPackages = with pkgs; [ gh delta (writeScriptBin "git-bblame" bblame-script) ];
     })
 
     (mkIf (cfg.enable && cfg.useOauth) {
 
-      assertions = [(mkAssertionModule networking "Networking" "oauth credential manager")];
+      assertions = [ (mkAssertionModule networking "Networking" "oauth credential manager") ];
 
       environment.systemPackages = [ pkgs.git-credential-oauth ];
 
@@ -75,5 +78,6 @@ in
         "oauth"
       ];
 
-    })];
+    })
+  ];
 }

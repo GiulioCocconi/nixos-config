@@ -1,9 +1,9 @@
 # Copyright (c) 2024 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
-{ lib, config, options, ...}:
+{ lib, cogisysLib, config, options, ... }:
 with lib;
-with lib.cogisys;
+with cogisysLib;
 
 let
   cfg = config.cogisys.virtualmachine;
@@ -11,20 +11,20 @@ in
 {
   options.cogisys.virtualmachine = with types; {
     enable = mkBoolOpt false "Is the system a virtualmachine?";
-    software = mkOpt (enum ["virtualbox" "vmware"]) "virtualbox" "Software used for virtualization.";
+    software = mkOpt (enum [ "virtualbox" "vmware" ]) "virtualbox" "Software used for virtualization.";
   };
 
   config = mkIf cfg.enable {
-      cogisys = {
-        light = enabled;
-        system = {
-          printing.enable = mkForce false;
-          networking.wifi.enable = mkForce false;
-          boot.mode = "legacy";
-        };
+    cogisys = {
+      light = enabled;
+      system = {
+        printing.enable = mkForce false;
+        networking.wifi.enable = mkForce false;
+        boot.mode = "legacy";
       };
-
-      virtualisation.${cfg.software}.guest.enable = true;
-
     };
+
+    virtualisation.${cfg.software}.guest.enable = true;
+
+  };
 }

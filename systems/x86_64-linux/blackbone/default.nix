@@ -1,9 +1,9 @@
 # Copyright (c) 2024 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
-{ config, lib, pkgs, ... }:
+{ config, lib, cogisysLib, pkgs, ... }:
 with lib;
-with lib.cogisys;
+with cogisysLib;
 
 {
 
@@ -17,7 +17,7 @@ with lib.cogisys;
 
     apps.emacs = enabled;
     apps.obs = enabled;
-    
+
     system.gui = enabled;
     tools.gnupg = enabled;
 
@@ -27,7 +27,7 @@ with lib.cogisys;
     userName = "giulio";
     fullName = "G. Cocconi";
     isAdmin = true;
-    packages = with pkgs; [  qucs-s ngspice mathematica jetbrains.clion ];
+    packages = with pkgs; [ qucs-s ngspice mathematica jetbrains.clion ];
   }];
 
   virtualisation.libvirtd.enable = true;

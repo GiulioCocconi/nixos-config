@@ -1,9 +1,9 @@
 # Copyright (c) 2024 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
-{ lib, options, config, pkgs, ...}:
+{ lib, cogisysLib, options, config, pkgs, ... }:
 with lib;
-with lib.cogisys;
+with cogisysLib;
 
 let
   cfg = config.cogisys.services.tailscale;
@@ -16,7 +16,7 @@ in
 
   config = mkIf cfg.enable {
 
-    assertions = [(mkAssertionModule networking "networking" "tailscale")];
+    assertions = [ (mkAssertionModule networking "networking" "tailscale") ];
 
     services.tailscale = {
       enable = true;
@@ -31,7 +31,7 @@ in
     environment.shellAliases.tailscale = "sudo tailscale";
 
     environment.variables = {
-      TS_NO_LOGS_NO_SUPPORT="true";
+      TS_NO_LOGS_NO_SUPPORT = "true";
     };
 
   };

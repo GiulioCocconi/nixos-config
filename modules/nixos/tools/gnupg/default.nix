@@ -1,9 +1,9 @@
 # Copyright (c) 2024 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
-{ lib, options, config, pkgs, ... }:
+{ lib, cogisysLib, options, config, pkgs, ... }:
 with lib;
-with lib.cogisys;
+with cogisysLib;
 
 let
   cfg = config.cogisys.tools.gnupg;
@@ -11,19 +11,19 @@ let
   gui = config.cogisys.system.gui;
 in
 {
-	options.cogisys.tools.gnupg = with types; {
-		enable = mkEnableOption "gnupg";
-	};
+  options.cogisys.tools.gnupg = with types; {
+    enable = mkEnableOption "gnupg";
+  };
 
-	config = mkIf cfg.enable {
-		assertions = [
-			(mkAssertionModule networking "networking" "opengp")
-		];
+  config = mkIf cfg.enable {
+    assertions = [
+      (mkAssertionModule networking "networking" "opengp")
+    ];
 
-		programs.gnupg.agent = {
-			enable = true;
-		};
+    programs.gnupg.agent = {
+      enable = true;
+    };
 
-		environment.systemPackages = optional gui.enable pkgs.gpa;
-	};
+    environment.systemPackages = optional gui.enable pkgs.gpa;
+  };
 }

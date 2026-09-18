@@ -1,7 +1,7 @@
 # Copyright (c) 2024 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
-{lib, ...}:
+{ lib, ... }:
 
 with lib; rec {
   mkOpt = type: default: description:

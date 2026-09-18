@@ -1,11 +1,11 @@
 # Copyright (c) 2024 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
-{lib, config, ...}:
+{ lib, cogisysLib, config, ... }:
 
 
 with lib;
-with lib.cogisys;
+with cogisysLib;
 let
   cfg = config.cogisys.system.boot;
 in
@@ -13,8 +13,8 @@ in
   options.cogisys.system.boot = with types; {
     enable = mkEnableOption "booting.";
     dualBoot = mkBoolOpt false "Is the system dual-booting?";
-    rootFilesystem = mkOpt (enum ["ext4" "zfs" "btrfs"]) "ext4" "Filesystem of root";
-    mode = mkOpt (enum ["legacy" "UEFI"]) "UEFI" "Boot Mode";
+    rootFilesystem = mkOpt (enum [ "ext4" "zfs" "btrfs" ]) "ext4" "Filesystem of root";
+    mode = mkOpt (enum [ "legacy" "UEFI" ]) "UEFI" "Boot Mode";
     device = mkOpt types.str "nodev" "Where to install the bootloader";
   };
 
@@ -35,14 +35,14 @@ in
           enable = (cfg.mode == "legacy");
           device = cfg.device;
           useOSProber = cfg.dualBoot;
-        }; 
-        
+        };
+
         systemd-boot = {
           enable = (cfg.mode == "UEFI");
           editor = false;
         };
       };
-      
+
       kernelParams = [
         "quiet"
         "splash"
@@ -50,7 +50,7 @@ in
         "rd.udev.log_level=3"
       ];
       consoleLogLevel = 2;
-      
+
       supportedFilesystems = [ cfg.rootFilesystem ];
     };
   };

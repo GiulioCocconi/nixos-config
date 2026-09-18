@@ -1,9 +1,9 @@
 # Copyright (c) 2026 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
-{ lib, config, options, pkgs, inputs, ... }:
+{ lib, cogisysLib, config, options, pkgs, inputs, ... }:
 with lib;
-with lib.cogisys;
+with cogisysLib;
 
 let
   cfg = config.cogisys.somewm;
@@ -18,7 +18,7 @@ let
   ];
 
   somewm = pkgs.somewm.override {
-    extraLuaPackages = _ : luaModules;
+    extraLuaPackages = _: luaModules;
   };
 
   configFlags = configPath: "--search ${configPath} -c ${configPath}/rc.lua";
@@ -34,7 +34,7 @@ let
     '').overrideAttrs (_: {
       passthru.providedSessions = [ n ];
     });
-  
+
 in
 {
   options.cogisys.somewm = with types; {
@@ -61,12 +61,15 @@ in
       pkgs.udiskie
       pkgs.picom
       pkgs.libnotify
+      pkgs.slurp
+      pkgs.grim
+      pkgs.wl-clipboard
       somewm
     ];
 
 
     services.xserver.updateDbusEnvironment = true;
-    
+
     xdg.portal.enable = true;
     xdg.portal.wlr.enable = true;
     xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-wlr ];

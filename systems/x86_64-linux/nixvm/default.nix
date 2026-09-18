@@ -1,9 +1,9 @@
 # Copyright (c) 2024 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
-{ config, lib, ... }:
+{ config, lib, cogisysLib, ... }:
 with lib;
-with lib.cogisys;
+with cogisysLib;
 
 {
 

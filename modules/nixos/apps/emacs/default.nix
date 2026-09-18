@@ -1,9 +1,9 @@
 # Copyright (c) 2024 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
-{config, options, lib, pkgs, inputs, ...}:
+{ config, options, lib, cogisysLib, pkgs, inputs, ... }:
 with lib;
-with lib.cogisys;
+with cogisysLib;
 
 let
   cfg = config.cogisys.apps.emacs;
@@ -44,7 +44,7 @@ in
     environment.systemPackages = [
       (pkgs.writeShellScriptBin "cemacs"
         ''
-            EMACS_PURE=TRUE setsid ${myEmacs}/bin/emacs --init-directory ${emacsDir} $@ &
+          EMACS_PURE=TRUE setsid ${myEmacs}/bin/emacs --init-directory ${emacsDir} $@ &
         '')
       myEmacs # Required in order to load impure configs
     ];

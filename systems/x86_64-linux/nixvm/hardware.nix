@@ -1,9 +1,9 @@
 # Copyright (c) 2024 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
-{ config, lib, pkgs, ... }:
+{ config, lib, cogisysLib, pkgs, ... }:
 with lib;
-with lib.cogisys;
+with cogisysLib;
 
 {
 
@@ -15,7 +15,8 @@ with lib.cogisys;
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-label/nixos";
+    {
+      device = "/dev/disk/by-label/nixos";
       fsType = "ext4";
     };
 

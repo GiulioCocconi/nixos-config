@@ -1,9 +1,9 @@
 # Copyright (c) 2024 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
-{ config, lib, pkgs, ... }:
+{ config, lib, cogisysLib, pkgs, ... }:
 with lib;
-with lib.cogisys;
+with cogisysLib;
 
 {
 
@@ -25,7 +25,7 @@ with lib.cogisys;
     userName = "giulio";
     fullName = "G. Cocconi";
     isAdmin = true;
-    packages = with pkgs; [geogebra];
+    packages = with pkgs; [ geogebra ];
   }];
 
   virtualisation.virtualbox.host.enable = true;

@@ -1,50 +1,50 @@
 # Copyright (c) 2024 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
-{ lib, options, config, pkgs, ...}:
+{ lib, cogisysLib, options, config, pkgs, ... }:
 with lib;
-with lib.cogisys;
+with cogisysLib;
 
 let
   cfg = config.cogisys.suites.scientificWriting;
   gui = config.cogisys.system.gui;
   light = config.cogisys.light;
 in
-  {
-    options.cogisys.suites.scientificWriting = with types; {
-      enable = mkBoolOpt false "Enable scientific writing suite.";
-    };
+{
+  options.cogisys.suites.scientificWriting = with types; {
+    enable = mkBoolOpt false "Enable scientific writing suite.";
+  };
 
-    config = mkIf cfg.enable {
+  config = mkIf cfg.enable {
 
-      assertions = [(mkAssertionModule gui "GUI" "scientific writing")];
+    assertions = [ (mkAssertionModule gui "GUI" "scientific writing") ];
 
-      fonts.packages = with pkgs; [
-        (google-fonts.override {
-          fonts = [
-            "CormorantGaramond"
-            "CormorantInfant"
-            "PoetsenOne"
-            "Merriweather"
-          ];
-        })
-      ];
+    fonts.packages = with pkgs; [
+      (google-fonts.override {
+        fonts = [
+          "CormorantGaramond"
+          "CormorantInfant"
+          "PoetsenOne"
+          "Merriweather"
+        ];
+      })
+    ];
 
-      environment.systemPackages = with pkgs; [
-        (texlive.combine {
-          inherit (texlive) scheme-medium
-            standalone preview dvisvgm amsmath
-            pgfplots;
-        })
-        texstudio
-        libqalculate
-        inkscape-with-extensions
-        sioyek
-        texmacs
-      ] ++ optionals (!light.storage) [
-        # sage
-      ];
-      cogisys.apps.chromium.addMathBookmarks = true;
+    environment.systemPackages = with pkgs; [
+      (texlive.combine {
+        inherit (texlive) scheme-medium
+          standalone preview dvisvgm amsmath
+          pgfplots;
+      })
+      texstudio
+      libqalculate
+      inkscape-with-extensions
+      sioyek
+      texmacs
+    ] ++ optionals (!light.storage) [
+      # sage
+    ];
+    cogisys.apps.chromium.addMathBookmarks = true;
 
-    };
-  }
+  };
+}

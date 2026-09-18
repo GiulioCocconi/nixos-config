@@ -1,9 +1,9 @@
 # Copyright (c) 2024 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
-{ lib, options, config, pkgs, ... }:
+{ lib, cogisysLib, options, config, pkgs, ... }:
 with lib;
-with lib.cogisys;
+with cogisysLib;
 
 let
   cfg = config.cogisys.nix;
@@ -16,6 +16,7 @@ in
 
   config = mkIf cfg.enable {
     nix = {
+      package = pkgs.lixPackageSets.latest.lix;
       settings = {
         experimental-features = [ "nix-command" "flakes" ];
         http-connections = 50;
@@ -30,15 +31,18 @@ in
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         ];
 
+        trusted-users = [ "@wheel" ];
+
       };
 
       gc = {
         automatic = true;
         dates = "weekly";
 
-        options = if light.memory
-                  then"-d"
-                  else "--delete-older-than 30d";
+        options =
+          if light.memory
+          then "-d"
+          else "--delete-older-than 30d";
       };
 
       # Channels are evil! Use `nixpkgs` from flake inputs
@@ -61,7 +65,7 @@ in
       text = ''
         ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin diff \
         /run/current-system "$systemConfig"
-        '';
+      '';
     };
   };
 }

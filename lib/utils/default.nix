@@ -1,10 +1,10 @@
 # Copyright (c) 2024 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
-{lib, ...}:
+{ lib, ... }:
 
 with lib; rec {
-  writeFileService = {file, text}: {
+  writeFileService = { file, text }: {
     wantedBy = [ "multi-user.target" ];
     startLimitBurst = 5;
     startLimitIntervalSec = 1;

@@ -1,9 +1,9 @@
 # Copyright (c) 2024 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
-{ lib, config, options, pkgs, inputs, ... }:
+{ lib, cogisysLib, config, options, pkgs, inputs, ... }:
 with lib;
-with lib.cogisys;
+with cogisysLib;
 
 let
   cfg = config.cogisys.awesome;
@@ -30,7 +30,7 @@ let
     start = ''${pkgs.awesome}/bin/awesome ${makeSearchPath luaModules} ${configFlags configPath} &
             waitPID=$!'';
   };
-  
+
 in
 {
   options.cogisys.awesome = with types; {
@@ -64,7 +64,7 @@ in
     };
 
     services.xserver.updateDbusEnvironment = true;
-    
+
     xdg.portal = {
       enable = true;
 

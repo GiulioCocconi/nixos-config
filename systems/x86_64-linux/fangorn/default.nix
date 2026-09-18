@@ -1,15 +1,15 @@
 # Copyright (c) 2024 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
-{ config, lib, pkgs, ... }:
+{ config, lib, cogisysLib, pkgs, ... }:
 with lib;
-with lib.cogisys;
+with cogisysLib;
 
 let
   domainName = "fo.co.gi";
   rewrite = domain: answer: [
-    {inherit domain answer; enabled = true; }
-    {inherit answer; domain = "*.${domain}"; enabled = true; }
+    { inherit domain answer; enabled = true; }
+    { inherit answer; domain = "*.${domain}"; enabled = true; }
   ];
 in
 {
@@ -27,7 +27,7 @@ in
 
   security.auditd.enable = true;
   security.audit.enable = "lock";
-  
+
   services = {
     nginx = {
       enable = true;
@@ -39,14 +39,14 @@ in
 
         dns = {
           serverName = "dns.${domainName}";
-          listen = [{addr = "0.0.0.0"; port = 80;}];
+          listen = [{ addr = "0.0.0.0"; port = 80; }];
           locations."/".proxyPass = "http://127.0.0.1:27701";
         };
 
 
         news = {
           serverName = "news.${domainName}";
-          listen = [{addr = "0.0.0.0"; port = 80;}];
+          listen = [{ addr = "0.0.0.0"; port = 80; }];
           locations."/".proxyPass = "http://127.0.0.1:27703";
         };
 
@@ -57,7 +57,7 @@ in
 
         home = {
           serverName = domainName;
-          listen = [{addr = "0.0.0.0"; port = 80;}];
+          listen = [{ addr = "0.0.0.0"; port = 80; }];
           locations."/".proxyPass = "http://127.0.0.1:27702";
         };
       };
@@ -71,7 +71,8 @@ in
         server.port = 27702;
 
         pages = [
-          { name = "Startpage";
+          {
+            name = "Startpage";
             width = "slim";
             hide-desktop-navigation = true;
             center-vertically = true;
@@ -131,7 +132,7 @@ in
 
       };
 
-      settings.trusted_proxies = ["127.0.0.1"];
+      settings.trusted_proxies = [ "127.0.0.1" ];
 
       config = {
         dbtype = "pgsql";
@@ -186,13 +187,13 @@ in
       config = {
         LISTEN_ADDR = "localhost:27703";
       };
-      
+
       adminCredentialsFile = (pkgs.writeText "minifluxPass"
         ''ADMIN_USERNAME=admin
       ADMIN_PASSWORD=admin1'').outPath;
-      
+
     };
-    
+
   };
 
   networking.firewall.allowedTCPPorts = [ 80 443 53 ];

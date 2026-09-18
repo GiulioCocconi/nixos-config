@@ -1,9 +1,9 @@
 # Copyright (c) 2025 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
-{ lib, options, config, pkgs, ... }:
+{ lib, cogisysLib, options, config, pkgs, ... }:
 with lib;
-with lib.cogisys;
+with cogisysLib;
 
 let
   cfg = config.cogisys.apps.mpv;
@@ -15,11 +15,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [(mkAssertionModule gui "GUI" "MPV")];
+    assertions = [ (mkAssertionModule gui "GUI" "MPV") ];
 
     environment.systemPackages = with pkgs; [
       (mpv.override {
-        scripts = with pkgs.mpvScripts; [uosc thumbfast];
+        scripts = with pkgs.mpvScripts; [ uosc thumbfast ];
       })
     ];
 
@@ -29,6 +29,6 @@ in
       hwdec
       osd-bar=no
     '';
-    
+
   };
 }

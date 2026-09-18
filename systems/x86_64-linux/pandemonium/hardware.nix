@@ -1,9 +1,9 @@
 # Copyright (c) 2024 Giulio Cocconi
 # SPDX-License-Identifier: MIT
-{ config, lib, pkgs, inputs, modulesPath, ... }:
+{ config, lib, cogisysLib, pkgs, inputs, modulesPath, ... }:
 
 with lib;
-with lib.cogisys;
+with cogisysLib;
 
 {
   imports = with inputs.nixos-hardware.nixosModules; [
@@ -12,7 +12,7 @@ with lib.cogisys;
     common-gpu-amd
     common-pc-laptop
     common-pc-laptop-ssd
-];
+  ];
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "usb_storage" "sd_mod" ];
 
@@ -28,12 +28,14 @@ with lib.cogisys;
   ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-label/nixos";
+    {
+      device = "/dev/disk/by-label/nixos";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-label/boot";
+    {
+      device = "/dev/disk/by-label/boot";
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };

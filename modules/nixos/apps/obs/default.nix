@@ -1,9 +1,9 @@
 # Copyright (c) 2025 Giulio Cocconi
 # SPDX-License-Identifier: MIT
 
-{ lib, options, config, pkgs, ... }:
+{ lib, cogisysLib, options, config, pkgs, ... }:
 with lib;
-with lib.cogisys;
+with cogisysLib;
 
 let
   cfg = config.cogisys.apps.mpv;
@@ -15,7 +15,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [(mkAssertionModule gui "GUI" "OBS")];
+    assertions = [ (mkAssertionModule gui "GUI" "OBS") ];
     programs.obs-studio = {
       enable = true;
       enableVirtualCamera = true;
